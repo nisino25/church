@@ -67,7 +67,7 @@ import {amenities} from '../const/amenities.js'
 
 
 export default {
-  components: {
+  components: { 
     VueWriter,
     // GoogleMap, 
     // Marker,
