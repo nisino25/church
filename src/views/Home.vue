@@ -15,164 +15,33 @@
             :start="1750"
           />
         </h1>
+
+        <h2>礼拝は、毎週日曜午前１０時から１１時３０分まで</h2>
     </div>
      
     <div class="content">
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
-          <div class="main-content-wrapper welcome"> 
+          <div class="main-content-wrapper corona"> 
              
-              <div class="left-section">
-                <img class="welcomePic1" src="../assets/images/maiko.jpg" alt="">
-                <img class="welcomePic2" src="../assets/images/kinkaku.jpg" alt="">
-              </div>
+              <h1>新型コロナの感染拡大について</h1>
 
-              <div class="right-section">
-                <h2 class="fade-on-scroll from-right visible">京都へようこそ</h2> 
-                <div> 
-                  <h3>特別な空気が漂う街、<br> 京都を存分に遊び尽くそう。</h3>
-                  <span>
-                    794年から、1000年以上にわたって都が置かれ、歴史の中で日本の中心として栄えてきました。神社仏閣や史跡、雅な文化が今でも色濃く残り、世界中の人々を魅了する都市です。
-                  </span>
-                </div>
-              </div>
+              <span style="width: 50%;">２．【マスクの着用】イベント当日は、感染予防のため、マスクの着用をお願いしま
+す。
+３．【説明会場の換気】会場は換気のため、適宜、窓やドアなどを開けます。室温の
+高低に対応できるよう服装には注意してください。
+４．【体調不良の方】新型コロナウイルス感染症など（学校保健安全法で出席の停止
+が定められている感染症）に罹患し治癒していない方、また、①発熱、②軽度であ
+っても咳などの風邪の症状が続く、③強いだるさ（倦怠感）、④息苦しさ（呼吸困
+難）のいずれかの症状がある方、新型コロナウイルスの感染が疑われる方は、他の
+参加者への感染のおそれがあるため、当日の参加を控えていただくようお願いしま
+す。
+※一部の会場では、大学等の施設管理者側より入館時に検温を義務付けられていま
+すので、ご協力ください。
+５．【密集の回避】受付では密集を避けるため、貼り紙や職員の指示に従って他の参
+加者との身体的距離を保つようにしてください。
+６．【接触確認アプリのインストール】厚生労働省 接</span>
              
-          </div> 
-        </div> 
-      </div>
-
-      <div class="content-wrapper"> 
-        <div id="main-content" class="center-column"> 
-          <div class="main-content-wrapper reasons"> 
-             
-              <div class="left-section">
-                <template v-for="(article,index) in reasonsArticle" :key="index" >
-                  <p v-if="index == reasonIndex">{{article}}</p>
-                </template>
-              </div>
-
-              
-                
-                <div class="right-section">
-                    <template v-for="(image,index) in reasonsImages" :key="index" >
-                      <transition-group name = "fade">
-                        <img v-if="index == reasonIndex" :src="image" alt=""  :style="{'z-index': 0 - totalClick }">
-                      </transition-group>
-                    </template>
-
-                    <div id="radios">
-
-                      <label for="input1" ></label>
-                      <input  id="input1" type="radio" v-model="reasonIndex" v-bind:value="0">
-
-                      <label for="input2" ></label>
-                      <input id="input2" type="radio" v-model="reasonIndex" v-bind:value="1">
-
-                      <label for="input3"></label>
-                      <input id="input3" type="radio" v-model="reasonIndex" v-bind:value="2">
-
-                      <label for="input4"></label>
-                      <input id="input4" type="radio" v-model="reasonIndex" v-bind:value="3">
-
-                      <label for="input5"></label>
-                      <input id="input5" type="radio" v-model="reasonIndex" v-bind:value="4">
-                      
-                      <span id="slider"></span>
-                    </div>
-
-                    
-                </div>  
-          </div> 
-        </div> 
-      </div>
-
-      <div class="content-wrapper"> 
-        <div id="main-content" class="center-column"> 
-          <div class="main-content-wrapper rental"> 
-             
-              <div class="left-section">
-                <div>
-                  <img src="../assets/images/bike.png" alt="">
-                </div>
-                <!-- <span>bike pics</span> -->
-
-
-                <!-- <template v-for="(article,index) in reasonsArticle" :key="index" >
-                  <p v-if="index == reasonIndex">{{article}}</p>
-                </template> -->
-              </div>
-
-              
-                
-              <div class="right-section">
-                  <ul class="inner">
-                    <template v-for="(item,index) in rentalDescriptions" :key="index">
-                      <li v-if="index < 2" >
-
-                          <div class="img-wrapper">
-                            <div class="img"><img :src="item.imgLink" alt=""></div>
-                          </div>
-                          <div class="text-wrapper">
-                            <span class="title">{{item.title}}</span><br><br>
-                            <span class="description">{{item.description}}</span>
-                          </div>
-                          
-                      </li>
-                    </template>
-                  </ul>
-
-                  <ul class="inner">
-                    <template v-for="(item,index) in rentalDescriptions" :key="index">
-                      <li v-if="index > 1" >
-
-                          <div class="img-wrapper">
-                            <div class="img"><img :src="item.imgLink" alt=""></div>
-                          </div>
-                          <div class="text-wrapper">
-                            <span class="title">{{item.title}}</span><br><br>
-                            <span class="description">{{item.description}}</span>
-                          </div>
-                      </li>
-                    </template>
-                  </ul>
-                  
-              </div>  
-          </div> 
-        </div> 
-      </div>
-
-      <div class="content-wrapper"> 
-        <div id="main-content" class="center-column"> 
-          <div class="main-content-wrapper rental"> 
-             
-              <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center" :zoom="15">
-                <Marker :options="{ position: center }" />
-              </GoogleMap>
-          </div> 
-        </div> 
-      </div>
-
-      <div class="content-wrapper"> 
-        <div id="main-content" class="center-column"> 
-          <div class="main-content-wrapper amenities"> 
-            <div class="title">
-              <span>アメニティ</span>
-            </div>
-            <hr><br>
-
-            <div class="content">
-              <template v-for="(item,i) in amenities" :key="i">
-                <div>
-
-                  <i :class="item.icon" style='font-size:24px'></i>
-                  <span style="margin-left: 10px; margin-right: 50px;">{{item.title}}</span>
-                </div>
-
-                <div v-if="(index+1) % 3 ==0" cals="line-break"></div>
-              </template>
-            </div>
-            
-              
           </div> 
         </div> 
       </div>
@@ -191,7 +60,7 @@
 
 <script>
 import VueWriter from "vue-writer";
-import { GoogleMap, Marker } from "vue3-google-map";
+// import { GoogleMap, Marker } from "vue3-google-map";
 
 import {amenities} from '../const/amenities.js'
 // import VueGoogleMaps from '@fawmi/vue-google-maps';
@@ -200,8 +69,8 @@ import {amenities} from '../const/amenities.js'
 export default {
   components: {
     VueWriter,
-    GoogleMap, 
-    Marker,
+    // GoogleMap, 
+    // Marker,
     // VueGoogleMaps
   },
   data(){
@@ -334,13 +203,30 @@ img.bg {
   z-index: 1;
 }
 
-h1{
+.lp h1{
   position: absolute;
   top: 23vh;
   left: 150px;
   z-index:1;
   font-size: 300%;
   color: white;
+}
+
+.lp h2 {
+  padding: 0.5em;/*文字周りの余白*/
+  color: white;/*文字色*/
+  background: grey;/*背景色*/
+  border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+  position: absolute;
+  top: 65vh;
+  /* left: 150px; */
+  z-index:1;
+  font-size: 300%;
+  color: white;
+  font-size: 200%;
+  left: 50%;
+  transform: translateX(-50%);
+  /* width: 0%; */
 }
 
 
@@ -390,6 +276,13 @@ h1{
 .content{
   margin-top: 200px;
 }
+
+/* ----------------------------------- */
+.corona{
+  width: 50%;
+  margin: 0 auto;
+}
+/* ----------------------------------- */
 .welcome{
   /* background-color: red; */
   margin: auto;
