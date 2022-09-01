@@ -7,11 +7,11 @@
       <div class="header">
 
         <div class="topnav" :style="navStyle">
-          <a class="active" @click="modal()" >予約する</a>
-          <a href="#news">News</a>
-          <a href="#contact">Contact</a>
-          <a href="#about">About</a>
-          <a href="#about" @click="testToggle = !testToggle ">Swtich</a>
+          <a class="active" href="/" >ホーム</a>
+          <a href="history">教会の歩み</a>
+          <a href="about-fukada">故深田牧師の部屋</a>
+          <!-- <a href="#about">About</a>
+          <a href="about" >Swtich</a> -->
         </div>
 
       </div>
@@ -209,10 +209,10 @@ export default {
       
       if(window.scrollY == 0){
         // console.log('now')
-        return this.navStyle = 'background-color: none'
+        return this.navStyle = 'background-color: none; color: black;'
       } else{
         // console.log(window.scrollY)
-        this.navStyle = 'background-color: #004658;'
+        this.navStyle = 'background-color: #004658; color: white; '
       }
 
 
@@ -283,6 +283,7 @@ html, body{
 }
 
 .topnav {
+  
   overflow: hidden;
   /* background-color: #004658; */
   z-index: 100;
@@ -302,7 +303,8 @@ html, body{
 .topnav a {
   /* margin-right:100px; */
   /* float: right; */
-  color: #f2f2f2;
+  /* color: #f2f2f2; */
+  
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -321,12 +323,12 @@ html, body{
 
 .topnav a:hover {
   background-color: #ddd;
-  color: black;
+  /* color: black; */
 }
 
 .topnav a.active {
   background-color: #04AA6D;
-  color: white;
+  /* color: white; */
 }
 
 
@@ -337,7 +339,7 @@ html, body{
   padding: 0;
 }
 a {
-  color: #fff;
+  color: inherit;
   text-decoration: none;
 }
 .pg-footer {

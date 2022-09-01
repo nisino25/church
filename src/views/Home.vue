@@ -2,7 +2,7 @@
   <div class="wrapper">
 
     <div class="lp">
-      <img class="bg" src="../../public/img/hdchurch.jpg">
+      <img class="bg" src="../../public/img/service.jpg">
       
 
 
@@ -16,31 +16,33 @@
           />
         </h1>
 
-        <h2>礼拝は、毎週日曜午前１０時から１１時３０分まで</h2>
+        <h2>礼拝は、毎週日曜午前１０時３０分から１１時４５分まで</h2>
     </div>
      
     <div class="content">
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper corona"> 
-             
-              <h1>新型コロナの感染拡大について</h1>
+            <div>
+              <h1>新型コロナの感染拡大について</h1><br><br>
 
-              <span style="width: 50%;">２．【マスクの着用】イベント当日は、感染予防のため、マスクの着用をお願いしま
-す。
-３．【説明会場の換気】会場は換気のため、適宜、窓やドアなどを開けます。室温の
-高低に対応できるよう服装には注意してください。
-４．【体調不良の方】新型コロナウイルス感染症など（学校保健安全法で出席の停止
-が定められている感染症）に罹患し治癒していない方、また、①発熱、②軽度であ
-っても咳などの風邪の症状が続く、③強いだるさ（倦怠感）、④息苦しさ（呼吸困
-難）のいずれかの症状がある方、新型コロナウイルスの感染が疑われる方は、他の
-参加者への感染のおそれがあるため、当日の参加を控えていただくようお願いしま
-す。
-※一部の会場では、大学等の施設管理者側より入館時に検温を義務付けられていま
-すので、ご協力ください。
-５．【密集の回避】受付では密集を避けるため、貼り紙や職員の指示に従って他の参
-加者との身体的距離を保つようにしてください。
-６．【接触確認アプリのインストール】厚生労働省 接</span>
+              <div>
+
+                <p><span>【マスクの着用】</span>感染予防のため、マスクの着用をお願いします。</p>
+
+                <p><span>【礼拝会場の換気】</span>換気のため、適宜、窓やドアなどを開けます。室温の高低に対応できるよう服装には注意してください。</p>
+
+                <p><span>【体調不良の方】</span>新型コロナウイルス感染症などに罹患し治癒していない方、また、①発熱、②軽度であっても咳などの風邪の症状が続く、③強いだるさ（倦怠感）、④息苦しさ（呼吸困難）のいずれかの症状がある方、新型コロナウイルスの感染が疑われる方は、他の参加者への感染のおそれがあるため、当日の参加を控えていただくようお願いします。</p>
+
+                <p><span>【密集の回避】</span>密集を避けるため、身体的距離を保つようにしてください。</p>
+
+                <p><span></span></p>
+
+              </div>
+
+            </div>
+             
+              
              
           </div> 
         </div> 
@@ -49,9 +51,9 @@
       
     </div>
 
-    <div class="space" style="height: 2000px; ">
+    <!-- <div class="space" style="height: 1000px; ">
 
-    </div>
+    </div> -->
 
   </div>
 
@@ -78,7 +80,7 @@ export default {
       reasonIndex: 0,
       totalClick: 0,
       theColor: 'white',
-      arr: ['上賀茂教会へようこそ！', 'Welcome to Kamigmamo Church!',],
+      arr: ['京都上賀茂教会へようこそ！', 'Welcome to Kyoto Kamigmamo Church!',],
 
       picArr:[],
       amenities,
@@ -183,8 +185,9 @@ export default {
 <style>
 
 img.bg {
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
+  /* -webkit-filter: grayscale(100%); 
+  filter: grayscale(100%); */
+  filter: brightness(50%);
 
   object-fit: cover;
   /* object-position: -100px 0px; */
@@ -193,14 +196,25 @@ img.bg {
      -moz-background-size: cover;
        -o-background-size: cover;
           background-size: cover;
+          
   width: 100vw;
-  height: auto;
+  height: 70vh;
   max-height: 100vh; 
+
+  margin-top: 10vh;
 
   position: relative;
   top: 0;
   left: 0;
   z-index: 1;
+
+  object-position: center 40%;
+  /* left: 50%;  */
+  /* transform: translate(-50%, 0);  */
+  /* position: absolute; */
+
+  /* transform: translateY(-50%); */
+
 }
 
 .lp h1{
@@ -223,7 +237,7 @@ img.bg {
   z-index:1;
   font-size: 300%;
   color: white;
-  font-size: 200%;
+  font-size: 175%;
   left: 50%;
   transform: translateX(-50%);
   /* width: 0%; */
@@ -275,12 +289,25 @@ img.bg {
 /* ----------------------------------- */
 .content{
   margin-top: 200px;
+  margin-bottom: 200px
 }
 
-/* ----------------------------------- */
+/* ----------------------------------------- */
 .corona{
-  width: 50%;
+  background: #E6E6E6;
+  padding: 50px 0;
+}
+
+.corona div{
+  width: 70%;
   margin: 0 auto;
+}
+.corona p{
+  text-align: left;
+  margin-bottom: 20px;
+}
+.corona p span{
+  color: crimson
 }
 /* ----------------------------------- */
 .welcome{
