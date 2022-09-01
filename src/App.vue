@@ -140,7 +140,7 @@
           </div>
           <div class="footer-copyright">
             <div class="footer-copyright-wrapper">
-              <p class="footer-copyright-text">
+              <p class="footer-copyright-text"> 
                 <a class="footer-copyright-link" href="#" target="_self"> ©2020. | Designed By: Nozomu Ando. | All rights reserved. </a>
               </p>
             </div>
