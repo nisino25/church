@@ -140,7 +140,7 @@ export default {
 
       showModal: false,
       modalStatus: 1,
-      googleMapApiKey,
+      googleMapApiKey,  
       
 
 
