@@ -46,7 +46,7 @@
 
                   <div class=""> 
              
-                      <GoogleMap :api-key="googleMapApiKey" style="width: 100%; height: 500px" :center="center" :zoom="15">
+                      <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center" :zoom="15">
                         <Marker :options="{ position: center }" />
                       </GoogleMap>
                   </div> 
@@ -117,7 +117,7 @@ import { GoogleMap, Marker } from "vue3-google-map";
 // 
 import {amenities} from '../const/amenities.js'
 
-import {googleMapApiKey} from '../../config'
+// import {googleMapApiKey} from '../../.env'
 
 
 
@@ -140,7 +140,7 @@ export default {
 
       showModal: false,
       modalStatus: 1,
-      googleMapApiKey,  
+      // googleMapApiKey,  
       
 
 
