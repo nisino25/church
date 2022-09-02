@@ -22,6 +22,57 @@
     <div class="content">
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
+          <div class="main-content-wrapper notice"> 
+            <div>
+              <h1>故深田未来生（みきお）牧師告別礼拝のお知らせ</h1><br><br>
+              <div>
+                <div class="left-section">
+                  <div>
+
+                    <img src="../../public/img/fukada2.jpg" alt="">
+                  </div>
+
+                </div>
+
+                <div class='right-section'>
+
+                  <p>当教会の設立者の一人であった深田未来生牧師（同志社大学神学部名誉教授）は、2022年6月25日、89歳で米国カリフォルニア州クレアモントにおいて帰天されました。</p><br>
+                  <p>日本における追悼礼拝は、以下のとおり執り行われる予定です。<br>
+                  2022年10月29日（土）14時～ <br>
+                  日本基督教団洛陽教会（京都市上京区寺町通荒神口下る松蔭町141-2）<br><br>
+                  なお、同追悼礼拝は、zoom配信される予定です。配信を希望される方は、当教会のメールアドレス(kyoto.kamigamo.kyokai@gmail.com)までお知らせ下さい。
+                  </p>
+                  <br><br>
+
+                  <div class=""> 
+             
+                      <GoogleMap :api-key="googleMapApiKey" style="width: 100%; height: 500px" :center="center" :zoom="15">
+                        <Marker :options="{ position: center }" />
+                      </GoogleMap>
+                  </div> 
+                  
+
+
+                  <p><span></span></p>
+
+                </div>
+
+              </div>
+
+              
+              
+
+
+
+            </div>
+             
+              
+             
+          </div> 
+        </div> 
+      </div>
+      <div class="content-wrapper"> 
+        <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper corona"> 
             <div>
               <h1>新型コロナの感染拡大について</h1><br><br>
@@ -62,18 +113,20 @@
 
 <script>
 import VueWriter from "vue-writer";
-// import { GoogleMap, Marker } from "vue3-google-map";
-
+import { GoogleMap, Marker } from "vue3-google-map";
+// 
 import {amenities} from '../const/amenities.js'
-// import VueGoogleMaps from '@fawmi/vue-google-maps';
+
+import {googleMapApiKey} from '../../config'
+
+
 
 
 export default {
   components: { 
     VueWriter,
-    // GoogleMap, 
-    // Marker,
-    // VueGoogleMaps
+    GoogleMap, 
+    Marker,
   },
   data(){
     return{
@@ -87,6 +140,8 @@ export default {
 
       showModal: false,
       modalStatus: 1,
+      googleMapApiKey,
+      
 
 
 
@@ -95,9 +150,10 @@ export default {
     }
   },
   setup() {
-    const center = { lat: 40.689247, lng: -74.044502 };
+    const center = { lat: 35.01834413663081,  lng: 135.76761230587275, };
+    const markerOptions = { position: center, label: "日本基督教団洛陽教会", title: "日本基督教団洛陽教会" };
 
-    return { center };
+    return { center, markerOptions };
   },
   methods: {
     nextReason(){
@@ -201,16 +257,15 @@ img.bg {
   height: 70vh;
   max-height: 100vh; 
 
-  margin-top: 10vh;
+  margin-top: 5vh;
 
   position: relative;
   top: 0;
   left: 0;
   z-index: 1;
 
-  object-position: center 40%;
-  /* left: 50%;  */
-  /* transform: translate(-50%, 0);  */
+  left: 50%; 
+  transform: translate(-50%, 0); 
   /* position: absolute; */
 
   /* transform: translateY(-50%); */
@@ -237,7 +292,7 @@ img.bg {
   z-index:1;
   font-size: 300%;
   color: white;
-  font-size: 175%;
+  font-size: 200%;
   left: 50%;
   transform: translateX(-50%);
   /* width: 0%; */
@@ -310,392 +365,47 @@ img.bg {
   color: crimson
 }
 /* ----------------------------------- */
-.welcome{
-  /* background-color: red; */
-  margin: auto;
-  margin-top: 150px;
-  /* margin-bottom: 200px; */
-
-  text-align: center;
-  width:85%;
-  max-width: 950px;
+.notice{
+  width: 80vw;
+  /* background-color: hsl(50, 33%, 25%); */
+  background-color: dimgrey;
+  border-radius: 30px;
+  margin: 200px auto;
+  padding: 50px;
+  color: white;
+  
 }
 
-.welcome div{
+.notice div div{
+  display: flex;
+}
+
+.notice .left-section{
   width: 50%;
-  float: left;
-  /* padding: 20px; */
-  display: flex;
-}
-
-.welcome .left-section{
-  /* background-color: red; */
-  /* margin-right: 0; */
-  /* text-align: right; */
-}
-
-.welcome .right-section{
-  /* display:  */
-  position: relative;
-  display: inline-block;
-  z-index: 3;
-  /* background-color: blue; */
-}
-
-
-.welcomePic1{
-  width: auto;
-  height: 250px;
-  z-index: 2;
-
-  margin-top: 225px;
-  margin-left: -100px;
-  margin-right: -50px;
-}
-
-.welcomePic2{
-  width: auto;
-  height: 550px;
-  z-index:1;
-
-  /* margin-left: 150px; */
-}
-
-
-.welcome .right-section h2{
-  z-index: 3;
-  margin-top: 100px;
-  text-align: left;
-  margin-left: -70px;
-  font-size: 250%;
-  /* height: 100; */
-  /* -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl; */
-}
-
-.welcome .right-section div{
-  position: relative;
-  display: inline-block;
-  width: 70%;
-  margin-top: 75px;
-  margin-left: 120px;
-}
-
-.welcome .right-section h3{
-  z-index: 3;
-  color: #04AA6D;
-  margin-bottom: 30px;
-}
-
-.welcome .right-section {
-  z-index: 3;
-  /* margin-left: 200px; */
-  text-align: left;
-  
-}
-
-/* --------------------------------------------------- */
-
-.reasons{
-  /* background-color: red; */
-  margin: auto;
-  margin-top: 350px;
-  margin-bottom: 50px;
-
-  text-align: center;
-  width:95vw;
-  max-width: 1250px;
-  display: inline-block;
-
-  display:flex;
-  
-}
-
-.reasons div{
-  /* width: 50%; */
-  float: left;
-  display: flex;
-  overflow: visible;
-  margin-top: 100px;
-}
-
-.reasons .left-section{
-  width:70%;
-  /* background-color: blue; */
-}
-
-.reasons .right-section{
-  
-  /* background-color: #04AA6D; */
-  width: 55vw;
-  height: 50vh;
-  
-  /* transition : all 0.6s ease 0s; */
-  display: inline;
-  position: relative;
-  /* position: relative; */
-  /* background-color: black; */
   /* background-color: red; */
 }
 
-.reasons .right-section img{
-
-  position: absolute;
-  left: 0;
-  /* position: relative; */
-  /* z-index: 0; */
-  /* display:; */
-  /* top:0; */
-  /* right:5vw; */
-  object-fit: cover;
-  /* width: 55vw;
-  height: 50vh; */
-  width: 100%;
-  height: 100%;
-  /* margin-left: -10vw; */
-  border-radius: 25px;
-
-  /* opacity: 0.5; */
-
-
-  position:absolute;
-}
-
-
-.reasons h3{
-  color:#04AA6D;
-  margin-bottom: 20px;
-  font-size: 150%;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 3s
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0
-}
-
-/* ----------------------------------------------- */
-
-
-
-/* *{margin:0;padding:0;box-sizing:border-box;}
-body{background:teal;color:#fff;padding-bottom:10%;} */
-/* h1{text-align:center;margin:20% 0 5%;font-family:verdana;font-weight:100;} */
-#radios{
-
-  position:relative;
-  width:50%;
-  margin:0 auto;
-  top: 90%;
-  left: 22.5vw;
-  transform: translate(-50%, -50%);
-
-}
-input[type="radio"]{
-  position:absolute;
-  right:1000%;
-}
-label{
-  float:left;
-  width:10%; padding-bottom:10%;
-  margin:0 2.5%;
-  background: gray;
-  border-radius:50%;
-  cursor:pointer;
-}
-#slider{
-  position:absolute;
-  left:0%; top:0;
-  width:5%; padding-bottom:5%;
-  margin:2.5% 0 0 5%;
-  background:#fff;
-  transition:transform 1s;
-  border-radius:50%;
-  animation-timing-function: ease-in-out;
-  animation-duration:.3s;
-  animation-fill-mode: forwards;
-  transition: 1.5s left .05s ease-in-out;
-}
-#input1:checked  ~ #slider{ animation-name: input1; left:0; }
-#input2:checked  ~ #slider{ animation-name: input2; left:15%; }
-#input3:checked  ~ #slider{ animation-name: input3; left:30%; }
-#input4:checked  ~ #slider{ animation-name: input4; left:45%; }
-#input5:checked  ~ #slider{ animation-name: input5; left:60%; }
-
-@keyframes input1{ 30%, 70% { transform:scale(0.5); } }
-@keyframes input2{ 30%, 70% { transform:scale(0.5); } }
-@keyframes input3{ 30%, 70% { transform:scale(0.5); } }
-@keyframes input4{ 30%, 70% { transform:scale(0.5); } }
-@keyframes input5{ 30%, 70% { transform:scale(0.5); } }
-
-
-/* ----------------------------------------------------------- */
-
-.rental{
-  /* background-color: red; */
-  margin: auto;
-  margin-top: 150px;
-  margin-bottom: 200px;
-
-  text-align: center;
-  width:100vw;
-  /* height: 100 */
-  /* max-width: 1150px; */
-  display: inline-block;
-
-  display:flex;
-  
-}
-
-.rental div{
-  
-  /* width: 50%; */
-  float: left;
-  display: flex;
-  overflow: visible;
-  margin-top: 50px;
-}
-/*  */
-
-
-.rental .left-section{
-  position: relative;
-  display: initial;
-  width:50%;
-  background-color:  rgba(63,95,50,0.05);
-  margin-top: 70px;
-  /* margin-bottom: 250px; */
-  /* background-color: blue; */
-}
-
-
-.rental .right-section{
-  width: 40%;
-  margin-left: 5%;
-  height: 50vh;
-  display: inline;
-  position: relative;
-}
-
-
-.rental .left-section div{
+.notice .right-section{
   width: 50%;
-  margin: 0 auto;
-  
-  /* background-color: #04AA6D; */
-  /* background-color: blue; */
-}
-
-.rental .left-section img{
-  position: absolute;
-  width: 60%;
-  height: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: auto;
   display: block;
+  /* background-color: blue; */
 }
 
-
-.rental .right-section ul{
-  /* position: relative; */
-  width: 100%;
-  /* border: 1px solid black; */
-  display: flex;
-  margin-top: -40px;
-  margin-bottom: 25px;
-  /* display: block; */
+.notice .left-section div{
+  width:50%;
+  margin: auto auto;
 }
 
-.rental .right-section li{
-  position: relative;
-  display: inline;
-  width: 40%;
-  margin: 0 5%;
-  margin-top: -20px;
-}
-
-.rental .right-section li .text-wrapper{
-  display: inline;
-}
-
-
-.rental .img-wrapper{
-  display: inline
-}
-
-
-
-.rental .right-section .img img{
-  display: inline;
-  width: 60%;
-  /* left: 90%; */
-  margin: 0 auto;
-  margin-top: -25px;
-  margin-bottom: -25px;
-}
-
-
-.rental .right-section .title{
-  color: #ca0029;
-  font-weight: 700;
-  margin-bottom: 10px;
-  /* width: 100%; */
-  
-  /* display: initial; */
-  /* width: 40%; */
-  /* margin: 0 5%; */
-}
-
-
-/* -------------------------------------------------- */
-.amenities .content{
-  width: 80%;
-  margin: 0 auto;
-  /* padding-right: 5px; */
-  /* padding-left: 5px; */
-  color: #2c3e50;
-  /* margin-top: 20px; */
-  /* position: relative; */
-  /* background-color: red; */
-  display: flex;
-  /* width: 100%; */
-
-  /* background: tomato; */
-  /* display: flex; */
-  flex-flow: row wrap;
-  align-content: space-between;
-  justify-content: space-between;
-
-}
-.amenities .content div {
-  /* background-color: #939597; */
-  /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
-  transition: 0.3s;
-  width: 30%;
-  border-radius: 5px;
-  margin-left: 1.5%;
-
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);  */
-  padding: 30px 0px;
-  text-align: center;
-  background-color: #f1f1f1;
-  margin-bottom: 15px;
+.notice img{
   height: auto;
-  font-size: 80%;
+  width: 300px;
+  border-radius: 20px;
+  
 }
 
-
-.amenities .line-break {
-  width: 100%;
+.notice .right-section{
+  padding: 20px;
 }
-
-/* ------------------------ */
-
-
-
 
 
 </style>
