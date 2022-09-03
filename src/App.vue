@@ -7,9 +7,10 @@
       <div class="header">
 
         <div class="topnav" :style="navStyle">
-          <a class="active" href="/" >ホーム</a>
-          <a href="history">教会の歩み</a>
-          <a href="about-fukada">故深田牧師の部屋</a>
+          <a class="/active" href="/" >ホーム</a>
+          <a href="/history">教会の歩み</a>
+          <a href="/about-fukada">故深田牧師の部屋</a>
+          <!-- <a href="">故深田牧師の部屋</a> -->
           <!-- <a href="#about">About</a>
           <a href="about" >Swtich</a> -->
         </div>

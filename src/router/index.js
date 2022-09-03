@@ -13,10 +13,15 @@ const routes = [
     component: () => import('../views/history.vue')
   },
   {
+    path: '/history/articles/:index',
+    name: 'Articles',
+    component: () => import('../views/articles.vue')
+  },
+  {
     path: '/about-fukada',
     name: 'fukada',
     component: () => import('../views/fukada.vue')
-  }
+  },
 ]
 
 const router = createRouter({

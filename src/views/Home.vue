@@ -241,8 +241,6 @@ export default {
 <style>
 
 img.bg {
-  /* -webkit-filter: grayscale(100%); 
-  filter: grayscale(100%); */
   filter: brightness(50%);
 
   object-fit: cover;
@@ -257,7 +255,7 @@ img.bg {
   height: 70vh;
   max-height: 100vh; 
 
-  margin-top: 5vh;
+  margin-top: 15vh;
 
   position: relative;
   top: 0;
