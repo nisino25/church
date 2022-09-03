@@ -97,6 +97,26 @@
              
           </div> 
         </div> 
+
+        <div class="location">
+          <h4>上賀茂教会の住所：〒603-8071 京都府京都市北区上賀茂北大路町17-4</h4>
+          
+
+          <img src="../../public/img/drawing.jpg" alt="" class="churchPic">
+          <img src="../../public/img/map.jpg" alt="" class="mapPic">
+          <br><br>
+
+          <div class="" style="width: 80%; margin: auto auto">    
+            <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center2" :zoom="15">
+              <Marker :options="{ position: center2 }" />
+            </GoogleMap>
+          </div> 
+
+          
+
+
+          
+        </div>
       </div>
 
       
@@ -114,13 +134,10 @@
 <script>
 import VueWriter from "vue-writer";
 import { GoogleMap, Marker } from "vue3-google-map";
-// 
+// // 
 import {amenities} from '../const/amenities.js'
 
 // import {googleMapApiKey} from '../../.env'
-
-
-
 
 export default {
   components: { 
@@ -152,8 +169,10 @@ export default {
   setup() {
     const center = { lat: 35.01834413663081,  lng: 135.76761230587275, };
     const markerOptions = { position: center, label: "日本基督教団洛陽教会", title: "日本基督教団洛陽教会" };
+    const center2 = { lat: 35.05922090366774,  lng: 135.7575056779574, };
+    const markerOptions2 = { position: center, label: "京都上賀茂教会", title: "京都上賀茂教会" };
 
-    return { center, markerOptions };
+    return { center, markerOptions, center2,markerOptions2 };
   },
   methods: {
     nextReason(){
@@ -405,5 +424,30 @@ img.bg {
   padding: 20px;
 }
 
+
+/* -------------- */
+.location{
+    /* margin-top: 1000px; */
+    width: 70%;
+    margin: 200px auto;
+    text-align: center;
+    
+    /* background-color: aqua; */
+    
+  }
+.churchPic{
+  margin-top: 50px;
+  width: 45%;
+  height: auto;
+  margin-right: 20px;
+  /* text-align: left; */
+  /* text-align: left; */
+}
+
+.mapPic{
+  margin-top: 50px;
+  width: 45%;
+  height: auto;
+}
 
 </style>
