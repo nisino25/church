@@ -418,6 +418,7 @@ img.bg {
   width: 300px;
   border-radius: 20px;
   
+  
 }
 
 .notice .right-section{
