@@ -42,6 +42,8 @@ export default {
     const center = { lat: 35.05922090366774,  lng: 135.7575056779574, };
     const markerOptions = { position: center, label: "京都上賀茂教会", title: "京都上賀茂教会" };
 
+    
+
     return { center, markerOptions };
   },
 }
@@ -53,6 +55,7 @@ export default {
     width: 70%;
     margin: 200px auto;
     text-align: center;
+    font-size: 150%;
     
     /* background-color: aqua; */
     
