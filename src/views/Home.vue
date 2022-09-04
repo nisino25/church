@@ -99,7 +99,10 @@
         </div> 
 
         <div class="location">
-          <h4>上賀茂教会の住所：〒603-8071 京都府京都市北区上賀茂北大路町17-4</h4>
+          <h4>上賀茂教会の住所 アクセス</h4>
+          <span>住所：〒603-8071 京都市北区上賀茂北大路町１７</span><br>
+          <span>Tel&Fax : 075-723-7408</span><br>
+          <span>E-Mail : kyoto.kamigamo.kyokai@gmail.com</span><br>
           
 
           <img src="../../public/img/drawing.jpg" alt="" class="churchPic">
