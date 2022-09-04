@@ -2,7 +2,7 @@
   <div class="wrapper">
 
     <div class="lp">
-      <img class="bg" src="../../public/img/service.jpg">
+      <img class="bg" src="../../public/img/main.jpg">
       
 
 
@@ -24,7 +24,7 @@
         <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper notice"> 
             <div>
-              <h1>故深田未来生（みきお）牧師告別礼拝のお知らせ</h1><br><br>
+              <h1 style="width: 70%; margin: auto auto;">故深田未来生（みきお）牧師告別礼拝のお知らせ</h1><br><br>
               <div>
                 <div class="left-section">
                   <div>
