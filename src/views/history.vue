@@ -256,5 +256,36 @@
   .profile-image img {
     margin-left: 3px;
   }
+
+  @media (min-width:320px) and (max-width:479px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+
+    .content{
+      /* margin-top: 1000px; */
+      width:80vw;
+      margin: 200px auto;
+      text-align: left;
+      
+    }
+
+    h1{
+      width: 100%;
+    }
+
+    span{
+      width: 100%;
+      margin: auto auto;
+    }
+
+    img{
+      border-radius: 2%;
+      /* margin-top: 50px; */
+      width: 80vw;
+      /* margin: 50px auto; */
+      /* display: block; */
+      text-align: center;
+      justify-content: center;
+      
+    }
+  }
   
 </style>

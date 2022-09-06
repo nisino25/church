@@ -11,9 +11,6 @@
           <a href="/history">教会の歩み</a>
           <a href="/about-church">教会について</a>
           <a href="/about-fukada">故深田牧師の部屋</a>
-          <!-- <a href="">故深田牧師の部屋</a> -->
-          <!-- <a href="#about">About</a>
-          <a href="about" >Swtich</a> -->
         </div>
 
       </div>
@@ -27,7 +24,7 @@
           </svg>
           <div class="footer-content">
 
-            <div class="footer-content-column">
+            <div class="footer-content-column address">
               <div class="footer-menu">
                 <h2 class="footer-menu-name">日本基督教団 京都上賀茂教会</h2>
                 <ul id="menu-quick-links" class="footer-menu-list">
@@ -223,6 +220,8 @@ html, body{
   text-align: center;
   color: #2c3e50;
 }
+
+/* ---------------------------- */
 
 .topnav {
   
@@ -537,10 +536,25 @@ a {
     margin-left: auto;
     margin-right: auto;
     max-width: 500px;
-    padding: 40px 15px 1050px;
+    padding: 40px 15px 100px;
     position: relative;
+
+    display: block;
+    /* background-color: red; */
+    text-align: lefts;
+    
+  }
+
+  .footer-menu{
+    margin-bottom: 75px;
+    /* color: red; */
+  }
+
+  .topnav a:first-child {
+    margin-right:10px;
   }
 }
+
 @media (min-width:480px) and (max-width:599px)  { /* smartphones, Android phones, landscape iPhone */
   .footer-content {
     margin-left: auto;
@@ -549,7 +563,12 @@ a {
     padding: 40px 15px 1050px;
     position: relative;
   }
+
+  .topnav a:first-child {
+    margin-right:10px;
+  }
 }
+
 @media (min-width:600px) and (max-width: 800px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
   .footer-content {
     margin-left: auto;
@@ -558,13 +577,23 @@ a {
     padding: 40px 15px 1050px;
     position: relative;
   }
+  
+  .topnav a:first-child {
+    margin-right:10px;
+  }
 }
+
 @media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
 
+}
+
+@media (max-width:820px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  
 }
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
 
 }
+
 @media (min-width:1281px) { /* hi-res laptops and desktops */
 
 }

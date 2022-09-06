@@ -4,8 +4,6 @@
     <div class="lp">
       <img class="bg" src="../../public/img/main.jpg">
       
-
-
         <h1  :style="{'color':  theColor}" >
           <VueWriter :array="arr"
             :typeSpeed="80"
@@ -20,15 +18,15 @@
     </div>
      
     <div class="content">
+
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper notice"> 
             <div>
-              <h1 style="width: 70%; margin: auto auto;">故深田未来生（みきお）牧師告別礼拝のお知らせ</h1><br><br>
+              <h1 style="">故深田未来生（みきお）牧師告別礼拝のお知らせ</h1><br><br>
               <div>
                 <div class="left-section">
                   <div>
-
                     <img src="../../public/img/fukada2.jpg" alt="">
                   </div>
 
@@ -71,6 +69,7 @@
           </div> 
         </div> 
       </div>
+
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper corona"> 
@@ -124,10 +123,6 @@
 
       
     </div>
-
-    <!-- <div class="space" style="height: 1000px; ">
-
-    </div> -->
 
   </div>
 
@@ -396,6 +391,10 @@ img.bg {
   
 }
 
+.notice h1{
+  width: 70%; margin: auto auto;
+}
+
 .notice div div{
   display: flex;
 }
@@ -454,4 +453,147 @@ img.bg {
   height: auto;
 }
 
+
+
+/* --------------------------------------------- */
+/* Media Query For different screens */
+@media (min-width:320px) and (max-width:479px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  .main-content-wrapper{
+    /* margin: 0 0; */
+  }
+
+  .lp h1{
+    position: absolute;
+    top: 23vh;
+    left: 10px;
+    z-index:1;
+    font-size: 12vw;
+    color: white;
+  }
+
+  .lp h2 {
+    padding: 0.5em;/*文字周りの余白*/
+    /* color: red;文字色 */
+    background: grey;/*背景色*/
+    border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+    position: absolute;
+    top: 65vh;
+    z-index:1;
+    font-size: 5vw;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 85%;
+  }
+
+  .content{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    /* background-color: olive; */
+  }
+
+  .notice{
+    width: 90vw;
+    /* background-color: hsl(50, 33%, 25%); */
+    background-color: dimgrey;
+    border-radius: 30px;
+    /* margin: 200px auto; */
+    margin-top: 10px;
+    color: white;
+    
+  }
+
+ 
+
+  .notice h1{
+    width: 95%;
+    font-size: 8vw;
+    margin: auto auto;
+  }
+
+  .notice div div{
+    width: 100%;
+    margin: auto auto;
+    display: block;
+  }
+
+  .notice .left-section{
+    width: 100%;
+    margin: auto auto;
+    /* background-color: red; */
+  }
+
+  .notice .right-section{
+    width: 100%;
+    margin: auto auto;
+    /* background-color: blue; */
+  }
+
+
+  .notice .left-section div{
+    width:100%;
+    margin: auto auto;
+  }
+
+  .notice img{
+    display: block;
+    height: auto;
+    width: 50%;
+
+    margin: 100px auto;
+    transform: scale(2);
+
+    border-radius: 20px;
+    
+  
+  }
+
+  .notice .right-section{
+    padding: 0px;
+  }
+
+
+  /* --------------------------- */
+  .corona{
+    background: #E6E6E6;
+    padding: 30px 0px;
+  }
+
+  .corona h1{
+    font-size: 10vw;
+    /* width: 100%; */
+    /* color: */
+  }
+
+  .corona div{
+    width: 80vw;
+    margin: 0 auto;
+  }
+  .corona p{
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  .corona p span{
+    color: crimson
+  }
+
+
+}
+
+@media (min-width:600px) and (max-width: 820px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+  .lp h2 {
+    padding: 0.5em;/*文字周りの余白*/
+    /* color: red;文字色 */
+    background: grey;/*背景色*/
+    border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+    position: absolute;
+    top: 65vh;
+    z-index:1;
+    font-size: 170%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 85%;
+  }
+}
 </style>
