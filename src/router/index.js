@@ -27,6 +27,11 @@ const routes = [
     name: 'fukada',
     component: () => import('../views/fukada.vue')
   },
+  {
+    path: '/about-dendosho',
+    name: 'dendosho',
+    component: () => import('../views/dendosho.vue')
+  },
 ]
 
 const router = createRouter({

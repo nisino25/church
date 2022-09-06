@@ -78,6 +78,7 @@ export default {
     width: 45%;
     height: auto;
     margin-right: 20px;
+    
     /* text-align: left; */
     /* text-align: left; */
   }

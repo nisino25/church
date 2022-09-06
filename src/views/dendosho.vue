@@ -1,76 +1,50 @@
 <template>
   <div class="content">
-    <h1>上賀茂教会の歩み</h1><br><br>
-    <span>
-      1960年代末から70年代初期にかけて日本の社会は主として青年たちの平和と正義に関わる鋭い問いかけが発端となり、混乱の中にありました。<br> 教会も悩みの中にありました。去って行く若者も多くいました。そのような試練の時にもう一度新鮮な気持ちで共に聖書を読み、心を開いて思いを分かち合い、神の導きを祈り求めたいと願った人々がいました。3家族を核とし、何人かの青年たちが初めて集まったのが1971年1月2日の日曜日でした。<br> 上賀茂の宣教師館の居間で讃美歌を歌い祈りを共にしました。これが私たちの教会の種が蒔かれた日でした。長い教会の歴史の中で培われて来た伝統を評価しながらも、時代の流れに沿って意味ある表現や神への礼拝の形を共に考えながらキリストの道を歩みたいと願う人々の集いの歴史は半世紀近くなります。初期に用いていた「集会」を改め日本基督教団京都教区に所属する京都上賀茂教会として歩み続けています。聖書を通して人間のあるべき姿を共に探りながら、お互いの個性や社会的背景を大切にしつつ愛と正義を追い求め続ける教会でありたいと願っている教会です。
+    <h1>間之町伝道所</h1><br><br>
+    <span >
+      京都市中京区間之町通二条下る鍵屋町486 あいのまちハウス５Ｆ  <br>
+      毎週日曜日（不定休）午前１１時～
     </span><br>
-    <img src="../../public/img/churchPic.jpg" alt="">
 
-  </div>
-  <!-- <button @click="test()">test</button> -->
-  <div style="width: 80%; margin: auto auto">
-    <span>将来的にはホストだけしかできない操作</span><br>
-
-    <button @click="add()">追加ボタン</button>
-    <!-- <button @click="cut()">cut latest</button> -->
-    <input type="text" placeholder="タイトル"  v-model="tempTitle">
-    <input type="text" placeholder="内容" v-model="tempContent">
-  </div>
-
-  <div class="content">
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center activity">
-                    <!-- <div><i class="fa fa-clock-o"></i><span class="ml-2">11h 25m</span></div> -->
-                    <div style=" margin: auto auto"><span class="activity-done" >上賀茂教会の歩み（{{historyArticles.length}}）</span></div>
-                    <!-- <div class="icons"></div> -->
-                </div>
-                <div class="mt-3">
-                    <ul class="list list-inline">
-                      <template v-for="(item, i) in historyArticles" :key=i>
-                        <li class="d-flex justify-content-between" @click="jumpPage(i)">
-                          <div class="d-flex flex-row align-items-center">
-                              <div class="ml-2">
-                                  <h6 class="mb-0">{{i+1}}. {{item.title}}</h6>
-                                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                      <div><i class="fa fa-calendar-o"></i><span class="ml-2">{{convertTImestamp( item.timestamp)}}</span></div>
-                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{item.views}}</span></div>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- <div class="d-flex flex-row align-items-center">
-                              <div class="d-flex flex-column mr-2">
-                                  <div class="profile-image"><img class="rounded-circle" src="https://i.imgur.com/xbxOs06.jpg" width="30"><img class="rounded-circle" src="https://i.imgur.com/KIJewDa.jpg" width="30"><img class="rounded-circle" src="https://i.imgur.com/wwd9uNI.jpg" width="30"></div><span class="date-time">11/4/2020 12:55</span></div>
-                              <i
-                                  class="fa fa-ellipsis-h"></i>
-                          </div> -->
-                        </li>
-
-                      </template>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="pics">
+      <img src="../../public/img/ainomachi1.jpg" alt="" class="pic1">
+      <img src="../../public/img/ainomachi2.jpg" alt="" class="pic2"><br>
     </div>
-    
-  </div>
 
-  <!-- <hr> -->
-  <!-- <div style="width: 80%; margin: auto auto">
-    <small style="font-size: 10%; margin: 50px">
-  
-      {{tempString}}  
-    </small>
-  </div> -->
+    <div class="" style="width: 80%; margin: 50px auto">    
+      <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center2" :zoom="15">
+        <Marker :options="{ position: center2 }" />
+      </GoogleMap>
+    </div>
+
+    <div class="pics">
+      <img src="../../public/img/ainomachi3.jpg" alt="" class="pic3">
+      <img src="../../public/img/ainomachi4.jpg" alt="" class="pic4"><br>
+    </div>
+
+     
+
+    
+    <br><br> 
+
+    
+
+  </div>
   
 
 </template>
 
 <script>
   import db from '../../firebase.js';
+  import { GoogleMap, Marker } from "vue3-google-map";
+
+
+
   export default{
+    components: { 
+      GoogleMap, 
+      Marker,
+    },
     data(){
       return{
         detailData: '',
@@ -84,6 +58,15 @@
       }
 
 
+    },
+
+    setup() {
+      const center = { lat: 35.01834413663081,  lng: 135.76761230587275, };
+      const markerOptions = { position: center, label: "日本基督教団洛陽教会", title: "日本基督教団洛陽教会" };
+      const center2 = { lat: 35.0131188841072,   lng: 135.7618299409843, };
+      const markerOptions2 = { position: center, label: "京都上賀茂教会", title: "京都上賀茂教会" };
+
+      return { center, markerOptions, center2,markerOptions2 };
     },
 
     methods:{
@@ -204,16 +187,59 @@
     text-align: left;
     
   }
+
+  span{
+    font-size: 30px;
+  }
+
+  .pics{
+    display: flex;
+  }
   
-  img{
+  .pic1{
     border-radius: 2%;
-    width: 60vw;
+    width: 35vw;
+    height: auto;
+    /* margin-top: 50px; */
+    text-align: center;
+    margin: auto auto;
+
+    display: block;
+    margin-right: 20px;
+    /* margin-top: 50px; */
+  }
+
+  .pic2{
+    border-radius: 2%;
+    width: 20vw;
+    height: auto;
     /* margin-top: 50px; */
     text-align: center;
     margin: 50px auto auto;
 
     display: block;
-    
+  }
+
+  .pic3{
+    border-radius: 2%;
+    width: 25vw;
+    height: auto;
+    /* margin-top: 50px; */
+    text-align: center;
+    margin: 50px auto auto;
+
+    display: block;
+  }
+
+  .pic4{
+    border-radius: 2%;
+    width: 25vw;
+    height: auto;
+    /* margin-top: 50px; */
+    text-align: center;
+    margin: 130px auto auto;
+
+    display: block;
   }
 
   body {

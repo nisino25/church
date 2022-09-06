@@ -14,7 +14,7 @@
           />
         </h1>
 
-        <h2>礼拝は、毎週日曜午前１０時３０分から１１時４５分まで</h2>
+        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで</h2>
     </div>
      
     <div class="content">
@@ -42,7 +42,7 @@
                   </p>
                   <br><br>
 
-                  <div class=""> 
+                  <div class="" style="margin-top: 30px"> 
              
                       <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center" :zoom="15">
                         <Marker :options="{ position: center }" />
@@ -386,17 +386,20 @@ img.bg {
   background-color: dimgrey;
   border-radius: 30px;
   margin: 200px auto;
-  padding: 50px;
+  padding: 35px;
   color: white;
   
 }
 
 .notice h1{
-  width: 70%; margin: auto auto;
+  width: 80%; 
+  margin: 50px auto;
+  text-align: center;
 }
 
 .notice div div{
   display: flex;
+  margin-top: -30px;
 }
 
 .notice .left-section{
@@ -506,8 +509,8 @@ img.bg {
  
 
   .notice h1{
-    width: 95%;
-    font-size: 8vw;
+    width: 100%;
+    font-size: 7vw;
     margin: auto auto;
   }
 
@@ -541,6 +544,8 @@ img.bg {
     width: 50%;
 
     margin: 100px auto;
+
+    margin-bottom: 140px;
     transform: scale(2);
 
     border-radius: 20px;

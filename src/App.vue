@@ -6,14 +6,33 @@
 
       <div class="header">
 
-        <div class="topnav" :style="navStyle">
+        <!-- <div class="topnav" :style="navStyle">
           <a class="/active" href="/" >ホーム</a>
           <a href="/history">教会の歩み</a>
           <a href="/about-church">教会について</a>
           <a href="/about-fukada">故深田牧師の部屋</a>
-        </div>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div> -->
+        <Transition name="fade">
+
+          <div class="topnav" id="myTopnav" :style="navStyle" :class="[showingMenu ? 'responsive topnav' : '']">
+            <a class="/active" href="/" >ホーム</a>
+            <a href="/history">教会の歩み</a>
+            <a href="/about-church">教会について</a>
+            <a href="/about-fukada">故深田牧師の部屋</a>
+            <a href="/about-dendosho">間之町伝道所</a>
+
+            <a  class="icon"  @click="showingMenu = !showingMenu; navStyle='background-color: #004658; color: white;'">
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+        </Transition>
 
       </div>
+
+      
 
       <router-view/>
 
@@ -131,6 +150,9 @@ export default {
       navStyle: '',
       showModal: false,
       modalStatus: 1,
+
+      showingMenu: false,
+      vw: undefined,
       
 
     }
@@ -145,6 +167,9 @@ export default {
 
     handleScroll () {
       // if(event == 0)
+      if( this.showingMenu){
+        return this.navStyle = 'background-color: #004658; color: white; '
+      }
       
       if(window.scrollY == 0){
         // console.log('now')
@@ -163,7 +188,9 @@ export default {
     modal(){
       console.log('sup')
       this.showModal = true
-    }
+    },
+
+    
   },
 
 
@@ -175,6 +202,8 @@ export default {
 
   created(){
     window.addEventListener('scroll', this.handleScroll);
+    this.vw = document.documentElement.clientWidth 
+    console.log(this.vw)
   }
 }
 </script>
@@ -223,17 +252,15 @@ html, body{
 
 /* ---------------------------- */
 
-.topnav {
+/* .topnav {
   
   overflow: hidden;
-  /* background-color: #004658; */
   z-index: 100;
   position: fixed;
   top:0;
   width: 100vw;
   transition: all 0.8s ease-out;
 
-  /* float: right;   */
 
   
 
@@ -242,9 +269,6 @@ html, body{
 }
 
 .topnav a {
-  /* margin-right:100px; */
-  /* float: right; */
-  /* color: #f2f2f2; */
   
   text-align: center;
   padding: 14px 16px;
@@ -253,7 +277,6 @@ html, body{
 
 
   display: table-cell;
-  /* vertical-align: middle; */
   float:right;
   
 }
@@ -264,6 +287,41 @@ html, body{
 
 .topnav a:hover {
   background-color: #ddd;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+}
+
+ */
+
+
+/* -------------------------------------------------------------------------------- */
+.topnav {
+  overflow: hidden;
+  /* color: #2c3e50; */
+  /* background-color: #333; */
+
+  transition: all 0.8s ease-out;
+
+  z-index: 100;
+  position: fixed;
+  top:0;
+  width: 100vw;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  /* color: black; */
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  /* background-color: #ddd; */
   /* color: black; */
 }
 
@@ -272,9 +330,49 @@ html, body{
   /* color: white; */
 }
 
+.topnav .icon {
+  display: none;
+}
 
-/* -------------------------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
 
+@media screen and (max-width: 600px) {
+  .responsive {
+    position: fixed;
+    top: 0;
+    background-color: #004658;
+    color: white; 
+    transition: all 0.8s ease-out;
+  }
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* ------------------------------ */
 * {
   margin: 0;
   padding: 0;
