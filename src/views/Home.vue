@@ -121,12 +121,19 @@
         </div>
       </div>
 
+      <div class="view-counter" >
+        <div>
+
+          <i class="far fa-eye" id="togglePassword"  style="margin-right: 7.5px"></i>
+          <vue3-autocounter class="counter" ref='counter' :startAmount='0'  suffix='人がこのサイトを訪れました！' :endAmount="totalVisitors" :duration='1.5'  separator=',' :autoinit='true' />
+        </div>
+      </div>
+
+
       
     </div>
 
   </div>
-
-   
 </template>
 
 <script>
@@ -135,6 +142,10 @@ import { GoogleMap, Marker } from "vue3-google-map";
 // // 
 import {amenities} from '../const/amenities.js'
 
+
+import db from '../../firebase.js';
+import Vue3autocounter from 'vue3-autocounter';
+
 // import {googleMapApiKey} from '../../.env'
 
 export default {
@@ -142,6 +153,7 @@ export default {
     VueWriter,
     GoogleMap, 
     Marker,
+    'vue3-autocounter': Vue3autocounter,
   },
   data(){
     return{
@@ -155,6 +167,7 @@ export default {
 
       showModal: false,
       modalStatus: 1,
+      totalVisitors: undefined,
       // googleMapApiKey,  
       
 
@@ -207,6 +220,29 @@ export default {
       console.log('showing')
       this.showModal = true
     },
+
+    incrementTotalViews(){
+      var docRef = db.collection('analytics').doc(`views`);
+        
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              this.totalVisitors = doc.data().total
+              // console.log(`views: ${this.totalVisitors}`)
+
+              this.totalVisitors++
+              if(this.totalVisitors > 0){
+                docRef.update({
+                  total: this.totalVisitors
+                })
+              }
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    },
   },
   
 
@@ -247,6 +283,10 @@ export default {
       console.log('jeu')
       this.totalClick++
     }
+  },
+
+  created(){
+    this.incrementTotalViews()
   },
 
 
@@ -600,5 +640,19 @@ img.bg {
 
     width: 85%;
   }
+}
+
+
+/* --------------------------------------------- */
+.view-counter{
+  background: #E6E6E6;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.view-counter div{
+  width: 50%;
+  margin: auto auto;
+  cursor: pointer;
 }
 </style>

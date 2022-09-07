@@ -141,6 +141,7 @@
 
 
 
+
 export default {
   
   data(){
@@ -153,6 +154,8 @@ export default {
 
       showingMenu: false,
       vw: undefined,
+
+      totalViews: undefined,
       
 
     }
@@ -191,6 +194,8 @@ export default {
     },
 
     
+
+    
   },
 
 
@@ -201,9 +206,12 @@ export default {
   },
 
   created(){
+    console.clear()
     window.addEventListener('scroll', this.handleScroll);
     this.vw = document.documentElement.clientWidth 
     console.log(this.vw)
+
+    // this.incrementTotalViews()
   }
 }
 </script>

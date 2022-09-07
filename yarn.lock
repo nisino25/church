@@ -9241,6 +9241,11 @@
     "@vue/server-renderer" "3.2.38"
     "@vue/shared" "3.2.38"
 
+"vue3-autocounter@^1.0.6":
+  "integrity" "sha512-jOgCD2WaOjt/tOAAGKDm2DTyQRdKyfqJv5ElUz/vR0ZJgUd4yDd6UX6+2YU3LQpY4qoFNZkzLloAfALAqK041g=="
+  "resolved" "https://registry.npmjs.org/vue3-autocounter/-/vue3-autocounter-1.0.6.tgz"
+  "version" "1.0.6"
+
 "vue3-google-map@^0.14.0":
   "integrity" "sha512-rzFFLQxgj8jEntwT2/LnoRtiHoiZ1lGTcpb/bD2pl7/DqOLX3lP7BI91fB5jaUy43nEEX0kyu0yUwBRTBcJ8CQ=="
   "resolved" "https://registry.npmjs.org/vue3-google-map/-/vue3-google-map-0.14.0.tgz"

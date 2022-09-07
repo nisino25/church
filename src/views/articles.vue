@@ -1,6 +1,7 @@
 <template>
   <div class="content" v-if="article">
-    <span>{{convertTImestamp(article.timestamp)}}</span><br><br>
+    <span>{{convertTImestamp(article.timestamp)}}</span><br>
+    <span>{{tempViews}}回閲覧</span><br><br>
     <h1>{{this.$route.params.index}}. {{article.title}}</h1><br><br>
     <span>{{article.content}}</span>
     <br><br>
@@ -38,6 +39,7 @@
         historyArticles: undefined,
         article: undefined,
         currentIndex: undefined,
+        tempViews: undefined,
         
       }
     },
@@ -51,13 +53,54 @@
             if (doc.exists) {
               console.log('hey')
               this.historyArticles = JSON.parse(doc.data().data)
-              // console.log(this.historyArticles)
+              console.log(this.historyArticles)
               let index = this.$route.params.index;
               index = parseInt(index)
               this.currentIndex = index
               index--
               
               this.article = this.historyArticles[index]
+
+              this.incrementViews()
+              // const ref = db.collection('analytics')
+              // ref.doc(`views`).update({
+              //   articles:
+              // })
+              // console.log(this.historyArticles)
+              // console.log(article.content)
+
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+      },
+      incrementViews(){
+        console.log('hes')
+        var docRef = db.collection('analytics').doc(`views`);
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              let index = this.$route.params.index
+              index = index--
+              let array = doc.data().articles
+              this.tempViews = array[index]
+              this.tempViews++
+              array[index] = this.tempViews
+              // console.log(tempViews)
+              console.log(array)
+
+              
+
+              
+             
+              
+              const ref = db.collection('analytics')
+              ref.doc(`views`).update({
+                articles: array
+              })
               // console.log(this.historyArticles)
               // console.log(article.content)
 
@@ -92,6 +135,7 @@
       
     },
     mounted(){
+      console.clear()
       console.log('oh hey')
       this.getTheHistory()
 

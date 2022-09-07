@@ -35,7 +35,7 @@
                                   <h6 class="mb-0">{{i+1}}. {{item.title}}</h6>
                                   <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                       <div><i class="fa fa-calendar-o"></i><span class="ml-2">{{convertTImestamp( item.timestamp)}}</span></div>
-                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{item.views}}</span></div>
+                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{views[i+1]}}</span></div>
                                   </div>
                               </div>
                           </div>
@@ -81,6 +81,8 @@
         tempTitle: '',
         tempContent: '',
 
+        views: [],
+
       }
 
 
@@ -95,6 +97,20 @@
             if (doc.exists) {
               this.tempString =doc.data().data
               this.historyArticles = JSON.parse(doc.data().data)
+              // for(let i in this.historyArticles){
+              //   let article = this.historyArticles[i]
+              //   article.views = 10
+
+              //   // console.log(this.historyArticles[i].views)
+              // }
+
+              // this.historyArticles = JSON.stringify(this.historyArticles)
+
+              // console.log(this.historyArticles)
+              // const ref = db.collection('history')
+              // ref.doc(`articles`).update({
+              //   data:this.historyArticles
+              // })
               // this.members = JSON.parse(doc.data().members)
               // if(!this.members.includes(this.username)) this.members.push(this.username)
               // this.modalStatus = 3
@@ -108,6 +124,26 @@
               // this.onlineStatus = 'waiting'
               // this.ReciveTheData()
               // return
+              this.getViews()
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+
+      },
+
+      getViews(){
+        var docRef = db.collection('analytics').doc(`views`);
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              this.views = doc.data().articles
+              console.log(this.view)
+
+              
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -116,6 +152,7 @@
             console.log("Error getting document:", error);
         });
       },
+      
 
       convertTImestamp(UNIX_timestamp){
         var a = new Date(UNIX_timestamp);
