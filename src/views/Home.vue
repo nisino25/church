@@ -123,7 +123,6 @@
 
       <div class="view-counter" >
         <div>
-
           <i class="far fa-eye" id="togglePassword"  style="margin-right: 7.5px"></i>
           <vue3-autocounter class="counter" ref='counter' :startAmount='0'  suffix='人がこのサイトを訪れました！' :endAmount="totalVisitors" :duration='1.5'  separator=',' :autoinit='true' />
         </div>
@@ -496,6 +495,17 @@ img.bg {
   height: auto;
 }
 
+.view-counter{
+  background: #E6E6E6;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.view-counter div{
+  width: 50%;
+  margin: auto auto;
+  cursor: pointer;
+}
 
 
 /* --------------------------------------------- */
@@ -622,6 +632,18 @@ img.bg {
     color: crimson
   }
 
+  .view-counter{
+    background: #E6E6E6;
+    padding: 15px 0px;
+    text-align: center;
+  }
+
+  .view-counter div{
+    width: 100%;
+    margin: 30px 0px;
+    cursor: pointer;
+  }
+
 
 }
 
@@ -644,15 +666,5 @@ img.bg {
 
 
 /* --------------------------------------------- */
-.view-counter{
-  background: #E6E6E6;
-  padding: 50px 0;
-  text-align: center;
-}
 
-.view-counter div{
-  width: 50%;
-  margin: auto auto;
-  cursor: pointer;
-}
 </style>
