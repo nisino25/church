@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h1>京都上賀茂教会について</h1><hr>
+    <h1>京都京都上賀茂教会について</h1><hr>
 
     <strong>牧師</strong><br> <br> 
     

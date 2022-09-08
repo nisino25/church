@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h1>上賀茂教会の歩み</h1><br><br>
+    <h1>京都上賀茂教会の歩み</h1><br><br>
     <span>
       1960年代末から70年代初期にかけて日本の社会は主として青年たちの平和と正義に関わる鋭い問いかけが発端となり、混乱の中にありました。<br> 教会も悩みの中にありました。去って行く若者も多くいました。そのような試練の時にもう一度新鮮な気持ちで共に聖書を読み、心を開いて思いを分かち合い、神の導きを祈り求めたいと願った人々がいました。3家族を核とし、何人かの青年たちが初めて集まったのが1971年1月2日の日曜日でした。<br> 上賀茂の宣教師館の居間で讃美歌を歌い祈りを共にしました。これが私たちの教会の種が蒔かれた日でした。長い教会の歴史の中で培われて来た伝統を評価しながらも、時代の流れに沿って意味ある表現や神への礼拝の形を共に考えながらキリストの道を歩みたいと願う人々の集いの歴史は半世紀近くなります。初期に用いていた「集会」を改め日本基督教団京都教区に所属する京都上賀茂教会として歩み続けています。聖書を通して人間のあるべき姿を共に探りながら、お互いの個性や社会的背景を大切にしつつ愛と正義を追い求め続ける教会でありたいと願っている教会です。
     </span><br>
@@ -23,7 +23,7 @@
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center activity">
                     <!-- <div><i class="fa fa-clock-o"></i><span class="ml-2">11h 25m</span></div> -->
-                    <div style=" margin: auto auto"><span class="activity-done" >上賀茂教会の歩み（{{historyArticles.length}}）</span></div>
+                    <div style=" margin: auto auto"><span class="activity-done" >京都上賀茂教会の歩み（{{historyArticles.length}}）</span></div>
                     <!-- <div class="icons"></div> -->
                 </div>
                 <div class="mt-3">
@@ -35,7 +35,7 @@
                                   <h6 class="mb-0">{{i+1}}. {{item.title}}</h6>
                                   <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                       <div><i class="fa fa-calendar-o"></i><span class="ml-2">{{convertTImestamp( item.timestamp)}}</span></div>
-                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{views[i+1]}}</span></div>
+                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{views[i]}}</span></div>
                                   </div>
                               </div>
                           </div>

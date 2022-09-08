@@ -2,7 +2,7 @@
   <head></head>
 
   <body>
-    <div class="wapper">
+    <div class="wrapper">
 
       <div class="header">
 
@@ -32,9 +32,9 @@
 
       </div>
 
-      
 
       <router-view/>
+
 
       <div class="pg-footer">
         <footer class="footer">
@@ -45,7 +45,7 @@
 
             <div class="footer-content-column address">
               <div class="footer-menu">
-                <h2 class="footer-menu-name">日本基督教団 京都上賀茂教会</h2>
+                <h2 class="footer-menu-name">日本キリスト教団 京都上賀茂教会</h2>
                 <ul id="menu-quick-links" class="footer-menu-list">
                   <li class="menu-item menu-item-type-custom menu-item-object-custom">
                     <a target="_blank" rel="noopener noreferrer" >〒603-8071 <br> 京都市北区上賀茂北大路町１７</a>
@@ -83,28 +83,6 @@
       
       
     </div>
-
-    <transition name="fade" style="height: 100vh;">
-        <div class='modal-overlay fade-in' v-if="showModal" >
-          
-          <div class="modal" style=" transition : all 0.6s ease 0s;">
-            
-            
-            <div v-if="modalStatus == 1">
-              <h1>heys</h1>
-            </div>
-
-            
-
-
-          </div>
-            
-        </div>
-
-    </transition>
-
-   
-
   </body>
 
 </template>

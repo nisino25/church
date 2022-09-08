@@ -16,6 +16,13 @@
 
         <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで</h2>
     </div>
+
+    <div class="view-counter" >
+        <div>
+          <i class="far fa-eye" id="togglePassword"  style="margin-right: 7.5px"></i>
+          <vue3-autocounter class="counter" ref='counter' :startAmount='0'  suffix='人がこのサイトを訪れました！' :endAmount="totalVisitors" :duration='1.25'  separator=',' :autoinit='true' />
+        </div>
+      </div>
      
     <div class="content">
 
@@ -121,12 +128,7 @@
         </div>
       </div>
 
-      <div class="view-counter" >
-        <div>
-          <i class="far fa-eye" id="togglePassword"  style="margin-right: 7.5px"></i>
-          <vue3-autocounter class="counter" ref='counter' :startAmount='0'  suffix='人がこのサイトを訪れました！' :endAmount="totalVisitors" :duration='1.5'  separator=',' :autoinit='true' />
-        </div>
-      </div>
+      
 
 
       
@@ -229,6 +231,7 @@ export default {
               // console.log(`views: ${this.totalVisitors}`)
 
               this.totalVisitors++
+              if(!this.totalVisitors) return
               if(this.totalVisitors > 0){
                 docRef.update({
                   total: this.totalVisitors
@@ -311,7 +314,7 @@ img.bg {
   height: 70vh;
   max-height: 100vh; 
 
-  margin-top: 15vh;
+  margin-top: 12.5vh;
 
   position: relative;
   top: 0;
@@ -497,8 +500,10 @@ img.bg {
 
 .view-counter{
   background: #E6E6E6;
-  padding: 50px 0;
+  padding: 25px 0;
   text-align: center;
+
+  margin-top: 30px;
 }
 
 .view-counter div{
