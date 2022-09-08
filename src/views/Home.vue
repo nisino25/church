@@ -14,7 +14,7 @@
           />
         </h1>
 
-        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで <br><br> zoomからでも参加頂けます。<br>  kyoto.kamigamo.kyokai@gmail.com  </h2>
+        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで <br><br> zoomからでもご参加頂けます。<br>  kyoto.kamigamo.kyokai@gmail.com  </h2>
     </div>
 
     <div class="view-counter" >

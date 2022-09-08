@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h1>京都京都上賀茂教会について</h1><hr>
+    <h1>京都上賀茂教会について</h1><hr>
 
     <strong>牧師</strong><br> <br> 
     
@@ -20,7 +20,7 @@
       <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center" :zoom="15">
         <Marker :options="{ position: center }" />
       </GoogleMap>
-    </div> 
+    </div>  
 
     
 
