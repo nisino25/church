@@ -14,7 +14,7 @@
           />
         </h1>
 
-        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで</h2>
+        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで <br><br> zoomからでも参加頂けます。<br>  kyoto.kamigamo.kyokai@gmail.com  </h2>
     </div>
 
     <div class="view-counter" >
@@ -95,6 +95,12 @@
 
                 <p><span></span></p>
 
+              </div>
+
+              <hr>
+
+              <div>
+                新型コロナ対策として、京都上賀茂教会では直接現地からの参加に加えて <strong><br> 礼拝をzoomからでも参加頂けます。</strong><br> 参加を希望の方は、お気軽にご連絡ください。 kyoto.kamigamo.kyokai@gmail.com 
               </div>
 
             </div>
@@ -421,6 +427,17 @@ img.bg {
 .corona p span{
   color: crimson
 }
+
+.corona hr{
+  border: 1px solid grey;
+  margin: 30px auto;
+  width: 90%;
+}
+
+.corona strong{
+  font-size: 150%;
+  color: crimson;
+}
 /* ----------------------------------- */
 .notice{
   width: 80vw;
@@ -503,7 +520,7 @@ img.bg {
   padding: 25px 0;
   text-align: center;
 
-  margin-top: 30px;
+  margin-top: 55px;
 }
 
 .view-counter div{
@@ -535,14 +552,16 @@ img.bg {
     background: grey;/*背景色*/
     border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
     position: absolute;
-    top: 65vh;
+    top: 55vh;
     z-index:1;
-    font-size: 5vw;
+    font-size: 4.65vw;
     left: 50%;
     transform: translateX(-50%);
 
     width: 85%;
   }
+
+
 
   .content{
     margin-top: 100px;
@@ -639,13 +658,16 @@ img.bg {
 
   .view-counter{
     background: #E6E6E6;
-    padding: 15px 0px;
+    /* padding: 5px 0px; */
+    /* padding-top: 1px; */
     text-align: center;
+
+    margin-top: 20px;
   }
 
   .view-counter div{
     width: 100%;
-    margin: 30px 0px;
+    margin: 0px 0px;
     cursor: pointer;
   }
 
