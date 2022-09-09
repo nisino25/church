@@ -359,7 +359,7 @@ img.bg {
   left: 50%;
   transform: translateX(-50%);
 
-  /* width: 50%; */
+  width: 50%;
   /* width: 0%; */
 }
 
@@ -676,14 +676,14 @@ img.bg {
 
 }
 
-@media (min-width:600px) and (max-width: 820px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+@media (min-width:600px) and (max-width: 834px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
   
 
 
   .lp h2 {
     padding: 0.5em;/*文字周りの余白*/
     /* color: red;文字色 */
-    background: red;/*背景色*/
+    /* background: red;背景色 */
     border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
     position: absolute;
     top: 65vh;
@@ -707,7 +707,7 @@ img.bg {
 }
 
 
-@media (min-width:820px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-device-width: 834px) and (max-device-width: 1200px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
   img.bg {
     filter: brightness(50%);
 
@@ -741,7 +741,7 @@ img.bg {
   .lp h2 {
     padding: 0.5em;/*文字周りの余白*/
     /* color: red;文字色 */
-    background: grey;/*背景色*/
+    /* background: yellow;背景色 */
     border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
     position: absolute;
     top: 62.5vh;
@@ -750,7 +750,7 @@ img.bg {
     left: 50%;
     transform: translateX(-50%);
 
-    width: 85%;
+    width: 75%;
   }
 }
 
