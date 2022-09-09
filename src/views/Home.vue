@@ -14,7 +14,7 @@
           />
         </h1>
 
-        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで <br><br> zoomからでもご参加頂けます。<br>  kyoto.kamigamo.kyokai@gmail.com  </h2>
+        <h2>礼拝は、毎週日曜午前１０時３０分 <br v-if="vw < 600">から１１時４５分まで <br><br> zoomからでもご参加頂けます。  kyoto.kamigamo.kyokai@gmail.com  </h2>
     </div>
 
     <div class="view-counter" >
@@ -320,7 +320,7 @@ img.bg {
   height: 70vh;
   max-height: 100vh; 
 
-  margin-top: 12.5vh;
+  margin-top: 75px;
 
   position: relative;
   top: 0;
@@ -345,7 +345,7 @@ img.bg {
 }
 
 .lp h2 {
-  padding: 0.5em;/*文字周りの余白*/
+  padding:0.5em;/*文字周りの余白*/
   color: white;/*文字色*/
   background: grey;/*背景色*/
   border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
@@ -355,9 +355,11 @@ img.bg {
   z-index:1;
   font-size: 300%;
   color: white;
-  font-size: 200%;
+  font-size: 175%;
   left: 50%;
   transform: translateX(-50%);
+
+  /* width: 50%; */
   /* width: 0%; */
 }
 
@@ -520,7 +522,7 @@ img.bg {
   padding: 25px 0;
   text-align: center;
 
-  margin-top: 55px;
+  margin-top: 100px;
 }
 
 .view-counter div{
@@ -675,10 +677,13 @@ img.bg {
 }
 
 @media (min-width:600px) and (max-width: 820px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+  
+
+
   .lp h2 {
     padding: 0.5em;/*文字周りの余白*/
     /* color: red;文字色 */
-    background: grey;/*背景色*/
+    background: red;/*背景色*/
     border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
     position: absolute;
     top: 65vh;
@@ -689,8 +694,65 @@ img.bg {
 
     width: 85%;
   }
+
+  .view-counter{
+    background: #E6E6E6;
+    padding: 25px 0;
+    text-align: center;
+
+    margin-top: 125px;
+  }
+
+
 }
 
+
+@media (min-width:820px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  img.bg {
+    filter: brightness(50%);
+
+    object-fit: cover;
+    /* object-position: -100px 0px; */
+    background-size : cover;
+    -webkit-background-size: cover;
+      -moz-background-size: cover;
+        -o-background-size: cover;
+            background-size: cover;
+            
+    width: 100vw;
+    height: 60vh;
+    max-height: 100vh; 
+
+    margin-top: 100px;
+
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    left: 50%; 
+    transform: translate(-50%, 0); 
+    /* position: absolute; */
+
+    /* transform: translateY(-50%); */
+
+  }
+
+  .lp h2 {
+    padding: 0.5em;/*文字周りの余白*/
+    /* color: red;文字色 */
+    background: grey;/*背景色*/
+    border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+    position: absolute;
+    top: 62.5vh;
+    z-index:1;
+    font-size: 170%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 85%;
+  }
+}
 
 /* --------------------------------------------- */
 
