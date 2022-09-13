@@ -45,13 +45,17 @@
                   <p>日本における追悼礼拝は、以下のとおり執り行われる予定です。<br>
                   2022年10月29日（土）14時～ <br>
                   日本基督教団洛陽教会（京都市上京区寺町通荒神口下る松蔭町141-2）<br><br>
+                  <strong style="color:LightCoral">
+                    
+                    なお。大変申し訳ございませんが、会場の関係で来場は関係者のみに限らせていただきます。
+                  </strong> <br><br>
                   なお、同追悼礼拝は、zoom配信される予定です。配信を希望される方は、当教会のメールアドレス(kyoto.kamigamo.kyokai@gmail.com)までお知らせ下さい。
                   </p>
                   <br><br>
 
-                  <div class="" style="margin-top: 30px"> 
+                  <div class="" style="margin-top: 50px;"> 
              
-                      <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center" :zoom="15">
+                      <GoogleMap class="map1" api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o"  :center="center" :zoom="14">
                         <Marker :options="{ position: center }" />
                       </GoogleMap>
                   </div> 
@@ -121,7 +125,7 @@
           <img src="../../public/img/map.jpg" alt="" class="mapPic">
           <br><br>
 
-          <div class="" style="width: 80%; margin: auto auto">    
+          <div class="" style="width: 90%; margin: auto auto">    
             <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center2" :zoom="15">
               <Marker :options="{ position: center2 }" />
             </GoogleMap>
@@ -187,6 +191,7 @@ export default {
   setup() {
     const center = { lat: 35.01834413663081,  lng: 135.76761230587275, };
     const markerOptions = { position: center, label: "日本基督教団洛陽教会", title: "日本基督教団洛陽教会" };
+    
     const center2 = { lat: 35.05922090366774,  lng: 135.7575056779574, };
     const markerOptions2 = { position: center, label: "京都上賀茂教会", title: "京都上賀茂教会" };
 
@@ -489,6 +494,11 @@ img.bg {
 
 .notice .right-section{
   padding: 20px;
+}
+
+.map1{
+  width: 100%;
+  height: 500px;
 }
 
 

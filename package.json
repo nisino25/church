@@ -15,7 +15,9 @@
     "vue-router": "^4.0.0-0",
     "vue-writer": "^1.2.0",
     "vue3-autocounter": "^1.0.6",
+    "vue3-geolocation": "^1.0.0",
     "vue3-google-map": "^0.14.0",
+    "vuejs3-google-maps": "^0.2.3",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

@@ -5,22 +5,13 @@
     <div class="wrapper">
 
       <div class="header">
-
-        <!-- <div class="topnav" :style="navStyle">
-          <a class="/active" href="/" >ホーム</a>
-          <a href="/history">教会の歩み</a>
-          <a href="/about-church">教会について</a>
-          <a href="/about-fukada">故深田牧師の部屋</a>
-          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-          </a>
-        </div> -->
         <Transition name="fade">
 
           <div class="topnav" id="myTopnav" :style="navStyle" :class="[showingMenu ? 'responsive topnav' : '']">
             <a class="/active" href="/" >ホーム</a>
             <a href="/history">教会の歩み</a>
             <a href="/about-church">教会について</a>
+            <a href="/schedule">行事予定</a>
             <a href="/about-fukada">故深田牧師の部屋</a>
             <a href="/about-dendosho">間之町伝道所</a>
 

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -23,6 +24,11 @@ const routes = [
     component: () => import('../views/church.vue')
   },
   {
+    path: '/schedule',
+    name: 'shcedule',
+    component: () => import('../views/schedule.vue')
+  },
+  {
     path: '/about-fukada',
     name: 'fukada',
     component: () => import('../views/fukada.vue')
@@ -31,6 +37,22 @@ const routes = [
     path: '/about-dendosho',
     name: 'dendosho',
     component: () => import('../views/dendosho.vue')
+  },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/login.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/register.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/login.vue')
   },
 ]
 

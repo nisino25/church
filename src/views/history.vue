@@ -35,7 +35,7 @@
                                   <h6 class="mb-0">{{i+1}}. {{item.title}}</h6>
                                   <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                       <div><i class="fa fa-calendar-o"></i><span class="ml-2">{{convertTImestamp( item.timestamp)}}</span></div>
-                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{views[i]}}</span></div>
+                                      <div class="ml-3"><i class="fa fa-eye"></i><span class="ml-2">{{views[i+1]}}</span></div>
                                   </div>
                               </div>
                           </div>

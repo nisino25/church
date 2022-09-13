@@ -87,8 +87,11 @@
               index = index--
               let array = doc.data().articles
               this.tempViews = array[index]
+              console.log(this.tempViews)
               this.tempViews++
               array[index] = this.tempViews
+              console.log(this.tempViews)
+              
               // console.log(tempViews)
               console.log(array)
 

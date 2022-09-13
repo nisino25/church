@@ -9246,6 +9246,11 @@
   "resolved" "https://registry.npmjs.org/vue3-autocounter/-/vue3-autocounter-1.0.6.tgz"
   "version" "1.0.6"
 
+"vue3-geolocation@^1.0.0":
+  "integrity" "sha512-6zZkFH0aRVwmY7z7YkaA4riLy5sI6dRW1NiMZMI8NtjcFxC39UF4c9huxVnpN3yQSJYAsHAWzqIc75RdNBujnQ=="
+  "resolved" "https://registry.npmjs.org/vue3-geolocation/-/vue3-geolocation-1.0.0.tgz"
+  "version" "1.0.0"
+
 "vue3-google-map@^0.14.0":
   "integrity" "sha512-rzFFLQxgj8jEntwT2/LnoRtiHoiZ1lGTcpb/bD2pl7/DqOLX3lP7BI91fB5jaUy43nEEX0kyu0yUwBRTBcJ8CQ=="
   "resolved" "https://registry.npmjs.org/vue3-google-map/-/vue3-google-map-0.14.0.tgz"
@@ -9253,6 +9258,14 @@
   dependencies:
     "@googlemaps/js-api-loader" "^1.12.11"
     "@googlemaps/markerclusterer" "^2.0.6"
+
+"vuejs3-google-maps@^0.2.3":
+  "integrity" "sha512-KZ5tAKU7lnJtZUKnhq7AzjiMjoZb8dzX5ZOaQ5AtXOqbMwqS2NONjwNWqr4Sd0CR5vws1qfXCYhFJXim9OD6fw=="
+  "resolved" "https://registry.npmjs.org/vuejs3-google-maps/-/vuejs3-google-maps-0.2.3.tgz"
+  "version" "0.2.3"
+  dependencies:
+    "core-js" "^3.6.5"
+    "vue" "^3.0.0"
 
 "vuex@^4.0.0-0":
   "integrity" "sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q=="
