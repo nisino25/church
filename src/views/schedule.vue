@@ -1,127 +1,102 @@
 <template>
-  schedule
+  <h1 style="margin:100px auto;">schedule</h1> 
   <div>
 <div>
   <div>
     <br>
-    <div style="margin-top:-15px; margin-bottom:-10px">
+    <!-- <div style="margin-top:-15px; margin-bottom:-10px">
       <input type="num" v-model="selectingYear" style="width: 10%;"> year
       &nbsp;
       <input type="num" v-model="showingMonthlyCount" style="width: 10%;"> month
       <button @click="setCalendar()">Update</button>
 
-    </div>
-    
+    </div> -->
 
     <div class="calendar-container">
-      
-
-      <header @touchstart="tStart($event)" @touchend="tEnd($event)" >
-
-        <div class="month">{{showingMonth}}</div>
-        <div class="year" style="marginTop:10px">{{showingYear}}</div>
-
-      </header>
+                
+          
+                <header @touchstart="tStart($event)" @touchend="tEnd($event)" >
+          
+                  <div class="month">{{showingMonth}}</div>
+                  <div class="year" style="marginTop:10px">{{showingYear}}</div>
+          
+                </header>
+    
 
       <table class="calendar">
+            
+            <thead>
+    
+              <tr>
 
-        <thead>
+                <template v-for="(day,i) in weekday" :key="i">
+                  <td>{{day}}</td>
+                </template>
+    
+                <!-- <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+                <td>Sat</td>
+                <td>Sun</td> -->
+    
+              </tr>
+    
+            </thead>
+    
+            <tbody>
+    
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i">
+                  <td v-if="i<7 " :class="[day > 15 ? 'prev-month' : '' ]" class="circle" >{{day}}</td>
 
-          <tr>
+                  <!-- <td v-if="i<7 && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
+                  :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day}}</td> -->
 
-            <td>Mon</td>
-            <td>Tue</td>
-            <td>Wed</td>
-            <td>Thu</td>
-            <td>Fri</td>
-            <td>Sat</td>
-            <td>Sun</td>
+                </template>
+              </tr>
 
-          </tr>
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i" >
 
-        </thead>
+                  <td v-if="(i >6 &&i<14)"  class="circle">{{day}}</td>
+                </template>
+              </tr>
 
-        <tbody>
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i" >
+                  <td v-if="(i >13 &&i<21)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                </template>
+              </tr>
 
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i">
-              <td v-if="i<7 && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i" >
+                  <td v-if="(i >20 &&i<28)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                </template>
+              </tr>
 
-              <td v-if="i<7 && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-            </template>
-          </tr>
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i" >
+                  <td v-if="(i >27 &&i<35)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                </template>
+              </tr>
 
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i" >
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i" >
+                  <td v-if="(i >34 &&i<42)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                </template>
+              </tr>
 
-              <td v-if="(i >6 &&i<14) && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              <td v-if="(i >6 &&i<14) && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-            </template>
-          </tr>
-
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i" >
-
-              <td v-if="(i >13 &&i<21) && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              <td v-if="(i > 13&&i<21) && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              
-            </template>
-          </tr>
-
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i" >
-              <td v-if="(i >20 &&i<28) && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              <td v-if="(i >20 &&i<28) && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-            </template>
-          </tr>
-
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i" >
-              <td v-if="(i >27 &&i<35) && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              <td v-if="(i >27 &&i<35) && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-            </template>
-          </tr>
-
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i" >
-              <td v-if="(i >34 &&i<42) && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              <td v-if="(i >34 &&i<42) && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-            </template>
-          </tr>
-
-          <tr>
-            <template v-for="(day, i) in showingCal" :key="i" >
-
-              <td v-if="(i > 41&&i<49) && (!dataList[showingYear][showingMonthlyCount][day.date] || day.additional) " :class="[day.additional ? 'prev-month' : '' ]"
-              class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-
-              <td v-if="(i > 41&&i<49) && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-              :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day.date}}</td>
-            </template>
-          </tr>
-
-        </tbody>
-
+              <tr>
+                <template v-for="(day, i) in showingCallendar" :key="i" >
+                  <td v-if="(i >41 &&i<49)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                </template>
+              </tr>
+    
+            </tbody>
+    
       </table>
-      <!-- <span>{{moodStyle[dataList[showingYear][showingMonthlyCount][3].mood]}}</span> -->
 
     </div>
 
@@ -209,7 +184,7 @@
 </template>
 
 <script>
-  // const weekday = ["日","月","火","水","木","金","土"]
+  const weekday = ["月","火","水","木","金","土","日",]
   export default{
     data() {
       return {
@@ -221,6 +196,10 @@
         dayOfTheWeek: undefined,
 
         showingCallendar: undefined,
+
+        query: undefined,
+
+        weekday,
       }
     },
 
@@ -248,36 +227,245 @@
       getPreviousDay(date = new Date(), howMany) {
         const previous = new Date(date.getTime());
         previous.setDate(date.getDate() - 1);
+        // previous.setDate(date.getDate() - 2);
 
         console.log(howMany)
         console.log(previous)
 
-        console.log(String(previous.getDate()).padStart(2, '0'))
+        // console.log(String(previous.getDate()).padStart(2, '0')) 
 
         
 
         // let count = 0 
         // this.dayOfTheWeek = 
 
-        const d = new Date(`${this.currentMonth} 1, ${this.currentYear} `);
+        // console.log(date.getFullYear())
+
+        const d = new Date(`${date.getMonth()+ 1} 1, ${date.getFullYear()} `);
+        console.log(d)
         this.dayOfTheWeek = d.getDay()
+
+        console.log(`day of the week ${this.dayOfTheWeek}`)
+
+        if(this.dayOfTheWeek == 1){
+          return 
+        }
+
+        let count = 1
+        let theDay = undefined
+        let limit = undefined
+        let lastDay = undefined
+
+        if(this.dayOfTheWeek == 0){
+          count = 1
+          limit = 6
+
+          lastDay - previous.setDate(date.getDate() - 1);
+          theDay = String(previous.getDate()).padStart(2, '0')
+          theDay = parseInt(theDay)
+      
+          while(count <limit){
+            theDay--
+            this.showingCallendar.unshift(theDay)
+            count++ 
+          }
+
+          return 
+        }
+
+        if(this.dayOfTheWeek !== 0 ){
+          console.log('herr tight?')
+          count = 1
+          limit = this.dayOfTheWeek 
+          
+          lastDay - previous.setDate(date.getDate() - 1);
+          theDay = String(previous.getDate()).padStart(2, '0')
+          theDay = parseInt(theDay)
+          // console.log(this.showingCallendar)
+
+          while(count < limit){
+
+            
+
+            this.showingCallendar.unshift(theDay)
+            
+            // console.log(this.showingCallendar)
+
+
+            count++ 
+            theDay--
+          }
+
+          // console.log('------------')
+        }
         
       
       },
 
       getCurrentCalendar(year, month){
-        this.showingCallendar =[],
-
+        this.showingCallendar =[]
         console.log(year + month)
       },
+      
+      daysInMonth (month, year) {
+        return new Date(year, month, 0).getDate();
+      }
+
+
     },
 
     mounted(){
       console.clear()
       this.settingUp()
 
+
+
+      // put the days from previous month 
+      this.query = `2022-${this.currentMonth}-01`
+
       this.getPreviousDay(new Date(`2022-${this.currentMonth}-01`))
+
+      // put the days from current month
+      let limit =  this.daysInMonth(this.currentMonth,this.currentYear)
+      let count =  1
+
+      while(count < limit+ 1){
+        this.showingCallendar.push(count)
+        count++ 
+      }
+
+      // put the days from next month
+      // console.log(limit)
+
+      const d = new Date(`${this.currentMonth} ${limit}, ${this.currentYear} `);
+      let dayOfTheWeek = d.getDay()
+
+      console.log(dayOfTheWeek)
+
+      if(dayOfTheWeek ==0){
+        return 
+      }
+
+      if(this,dayOfTheWeek !== 0){
+        count = 1
+        limit = 8 - dayOfTheWeek
+
+        while(count <limit){
+          this.showingCallendar.push(count)
+          count++
+        }
+      }
+
+
+
+
+
+      // this.getPreviousDay(new Date(`2022-01-01`))
+
+      console.log(this.showingCallendar)
     }
 
   }
 </script>
+
+<style>
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+ 
+td {
+  padding: 0;
+  /* color: red  */
+}
+
+.calendar-container {
+   /* position: relative;   */
+  margin-top: 20px;
+  width: 650px; 
+  /* width: 100%;   */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* left:50%; */
+  /* background-color: yellow; */
+}
+ 
+.calendar-container header {
+  border-radius: 1em 1em 0 0;
+  background: #e66b6b;
+  color: #fff;
+  padding: 2em 2em;
+  /* height: 20%; */
+  /* width: 80%; */
+}
+ 
+.month {
+  /* width: 50%; */
+  font-size: 4em;
+  font-weight: 900; 
+  line-height: 1em;
+  text-align: left;
+  margin-left: -10px;
+}
+ 
+.year {
+  font-size: 2em;
+  line-height: 1em;
+  text-transform: lowercase;
+  text-align: left;
+  /* margin-left: 10px; */
+}
+  .calendar {
+    background: #fff;
+    border-radius: 0 0 1em 1em;
+    -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+    color: #555;
+    display: inline-block;
+    /* padding: 2em; */
+    width: 100%;
+    /* padding-bottom: 100px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+
+    margin: 0 auto;
+  }
+  
+  .calendar thead {
+    color: #e66b6b;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* margin-top: 100px; */
+    padding-top: 100px;
+  }
+  
+  .calendar td {
+    padding: 0.5em 1em; 
+    padding: 5px 5px; 
+    margin-right: 100px; 
+    text-align: center;
+    /* width:100%; */
+  
+  }
+  .circle{
+      /* border-radius: 50%;
+      width: auto;
+      height: auto; 
+      background-color: yellow; */
+  }
+  
+  .current-day {
+    color: #e66b6b;
+  }
+  
+  .prev-month,
+  .next-month {
+    color: #b8aeae;
+  }
+  
+
+
+</style>
