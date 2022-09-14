@@ -1,190 +1,103 @@
 <template>
-  <h1 style="margin:100px auto;">schedule</h1> 
-  <div>
-<div>
-  <div>
-    <br>
-    <!-- <div style="margin-top:-15px; margin-bottom:-10px">
-      <input type="num" v-model="selectingYear" style="width: 10%;"> year
-      &nbsp;
-      <input type="num" v-model="showingMonthlyCount" style="width: 10%;"> month
-      <button @click="setCalendar()">Update</button>
+  
 
-    </div> -->
-
-    <div class="calendar-container">
-                
-          
-                <header @touchstart="tStart($event)" @touchend="tEnd($event)" >
-          
-                  <div class="month">{{showingMonth}}</div>
-                  <div class="year" style="marginTop:10px">{{showingYear}}</div>
-          
-                </header>
+  <div>
     
-
-      <table class="calendar">
+    <div>
+      <br>
+  
+      <div class="calendar-container" v-if="eventList">
+        <!-- <button @click="test()">test</button> -->
+                  
             
+        <header @touchstart="tStart($event)" @touchend="tEnd($event)" >
+          <div>
+            <div class="month">{{currentMonth}}</div>
+            <div class="year" style="">{{currentYear}}</div>
+          </div>
+  
+  
+        </header>
+      
+  
+        <table class="calendar">
+          
             <thead>
-    
               <tr>
-
                 <template v-for="(day,i) in weekday" :key="i">
                   <td>{{day}}</td>
                 </template>
-    
-                <!-- <td>Mon</td>
-                <td>Tue</td>
-                <td>Wed</td>
-                <td>Thu</td>
-                <td>Fri</td>
-                <td>Sat</td>
-                <td>Sun</td> -->
-    
               </tr>
-    
             </thead>
     
             <tbody>
     
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i">
-                  <td v-if="i<7 " :class="[day > 15 ? 'prev-month' : '' ]" class="circle" >{{day}}</td>
-
-                  <!-- <td v-if="i<7 && dataList[showingYear][showingMonthlyCount][day.date] && !day.additional" :class="[day.additional ? 'prev-month' : '' ]"
-                  :style="{backgroundColor: moodStyle[dataList[showingYear][showingMonthlyCount][day.date].mood], color: textColor[dataList[showingYear][showingMonthlyCount][day.date].mood]}" class="circle" @click="edit(showingYear,showingMonthlyCount,day.date,day.yoobi,day.additional)">{{day}}</td> -->
-
+                  <td v-if="i<7 " :class="[day > 15 ? 'prev-month' : '' ]" class="circle" :style="isToday(day)">{{day}} <br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span></td>
                 </template>
               </tr>
-
+    
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i" >
-
-                  <td v-if="(i >6 &&i<14)"  class="circle">{{day}}</td>
+                  <td v-if="(i >6 &&i<14)"  class="circle" :style="isToday(day)">{{day}}<br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span></td>
                 </template>
               </tr>
-
+    
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i" >
-                  <td v-if="(i >13 &&i<21)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                  <td v-if="(i >13 &&i<21)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle" :style="isToday(day)">{{day}}<br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span></td>
                 </template>
               </tr>
-
+    
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i" >
-                  <td v-if="(i >20 &&i<28)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                  <td v-if="(i >20 &&i<28)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle" :style="isToday(day)" >{{day}}<br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span> </td>
                 </template>
               </tr>
-
+    
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i" >
-                  <td v-if="(i >27 &&i<35)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                  <td v-if="(i >27 &&i<35)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle" :style="isToday(day)">{{day}}<br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span></td>
                 </template>
               </tr>
-
+    
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i" >
-                  <td v-if="(i >34 &&i<42)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                  <td v-if="(i >34 &&i<42)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle" :style="isToday(day)">{{day}}<br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span></td>
                 </template>
               </tr>
-
+    
               <tr>
                 <template v-for="(day, i) in showingCallendar" :key="i" >
-                  <td v-if="(i >41 &&i<49)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle">{{day}}</td>
+                  <td v-if="(i >41 &&i<49)" :class="[day < 10 ? 'prev-month' : '' ]"  class="circle" :style="isToday(day)">{{day}}<br><span :style="[eventList.includes(day) ? 'color: blcak' : 'color: white']"> &#8226;</span></td>
                 </template>
               </tr>
     
             </tbody>
-    
-      </table>
-
-    </div>
-
-    
-    
-     <!-- end calendar-container -->
-
-  </div> <!-- end container -->
-
-  <!-- <Calendar title-position="left" />
-  <DatePicker title-position="left" v-model="date"  /> -->
-
-  <!-- <div>
-    <h1>Calendar</h1>
-    
-    <div class="month">      
-      <ul>
-        <li class="prev">&#10094;</li>
-        <li class="next">&#10095;</li>
-        <li>
-          {{showingCal.month}}<br>
-          <span style="font-size:18px">{{showingCal.year}}</span>
-        </li>
-      </ul>
-    </div>
-
-    <ul class="weekdays">
-      <li>Mo</li>
-      <li>Tu</li>
-      <li>We</li>
-      <li>Th</li>
-      <li>Fr</li>
-      <li>Sa</li>
-      <li>Su</li>
-    </ul>
-
-    <ul class="days">  
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li><span class="active">10</span></li>
-      <li>11</li>
-      <li>12</li>
-      <li>13</li>
-      <li>14</li>
-      <li>15</li>
-      <li>16</li>
-      <li>17</li>
-      <li>18</li>
-      <li>19</li>
-      <li>20</li>
-      <li>21</li>
-      <li>22</li>
-      <li>23</li>
-      <li>24</li>
-      <li>25</li>
-      <li>26</li>
-      <li>27</li>
-      <li>28</li>
-      <li>29</li>
-      <li>30</li>
-      <li>31</li>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-    </ul>
-  </div>  -->
-
   
   
+              
+      
+        </table>
 
-  <!-- <div>
-    <h5>{{showingCal}}</h5>
-  </div> -->
-
-</div>
-</div>
-</template>
-
+        <!-- <span>{{eventList}}</span> -->
+  
+      </div>
+  
+      
+      
+       <!-- end calendar-container -->
+  
+    </div> <!-- end container -->
+  
+  </div>
+  
+  </template>
+  
 <script>
   const weekday = ["月","火","水","木","金","土","日",]
+  import db from '../../firebase.js';
   export default{
     data() {
       return {
@@ -200,6 +113,8 @@
         query: undefined,
 
         weekday,
+
+        events: undefined,
       }
     },
 
@@ -309,7 +224,85 @@
       
       daysInMonth (month, year) {
         return new Date(year, month, 0).getDate();
+      },
+
+      isToday(day){
+        var today = new Date();
+
+        let month = undefined
+        month = String(today.getMonth() + 1).padStart(2, '0')
+        // month = parseInt(month)
+
+
+        if(this.currentYear !== today.getFullYear()) return
+
+        
+        if(this.currentMonth !== month) return 
+
+        if(today.getDate() !== day) return
+
+        return `color: red`
+      },
+
+      getEvents(){
+        var docRef = db.collection('events').doc(`2022`);
+        
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              this.events =doc.data()[parseInt(this.currentMonth)]
+              // console.log(this.events)
+              // this.historyArticles = JSON.parse(doc.data().data)
+              // this.getViews()
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+      },
+
+      eventExist(date){
+        // gotta check for if it is currentmonth or not
+        // console.log(date)
+        let flag = false
+        date = parseInt(date)
+        for(let i in this.events){
+          flag= false
+          // console.log(this.events[i])
+          // console.log(`data: ${i}`)
+          // console.log(this.events[i].date)
+          
+          if(this.events[i].date !== date) return
+          flag = true 
+          console.log(date)
+          return flag
+        }
+
+        return flag
+      },
+
+      test(){
+        const ref = db.collection('events')
+        ref.doc(`2022`).update({
+          10: [
+            {year: 2022, month: 9, date: 4, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '西村さん', after: '', from: '10:30', location: '京都上賀茂教会'  },
+
+            {year: 2022, month: 9, date: 11, day: '日', title:'主日礼拝', priest: '栗津原牧師', musician: '南大路さん', after: '月齢ミーティングあり', from: '10:30', location: '京都上賀茂教会' },
+
+            {year: 2022, month: 9, date: 18, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '南大路さん', after: '', from: '10:30', location: '京都上賀茂教会' },
+
+            {year: 2022, month: 9, date: 25, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          ],
+
+        })
       }
+
+
+      
+        
+        
+      
 
 
     },
@@ -317,6 +310,11 @@
     mounted(){
       console.clear()
       this.settingUp()
+
+      // var today = new Date();
+      // console.log(`todaay is: ` + today.getDate())
+
+
 
 
 
@@ -362,110 +360,145 @@
 
       // this.getPreviousDay(new Date(`2022-01-01`))
 
-      console.log(this.showingCallendar)
-    }
+      // console.log(this.showingCallendar)
 
+      this.getEvents()
+    },
+
+    computed:{
+      eventList(){
+        if(!this.events) return
+        let list = []
+
+        for(let i in this.events){
+          list.push(this.events[i].date)
+        }
+
+        return list
+      },
+
+    },
   }
 </script>
-
-<style>
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
- 
-td {
-  padding: 0;
-  /* color: red  */
-}
-
-.calendar-container {
-   /* position: relative;   */
-  margin-top: 20px;
-  width: 650px; 
-  /* width: 100%;   */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /* left:50%; */
-  /* background-color: yellow; */
-}
- 
-.calendar-container header {
-  border-radius: 1em 1em 0 0;
-  background: #e66b6b;
-  color: #fff;
-  padding: 2em 2em;
-  /* height: 20%; */
-  /* width: 80%; */
-}
- 
-.month {
-  /* width: 50%; */
-  font-size: 4em;
-  font-weight: 900; 
-  line-height: 1em;
-  text-align: left;
-  margin-left: -10px;
-}
- 
-.year {
-  font-size: 2em;
-  line-height: 1em;
-  text-transform: lowercase;
-  text-align: left;
-  /* margin-left: 10px; */
-}
-  .calendar {
-    background: #fff;
-    border-radius: 0 0 1em 1em;
-    -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
-    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
-    color: #555;
-    display: inline-block;
-    /* padding: 2em; */
-    width: 100%;
-    /* padding-bottom: 100px; */
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-
-    margin: 0 auto;
-  }
   
-  .calendar thead {
-    color: #e66b6b;
-    font-weight: 700;
-    text-transform: uppercase;
-    /* margin-top: 100px; */
-    padding-top: 100px;
-  }
+  <style>
   
-  .calendar td {
-    padding: 0.5em 1em; 
-    padding: 5px 5px; 
-    margin-right: 100px; 
-    text-align: center;
-    /* width:100%; */
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    
+    td {
+      /* padding: 10px; */
+      /* color: red  */
+    }
   
-  }
-  .circle{
-      /* border-radius: 50%;
-      width: auto;
-      height: auto; 
-      background-color: yellow; */
-  }
+    .calendar-container {
+      margin: 50px auto;
+      width: 700px; 
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .calendar-container header {
+      border-radius: 1em 1em 0 0;
+      background: #e66b6b;
+      color: #fff;
+      padding: 2em 2em;
+      /* height: 20%; */
+      width: 100%;
+      /* display: flex; */
+      /* margin  */
+    }
+    .calendar-container header div{
+      display: flex;
+      width: 50%;
+      margin: auto auto;
+      /* text-align: center; */
+      
+    }
+      
+    
+    .month {
+      font-size: 4em;
+      font-weight: 900; 
+      line-height: 1em;
+      /* text-align: center; */
+      /* margin-left: -10px; */
+      /* margin-right: 20px; */
+    }
+    
+    .year {
+      font-size: 2em;
+      line-height: 1em;
+      text-transform: lowercase;
+      /* text-align: center; */
+      margin-top:70px;
+      /* float: right; */
+      /* display: inline-block; */
+    }
   
-  .current-day {
-    color: #e66b6b;
-  }
+    .calendar {
+      background: #fff;
+      border-radius: 0 0 1em 1em;
+      -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+      box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+      color: #555;
+      /* display: inline-block; */
+      /* padding: 2em; */
+      width: 100%;
+      padding: 20px 100px;
+      /* padding-bottom: 100px; */
+      /* padding-top: 20px; */
+      /* padding-bottom: 20px; */
+      /* padding-left: 20px; */
   
-  .prev-month,
-  .next-month {
-    color: #b8aeae;
-  }
+      margin: 0 auto;
+    }
   
-
-
-</style>
+    
+    
+    .calendar thead {
+      color: #e66b6b;
+      font-weight: 700;
+      text-transform: uppercase;
+      /* margin-top: 100px; */
+      padding-top: 100px;
+  
+      width: 100%;
+    }
+  
+    .calendar tr{
+      width: 90%;
+      /* background-color: blue; */
+    }
+    
+    .calendar td {
+      /* padding: 10px 1em;  */
+      padding: 20px 30px; 
+      margin-right: 100px; 
+      text-align: center;
+      font-size: 25px;
+      /* width:100%; */
+    
+    }
+    .circle{
+        /* border-radius: 50%;
+        width: auto;
+        height: auto; 
+        background-color: yellow; */
+    }
+    
+    .current-day {
+      color: #e66b6b;
+    }
+    
+    .prev-month,
+    .next-month {
+      color: #b8aeae;
+    }
+    
+  
+  
+  </style>
