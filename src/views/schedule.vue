@@ -1,16 +1,31 @@
 <template>
   
-
   <div>
-    
-    <div>
-      <br>
-  
-      <div class="calendar-container" v-if="eventList">
-        <!-- <button @click="test()">test</button> -->
+    <div class="bigger-container" v-if="eventList">
+      <div class="weekly-calendar">
+        <div>
+          <header>
+            <div>
+              <span>{{currentYear}}年{{currentMonth}}月の予定</span>
+              <!-- <div class="year" style="">{{currentYear}}</div> -->
+            </div>
+          </header>
+
+          <div class="weekly-contents">
+            <template v-for="(event, i) in events" :key="i">
+              <span>{{event.date}}日（{{event.day}}） {{event.title}}</span><br>
+              
+            </template>
+          </div>
+
+
+        </div>
+      </div>
+      
+      <div class="calendar-container" >
                   
             
-        <header @touchstart="tStart($event)" @touchend="tEnd($event)" >
+        <header>
           <div>
             <div class="month">{{currentMonth}}</div>
             <div class="year" style="">{{currentYear}}</div>
@@ -84,16 +99,13 @@
         <!-- <span>{{eventList}}</span> -->
   
       </div>
-  
+
       
-      
-       <!-- end calendar-container -->
   
-    </div> <!-- end container -->
-  
+    </div>
   </div>
   
-  </template>
+</template>
   
 <script>
   const weekday = ["月","火","水","木","金","土","日",]
@@ -139,13 +151,10 @@
         // console.log(`${this.currentYear}, ${this.currentMonth}, ${this.currentDate}`)
       },
 
-      getPreviousDay(date = new Date(), howMany) {
+      getPreviousDay(date = new Date()) {
         const previous = new Date(date.getTime());
         previous.setDate(date.getDate() - 1);
         // previous.setDate(date.getDate() - 2);
-
-        console.log(howMany)
-        console.log(previous)
 
         // console.log(String(previous.getDate()).padStart(2, '0')) 
 
@@ -157,10 +166,8 @@
         // console.log(date.getFullYear())
 
         const d = new Date(`${date.getMonth()+ 1} 1, ${date.getFullYear()} `);
-        console.log(d)
         this.dayOfTheWeek = d.getDay()
 
-        console.log(`day of the week ${this.dayOfTheWeek}`)
 
         if(this.dayOfTheWeek == 1){
           return 
@@ -189,7 +196,6 @@
         }
 
         if(this.dayOfTheWeek !== 0 ){
-          console.log('herr tight?')
           count = 1
           limit = this.dayOfTheWeek 
           
@@ -338,7 +344,7 @@
       const d = new Date(`${this.currentMonth} ${limit}, ${this.currentYear} `);
       let dayOfTheWeek = d.getDay()
 
-      console.log(dayOfTheWeek)
+      // console.log(dayOfTheWeek)
 
       if(dayOfTheWeek ==0){
         return 
@@ -381,124 +387,209 @@
   }
 </script>
   
-  <style>
+<style>
+  body{
+    background-color: lightgrey;
+  }
+
+  .bigger-container{
+    margin-top: 75px;
+    /* display: flex; */
+    width: 100vw;
+    /* background-color: green; */
+
+  }
+
+  .bigger-container div{
+    /* width: 50%; */
+
+    /* padding: 15px 50px; */
+  }
+
   
-    table {
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
-    
-    td {
-      /* padding: 10px; */
-      /* color: red  */
-    }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
   
-    .calendar-container {
-      margin: 50px auto;
-      width: 700px; 
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
+ 
+
+  .calendar-container {
+    width: 340px; 
+    display: block;
     
-    .calendar-container header {
-      border-radius: 1em 1em 0 0;
-      background: #e66b6b;
-      color: #fff;
-      padding: 2em 2em;
-      /* height: 20%; */
-      width: 100%;
-      /* display: flex; */
-      /* margin  */
-    }
-    .calendar-container header div{
-      display: flex;
-      width: 50%;
-      margin: auto auto;
-      /* text-align: center; */
-      
-    }
-      
-    
-    .month {
-      font-size: 4em;
-      font-weight: 900; 
-      line-height: 1em;
-      /* text-align: center; */
-      /* margin-left: -10px; */
-      /* margin-right: 20px; */
-    }
-    
-    .year {
-      font-size: 2em;
-      line-height: 1em;
-      text-transform: lowercase;
-      /* text-align: center; */
-      margin-top:70px;
-      /* float: right; */
-      /* display: inline-block; */
-    }
+    margin-left: auto;
+    margin-right: auto;
+  }
   
-    .calendar {
-      background: #fff;
-      border-radius: 0 0 1em 1em;
-      -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
-      box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
-      color: #555;
-      /* display: inline-block; */
-      /* padding: 2em; */
-      width: 100%;
-      padding: 20px 100px;
-      /* padding-bottom: 100px; */
-      /* padding-top: 20px; */
-      /* padding-bottom: 20px; */
-      /* padding-left: 20px; */
-  
-      margin: 0 auto;
-    }
-  
+  .calendar-container header {
+    border-radius: 1em 1em 0 0;
+    background: #e66b6b;
+    color: #fff;
+    padding: 20px 10px;
     
+    /* height: 20%; */
+    /* width: 100%; */
+    /* display: flex; */
+    /* margin  */
+  }
+
+  .calendar-container header div{
+    display: flex;
+    width: 100%;
+    margin-right:  auto;
+    margin-left:  auto;
+    /* text-align: center; */
     
-    .calendar thead {
-      color: #e66b6b;
-      font-weight: 700;
-      text-transform: uppercase;
-      /* margin-top: 100px; */
-      padding-top: 100px;
-  
-      width: 100%;
-    }
-  
-    .calendar tr{
-      width: 90%;
-      /* background-color: blue; */
-    }
-    
-    .calendar td {
-      /* padding: 10px 1em;  */
-      padding: 20px 30px; 
-      margin-right: 100px; 
-      text-align: center;
-      font-size: 25px;
-      /* width:100%; */
-    
-    }
-    .circle{
-        /* border-radius: 50%;
-        width: auto;
-        height: auto; 
-        background-color: yellow; */
-    }
-    
-    .current-day {
-      color: #e66b6b;
-    }
-    
-    .prev-month,
-    .next-month {
-      color: #b8aeae;
-    }
+  }
+
+  .calendar-container header div div{
+    width: 50%;
+    text-align: center;
+    margin-left: 25px;
+  }
     
   
+  .calendar-container .month {
+    font-size: 75px;
+    font-weight: 900; 
+    line-height: 1em;
+    /* text-align: center; */
+    /* margin-left: -10px; */
+    /* margin-right: 20px; */
+  }
   
-  </style>
+  .year {
+    font-size: 40px;
+    line-height: 1em;
+    text-transform: lowercase;
+    /* text-align: center; */
+    margin-top:27.5px;
+    /* float: right; */
+    /* display: inline-block; */
+  }
+
+
+  .calendar {
+    background: #fff;
+    border-radius: 0 0 1em 1em;
+    -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px lightgrey;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px lightgray;
+    color: #555;
+    display: inline-block;
+    /* padding: 2em; */
+    width: 340px;
+    /* padding: 5px; */
+    padding: 10px 5px;
+  }
+
+  .caalendar tbody{
+    width: 95%;
+  }
+  
+  .calendar thead {
+    color: #e66b6b;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* margin-top: 100px; */
+    padding-top: 100px;
+
+    /* width: 100%; */
+  }
+
+  .calendar tr{
+    display:block;
+    /* padding-right: 30px;
+    padding-left: 30px; */
+
+    /* width: 300px; */
+    /* max-width: 300px; */
+    /* min-width: 300px; */
+    /* background-color: blue; */
+    margin-right: 20px;
+    margin-left: 20px; 
+  }
+  
+  .calendar td {
+    /* padding: 10px 1em;  */
+    padding: 3px 2px; 
+    /* margin-right: 100px;  */
+    text-align: center;
+    /* font-size: 5px; */
+    font-size: 18.5px;
+    width:75px;
+  
+  }
+  
+  
+  .current-day {
+    color: #e66b6b;
+  }
+  
+  .prev-month,
+  .next-month {
+    color: #b8aeae;
+  }
+
+  /* ------------------------------------------------- */
+  .weekly-calendar {
+    /* display: inline-block; */
+    width: 800px; 
+    margin: 30px auto;
+    /* width: 70%;  */
+    /* background-color: green; */
+  }
+
+  
+  .weekly-calendar div{
+    /* margin: 50px auto; */
+    width: 750px; 
+    /* display: inline-block; */
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: green; */
+  }
+
+  
+  .weekly-calendar header {
+    border-radius: 1em 1em 0 0;
+    background: SteelBlue;
+    color: #fff;
+    padding: 1em 1em;
+    
+    /* height: 20%; */
+    width: 100%;
+    /* display: flex; 
+    */
+    /* margin  */
+    /* font-size: 10px; */
+  }
+
+
+  .weekly-calendar header span{
+    font-size: 50px;
+  }
+
+  .weekly-contents{
+    background: #fff;
+    border-radius: 0 0 1em 1em;
+    -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+    color: #555;
+    /* display: inline-block; */
+    /* padding: 2em; */
+    /* width: 100%; */
+    padding: 20px 100px;
+    /* padding-bottom: 100px; */
+    /* padding-top: 20px; */
+    /* padding-bottom: 20px; */
+    /* padding-left: 20px; */
+
+    margin: 0 auto;
+  }
+
+  
+
+
+</style>
