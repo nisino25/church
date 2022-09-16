@@ -210,7 +210,7 @@
         let limit =  this.daysInMonth(this.currentMonth,this.currentYear)
 
         // put the days from previous month 
-        let d = new Date(`${this.currentMonth} 1, ${this.currentYear}`);
+        let d = new Date(`${this.currentYear}-${this.currentMonth}-1,00:00:00 `);
         let day = d.getDay();
         this.firstDayOfTheWeek = d
 
@@ -228,7 +228,7 @@
         
         // adding the data for the next month
 
-        d = new Date(`${this.currentMonth} ${limit}, ${this.currentYear}`);
+        d = new Date(`${this.currentYear}-${this.currentMonth}-${limit},00:00:00 `);
         day = d.getDay();
         this.lastDayOfTheWeek = d.getDay()
 
