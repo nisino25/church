@@ -151,8 +151,8 @@
 
       </div>
 
-      {{previous}} <br>
-      {{next}}
+      {{firstDayOfTheWeek}} <br>
+      {{lastDayOfTheWeek}}
 
       
   
@@ -177,6 +177,9 @@
         showingCalendar: undefined,
         previous: [],
         next: [],
+
+        firstDayOfTheWeek: undefined,
+        lastDayOfTheWeek: undefined,
 
         query: undefined,
 
@@ -207,6 +210,7 @@
         // put the days from previous month 
         let d = new Date(`${this.currentMonth} 1, ${this.currentYear}`);
         let day = d.getDay();
+        this.firstDayOfTheWeek = d.getDay()
 
         let count = 0
 
@@ -224,6 +228,7 @@
 
         d = new Date(`${this.currentMonth} ${limit}, ${this.currentYear}`);
         day = d.getDay();
+        this.lastDayOfTheWeek = d.getDay()
 
         count = 0
 
