@@ -135,7 +135,7 @@
 
         <div id="calendar_content">
           <template v-for="(date, i) in previous" :key="i" >
-            <div class="blank" s></div>
+            <div class="blank"><span v-if="date==10000">date</span></div>
           </template>
 
           <template v-for="(date, i) in showingCalendar" :key="i" >
@@ -146,11 +146,13 @@
 
           <template v-for="(date, i) in next" :key="i" >
             <div class="blank" ></div>
-          
           </template>
         </div>
 
       </div>
+
+      {{previous}} <br>
+      {{next}}
 
       
   
@@ -198,6 +200,54 @@
         
 
         this.getCurrentCalendar(this.currentYear,this.currentMonth)
+
+
+        let limit =  this.daysInMonth(this.currentMonth,this.currentYear)
+
+        // put the days from previous month 
+        let d = new Date(`${this.currentMonth} 1, ${this.currentYear}`);
+        let day = d.getDay();
+
+        let count = 0
+
+        if(day == 6){
+          this.previous = []
+        }else{
+          day-- 
+          while(count < day){
+            this.previous.push(count)
+            count++ 
+          }
+        }
+        
+        // adding the data for the next month
+
+        d = new Date(`${this.currentMonth} ${limit}, ${this.currentYear}`);
+        day = d.getDay();
+
+        count = 0
+
+        if(day == 0){
+          this.next = []
+        }else{
+          day = 7-day
+          while(count < day){
+            this.next.push(count)
+            count++ 
+          }
+        }
+
+        // put the days from current month
+        limit =  this.daysInMonth(this.currentMonth,this.currentYear)
+        count =  1
+
+        while(count < limit+ 1){
+          this.showingCalendar.push(count)
+          count++ 
+        }
+
+        
+
 
         
         // this.currentDate =
@@ -385,55 +435,14 @@
 
 
 
-      // put the days from previous month 
-      let d = new Date(`${this.currentMonth} 1, ${this.currentYear}`);
-      let day = d.getDay();
-
-      let count = 0
-
-      if(day == 6){
-        this.previous = []
-      }else{
-        day-- 
-        while(count < day){
-          this.previous.push(count)
-          count++ 
-        }
-      }
+      
       // this.query = `2022-${this.currentMonth}-01
       
 
       // this.getPreviousDay(new Date(`2022-${this.currentMonth}-01`))
 
-      // put the days from current month
-      let limit =  this.daysInMonth(this.currentMonth,this.currentYear)
-      count =  1
-
-      while(count < limit+ 1){
-        this.showingCalendar.push(count)
-        count++ 
-      }
-
-      // adding the data for the next month
-
-      // const date = new Date(this.cuurrentYear, this.currentMonth, limit);
-      // const date = new Date(2022, 9, 30);
-      d = new Date(`${this.currentMonth} ${limit}, ${this.currentYear}`);
-      day = d.getDay();
-      // let day = date.getDay()
-      // console.log(day)
-
-      count = 0
-
-      if(day == 0){
-        this.next = []
-      }else{
-        day = 7-day
-        while(count < day){
-          this.next.push(count)
-          count++ 
-        }
-      }
+      
+      
 
       
 
