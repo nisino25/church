@@ -150,9 +150,10 @@
         </div>
 
       </div>
+      message: {{message}} <br>
 
       {{firstDayOfTheWeek}} <br>
-      {{lastDayOfTheWeek}}
+      {{lastDayOfTheWeekm}}
 
       
   
@@ -180,6 +181,7 @@
 
         firstDayOfTheWeek: undefined,
         lastDayOfTheWeek: undefined,
+        message: undefined,
 
         query: undefined,
 
@@ -210,7 +212,7 @@
         // put the days from previous month 
         let d = new Date(`${this.currentMonth} 1, ${this.currentYear}`);
         let day = d.getDay();
-        this.firstDayOfTheWeek = d.getDay()
+        this.firstDayOfTheWeek = d
 
         let count = 0
 
