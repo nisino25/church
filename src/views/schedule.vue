@@ -5,7 +5,7 @@
       <div class="weekly-calendar">
         <div>
           <header>
-            <div>
+            <div style="text-align:center">
               <span>{{currentYear}}年{{currentMonth}}月の予定</span>
               <!-- <div class="year" style="">{{currentYear}}</div> -->
             </div>
@@ -13,7 +13,16 @@
 
           <div class="weekly-contents">
             <template v-for="(event, i) in events" :key="i">
-              <span>{{event.date}}日（{{event.day}}） {{event.title}}</span><br>
+              <div class="calendar_plan">
+                <div class="cl_plan">
+                  <div class="cl_title">{{event.month}}/{{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp;&nbsp;<br v-if="vw < 600"> @{{event.location}}</div>
+                  <div class="cl_copy" v-if="event.title == '主日礼拝'">
+                    <strong style="font-size: 125%">{{event.title}}  </strong> 
+                    <br v-if="vw < 600">
+                    <span >説教者: {{event.priest}}</span>  </div>
+                  <div class="cl_copy" v-else>{{event.title}}</div>
+                </div>
+              </div>
               
             </template>
           </div>
@@ -96,6 +105,11 @@
       
         </table>
 
+        <template v-for="(day, i) in showingCallendar" :key="i">
+          <span>{{day}},</span>
+          <br v-if="day % 5  == 0">
+        </template>
+
         <!-- <span>{{eventList}}</span> -->
   
       </div>
@@ -127,6 +141,8 @@
         weekday,
 
         events: undefined,
+
+        vw: undefined,
       }
     },
 
@@ -384,6 +400,10 @@
       },
 
     },
+
+    created(){
+      this.vw = document.documentElement.clientWidth 
+    },
   }
 </script>
   
@@ -421,6 +441,8 @@
     
     margin-left: auto;
     margin-right: auto;
+
+    /* transform: scale(1.2); */
   }
   
   .calendar-container header {
@@ -535,7 +557,7 @@
   /* ------------------------------------------------- */
   .weekly-calendar {
     /* display: inline-block; */
-    width: 800px; 
+    width: 700px; 
     margin: 30px auto;
     /* width: 70%;  */
     /* background-color: green; */
@@ -544,7 +566,7 @@
   
   .weekly-calendar div{
     /* margin: 50px auto; */
-    width: 750px; 
+    /* width: 750px;  */
     /* display: inline-block; */
     margin-left: auto;
     margin-right: auto;
@@ -580,7 +602,7 @@
     /* display: inline-block; */
     /* padding: 2em; */
     /* width: 100%; */
-    padding: 20px 100px;
+    padding: 10px 50px;
     /* padding-bottom: 100px; */
     /* padding-top: 20px; */
     /* padding-bottom: 20px; */
@@ -588,6 +610,59 @@
 
     margin: 0 auto;
   }
+
+  .calendar_plan{
+    margin:20px;
+  }
+  .cl_plan{
+    /* width:70%; */
+    /* height: 140px; */
+    background-image: linear-gradient(-222deg, LightSeaGreen, MediumSeaGreen);
+    box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.75);
+    padding:12.5px 20px;
+    color:#fff;
+  }
+  .cl_title{
+    font-size:20px;
+  }
+  .cl_copy{
+    font-size:25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .weekly-contents span{
+      /* font-size: 80%; */
+      margin-left: 20px;
+    }
+
+  @media (min-width:320px) and (max-width:800px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .weekly-calendar {
+      width: 330px; 
+    }
+
+    .weekly-calendar header span{
+      font-size: 30px;
+    }
+
+    .weekly-contents span{
+      font-size: 80%;
+      margin-left: 0px;
+    }
+
+    .weekly-contents{
+      padding: 10px 30px;
+
+      margin: 0 auto;
+    }
+
+
+  
+
+
+  }
+
 
   
 
