@@ -29,7 +29,6 @@
   </div>
 </template>
 
-
 <script>
   // const currentIndex =this.$route.params.index
   import db from '../../firebase.js';
@@ -141,6 +140,11 @@
       console.clear()
       console.log('oh hey')
       this.getTheHistory()
+
+      this.getCalendar()
+      // first get month and year from the url links
+      // add only the dates from the current month
+      // thats it
 
       // let index = this.$route.params.index;
       // index = parseInt(index)

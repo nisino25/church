@@ -54,29 +54,30 @@
 
 <script>
   import firebase from 'firebase/compat/app';
+  
 
-export default {
-  data(){
-    return{
-      email: '',
-      password: '',
-    }
-  },
-
-  methods:{
-    login() {
-      firebase
-          .auth()
-          .signInWithEmailAndPassword(this.email, this.password)
-          .then(() => {
-              alert('Successfully logged in');
-              this.$router.push('/');
-          })
-          .catch(error => {
-              alert(error.message);
-          });
+  export default {
+    data(){
+      return{
+        email: '',
+        password: '',
+      }
     },
-  }
+
+    methods:{
+      login() {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(this.email, this.password)
+            .then(() => {
+                alert('Successfully logged in');
+                this.$router.push('/');
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+      },
+    }
 };
 </script>
 
