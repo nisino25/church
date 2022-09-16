@@ -150,7 +150,7 @@
         </div>
 
       </div>
-      message: {{message}} <br>
+      changed: {{message}} <br>
 
       {{firstDayOfTheWeek}} <br>
       {{lastDayOfTheWeekm}}
@@ -210,7 +210,7 @@
         let limit =  this.daysInMonth(this.currentMonth,this.currentYear)
 
         // put the days from previous month 
-        let d = new Date(`${this.currentYear}-${this.currentMonth}-1,00:00:00 `);
+        let d = new Date(`${this.currentYear}/${this.currentMonth}/1`);
         let day = d.getDay();
         this.firstDayOfTheWeek = d
 
@@ -228,9 +228,9 @@
         
         // adding the data for the next month
 
-        d = new Date(`${this.currentYear}-${this.currentMonth}-${limit},00:00:00 `);
+        d = new Date(`${this.currentYear}/${this.currentMonth}/${limit}`);
         day = d.getDay();
-        this.lastDayOfTheWeek = d.getDay()
+        this.lastDayOfTheWeek = d
 
         count = 0
 
