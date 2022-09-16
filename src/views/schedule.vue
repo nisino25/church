@@ -15,11 +15,11 @@
             <template v-for="(event, i) in events" :key="i">
               <div class="calendar_plan">
                 <div class="cl_plan">
-                  <div class="cl_title">{{event.month}}/{{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp;&nbsp;<br v-if="vw < 600"> @{{event.location}}</div>
+                  <div class="cl_title">{{event.month}}/{{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp; @{{event.location}}</div>
                   <div class="cl_copy" v-if="event.title == '主日礼拝'">
-                    <strong style="font-size: 125%">{{event.title}}  </strong> 
-                    <br v-if="vw < 600">
-                    <span >説教者: {{event.priest}}</span>  </div>
+                    <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
+                    <!-- <br v-if="vw < 600"> -->
+                    <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  </div>
                   <div class="cl_copy" v-else>{{event.title}}</div>
                 </div>
               </div>
@@ -639,7 +639,7 @@
 
   @media (min-width:320px) and (max-width:800px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
     .weekly-calendar {
-      width: 330px; 
+      width: 345px; 
     }
 
     .weekly-calendar header span{
@@ -647,14 +647,27 @@
     }
 
     .weekly-contents span{
-      font-size: 80%;
       margin-left: 0px;
     }
 
+    .cl_title{
+      font-size: 15.5px;
+    }
+
+
     .weekly-contents{
-      padding: 10px 30px;
+      padding: 10px 20px;
 
       margin: 0 auto;
+      
+    }
+
+    .cl_copy strong{
+      font-size: 20px
+    }
+
+    .cl_copy span{
+      font-size: 18px
     }
 
 
