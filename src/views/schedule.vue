@@ -7,8 +7,8 @@
         <div>
           <header>
             <div style="text-align:center">
-              <span>{{currentYear}}年{{currentMonth}}月の予定</span>
-              <!-- <div class="year" style="">{{currentYear}}</div> -->
+              <span>{{showingYear}}年{{showingMonth}}月の予定</span>
+              <!-- <div class="year" style="">{{showingYear}}</div> -->
             </div>
           </header>
 
@@ -37,8 +37,8 @@
             
         <header>
           <div>
-            <div class="month">{{currentMonth}}</div>
-            <div class="year" style="">{{currentYear}}</div>
+            <div class="month">{{showingMonth}}</div>
+            <div class="year" style="">{{showingYear}}</div>
           </div>
   
   
@@ -120,7 +120,7 @@
         <div id="calendar_header" style="background-color: rgb(46, 204, 113); height: 68.5714px;">
 
           <i class="icon-chevron-left" >&#8592;</i>          
-          <h1>{{currentYear}}年{{currentMonth}}月</h1>
+          <h1>{{showingYear}}年{{showingMonth}}月</h1>
           <i class="icon-chevron-right">&#8594;</i> 
 
         </div>
@@ -140,7 +140,7 @@
 
           <template v-for="(date, i) in showingCalendar" :key="i" >
 
-            <div >{{date}}</div>
+            <div :style="getStyle(date)">{{date}}</div>
 
           </template>
 
@@ -150,10 +150,10 @@
         </div>
 
       </div>
-      changed: {{message}} <br>
+      <!-- changed: {{message}} <br>
 
       {{firstDayOfTheWeek}} <br>
-      {{lastDayOfTheWeekm}}
+      {{lastDayOfTheWeekm}} -->
 
       
   
@@ -170,8 +170,8 @@
       return {
         currentDay: undefined,
         currentDate: undefined,
-        currentMonth: undefined,
-        currentYear: undefined,
+        showingMonth: undefined,
+        showingYear: undefined,
 
         dayOfTheWeek: undefined,
 
@@ -199,18 +199,22 @@
         var today = new Date();
 
         // this.currentDate = String(today.getDate()).padStart(2, '0');
+        this.currentDate = today.getDate()
+        this.showingMonth = String(today.getMonth() + 1).padStart(2, '0'); 
         this.currentMonth = String(today.getMonth() + 1).padStart(2, '0'); 
+
+        this.showingYear = today.getFullYear();
         this.currentYear = today.getFullYear();
 
         
 
-        this.getCurrentCalendar(this.currentYear,this.currentMonth)
+        this.getCurrentCalendar(this.showingYear,this.showingMonth)
 
 
-        let limit =  this.daysInMonth(this.currentMonth,this.currentYear)
+        let limit =  this.daysInMonth(this.showingMonth,this.showingYear)
 
         // put the days from previous month 
-        let d = new Date(`${this.currentYear}/${this.currentMonth}/1`);
+        let d = new Date(`${this.showingYear}/${this.showingMonth}/1`);
         let day = d.getDay();
         this.firstDayOfTheWeek = d
 
@@ -228,7 +232,7 @@
         
         // adding the data for the next month
 
-        d = new Date(`${this.currentYear}/${this.currentMonth}/${limit}`);
+        d = new Date(`${this.showingYear}/${this.showingMonth}/${limit}`);
         day = d.getDay();
         this.lastDayOfTheWeek = d
 
@@ -245,7 +249,7 @@
         }
 
         // put the days from current month
-        limit =  this.daysInMonth(this.currentMonth,this.currentYear)
+        limit =  this.daysInMonth(this.showingMonth,this.showingYear)
         count =  1
 
         while(count < limit+ 1){
@@ -261,7 +265,7 @@
 
 
 
-        // console.log(`${this.currentYear}, ${this.currentMonth}, ${this.currentDate}`)
+        // console.log(`${this.showingYear}, ${this.showingMonth}, ${this.currentDate}`)
       },
 
       getPreviousDay(date = new Date()) {
@@ -353,10 +357,10 @@
         // month = parseInt(month)
 
 
-        if(this.currentYear !== today.getFullYear()) return
+        if(this.showingYear !== today.getFullYear()) return
 
         
-        if(this.currentMonth !== month) return 
+        if(this.showingMonth !== month) return 
 
         if(today.getDate() !== day) return
 
@@ -368,7 +372,7 @@
         
         docRef.get().then((doc) => {
             if (doc.exists) {
-              this.events =doc.data()[parseInt(this.currentMonth)]
+              this.events =doc.data()[parseInt(this.showingMonth)]
               // console.log(this.events)
               // this.historyArticles = JSON.parse(doc.data().data)
               // this.getViews()
@@ -415,7 +419,34 @@
           ],
 
         })
-      }
+      },
+
+      getStyle(date){
+        let style =''
+
+        for(let i in this.events){
+          
+          if(this.events[i].date == date){
+            style = 'color: crimson; '
+          }
+        }
+
+        // return flag
+        
+
+        // style = style+ 'color: crimson; '
+
+
+        if((this.showingMonth == this.currentMonth) && (this.showingYear == this.currentYear)){
+          if(date == this.currentDate){
+
+            style = style +'background-color: SkyBlue; '
+          } 
+        } 
+
+        return style
+        
+      },
 
 
       
@@ -443,10 +474,10 @@
 
 
       
-      // this.query = `2022-${this.currentMonth}-01
+      // this.query = `2022-${this.showingMonth}-01
       
 
-      // this.getPreviousDay(new Date(`2022-${this.currentMonth}-01`))
+      // this.getPreviousDay(new Date(`2022-${this.showingMonth}-01`))
 
       
       
