@@ -1,7 +1,7 @@
 <template>
   
   <div>
-    <div class="bigger-container" v-if="eventList">
+    <div class="bigger-container" v-if="events">
 
       <div class="weekly-calendar" >
         <div>
@@ -314,11 +314,16 @@
               // this.historyArticles = JSON.parse(doc.data().data)
               // this.getViews()
             } else {
+              this.events= []
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }).catch((error) => {
+          
+            
+            // this.eventList = []
             console.log("Error getting document:", error);
+            this.events= []
         });
       },
 
@@ -400,7 +405,7 @@
         console.log(`${this.showingYear}/${this.showingMonth}/1`);
         let d = new Date(`${this.showingYear}/${this.showingMonth}/1`);
         let day = d.getDay();
-        this.firstDayOfTheWeek = d
+        // this.firstDayOfTheWeek = d
         console.log(day)
 
         let count = 0

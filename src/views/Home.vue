@@ -322,6 +322,7 @@ export default {
           } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
+              this.events= []
           }
       }).catch((error) => {
           console.log("Error getting document:", error);
