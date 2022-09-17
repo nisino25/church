@@ -860,8 +860,31 @@
     font-family: 'Lato', sans-serif;
 
     margin-top: 100px;
-    margin-bottom:800px;
+    margin-bottom:550px;
     display: block;
+  }
+
+  #calendar_weekdays div{
+    width: calc(100% / 7);
+    height: calc(340px / 7); 
+    line-height: calc(340px / 7); 
+    /* height: calc(335px / 7); */
+    /* line-height: calc(335px / 7); */
+    overflow: hidden;
+    text-align: center;
+    background-color: #FFFFFF;
+    /* color: rgb(46, 204, 113); */
+    font-size: 20px;
+  }
+
+  
+
+  #calendar_content div{
+    float: left;
+    width:  calc(100% / 7); 
+    height: calc(340px / 7); 
+    line-height:  calc(340px / 7);
+    font-size: 25px;
   }
     
 
