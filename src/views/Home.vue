@@ -75,6 +75,54 @@
         </div> 
       </div>
 
+      <div class="content-wrapper events">
+
+        <div class="weekly-calendar " v-if="events">
+          <div>
+            <header>
+              <div style="text-align:center">
+                <i class="icon-chevron-left" @click="toPreviousMonth() ">&#8592;</i>  
+                <h1>{{showingYear}}年{{showingMonth}}月の予定</h1>
+                <i class="icon-chevron-right" @click="toNextMonth()">&#8594;</i> 
+                <!-- <div class="year" style="">{{showingYear}}</div> -->
+              </div>
+            </header>
+
+            <div class="weekly-contents" v-if="this.events?.length > 0">
+              <template v-for="(event, i) in events" :key="i">
+                <div class="calendar_plan">
+                  <div class="cl_plan">
+                    <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp; @{{event.location}}</div>
+                    <div class="cl_copy" v-if="event.title == '主日礼拝'">
+                      <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
+                      <!-- <br v-if="vw < 600"> -->
+                      <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  </div>
+                    <div class="cl_copy" v-else>{{event.title}}</div>
+                  </div>
+                </div>
+                
+              </template>
+            </div>
+
+            <div class="weekly-contents" v-else>
+              <div class="calendar_plan">
+                  <div class="cl_plan">現在この月の予定はありません。
+                    <div class="cl_title"></div>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+        <div v-else class="loader"></div>
+      </div>
+
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper corona"> 
@@ -174,6 +222,12 @@ export default {
       modalStatus: 1,
       totalVisitors: undefined,
       // googleMapApiKey,  
+
+      // ------------------
+      showingCalendar: undefined,
+      previous: [],
+      next: [],
+      events: undefined,
       
 
 
@@ -248,6 +302,55 @@ export default {
             console.log("Error getting document:", error);
         });
     },
+
+    getEvents(){
+      this.events = undefined
+      var docRef = db.collection('events').doc(`${this.showingYear}`);
+      
+      
+      docRef.get().then((doc) => {
+          if (doc.exists) {
+            
+            this.events =doc.data()[parseInt(this.showingMonth)]
+            if(!this.events) {
+              this.events= []
+            }
+            console.log(this.events)
+            // console.log(this.events)
+            // this.historyArticles = JSON.parse(doc.data().data)
+            // this.getViews()
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      }).catch((error) => {
+          console.log("Error getting document:", error);
+      });
+    },
+
+    toNextMonth(){
+        if(this.showingMonth == 12){
+          this.showingMonth = 1
+          this.showingYear++
+        }else{
+          this.showingMonth++
+        }
+
+        this.getEvents()
+        
+      },
+
+      toPreviousMonth(){
+        if(this.showingMonth == 1){
+          this.showingMonth = 12
+          this.showingYear--
+        }else{
+          this.showingMonth--
+        }
+
+        this.getEvents()
+        
+      },
   },
   
 
@@ -292,6 +395,18 @@ export default {
 
   created(){
     this.incrementTotalViews()
+
+    var today = new Date();
+
+    // this.currentDate = String(today.getDate()).padStart(2, '0');
+    this.currentDate = today.getDate()
+    this.showingMonth = String(today.getMonth() + 1).padStart(2, '0'); 
+    this.currentMonth = String(today.getMonth() + 1).padStart(2, '0'); 
+
+    this.showingYear = today.getFullYear();
+    this.currentYear = today.getFullYear();
+
+    this.getEvents()
   },
 
 
@@ -756,6 +871,179 @@ img.bg {
   }
 }
 
-/* --------------------------------------------- */
+/* ------------------------------------------------- */
+.events{
+  margin-top: 100px;
+  margin-bottom: 150px;
+  background-color: lightgray;
+  padding: 30px;
+}
+.weekly-calendar {
+    /* display: inline-block; */
+    width: 700px; 
+    margin: 30px auto;
+    /* width: 70%;  */
+    /* background-color: green; */
+  }
 
+  
+  .weekly-calendar div{
+    /* margin: 50px auto; */
+    /* width: 750px;  */
+    /* display: inline-block; */
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: lightgrey; */
+  }
+
+  
+  /* .weekly-calendar header {
+    border-radius: 1em 1em 0 0;
+    background: SteelBlue;
+    color: #fff;
+    padding: 1em 1em;
+    
+    width: 100%;
+  }
+
+
+  .weekly-calendar header span{
+    font-size: 50px;
+  } */
+
+  .weekly-calendar header{
+    width: 100%;
+    /* height: 37px; */
+    text-align: center;
+    background-color:SteelBlue;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    -webkit-border-radius: 12px 12px 0px 0px;
+    -moz-border-radius: 12px 12px 0px 0px; 
+    border-radius: 12px 12px 0px 0px;
+  }
+  .weekly-calendar header h1{
+    font-size: 1.5em;
+    color: #FFFFFF;
+    float:left;
+    width:60%;
+    
+  }
+  .weekly-calendar header i[class^=icon-chevron]{
+    color: #FFFFFF;
+    float: left;
+    width:20%;
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+
+  .weekly-contents{
+    background: #fff;
+    border-radius: 0 0 1em 1em;
+    -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+    color: #555;
+    /* display: inline-block; */
+    /* padding: 2em; */
+    /* width: 100%; */
+    padding: 10px 50px;
+    /* padding-bottom: 100px; */
+    /* padding-top: 20px; */
+    /* padding-bottom: 20px; */
+    /* padding-left: 20px; */
+
+    margin: 0 auto;
+  }
+
+  .calendar_plan{
+    margin:20px;
+  }
+  .cl_plan{
+    /* width:70%; */
+    /* height: 140px; */
+    background-image: linear-gradient(-222deg, LightSeaGreen, MediumSeaGreen);
+    box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.75);
+    padding:12.5px 20px;
+    color:#fff;
+  }
+  .cl_title{
+    font-size:20px;
+  }
+  .cl_copy{
+    font-size:25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .weekly-contents span{
+      /* font-size: 80%; */
+      margin-left: 20px;
+    }
+
+  @media (min-width:320px) and (max-width:800px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .weekly-calendar {
+      width: 345px; 
+    }
+
+    .weekly-calendar header span{
+      font-size: 30px;
+    }
+
+    .weekly-contents span{
+      margin-left: 0px;
+    }
+
+    .cl_title{
+      font-size: 15px;
+    }
+
+
+    .weekly-contents{
+      padding: 10px 20px;
+
+      margin: 0 auto;
+      
+    }
+
+    .cl_copy strong{
+      font-size: 20px
+    }
+
+    .cl_copy span{
+      font-size: 18px
+    }
+
+
+  
+
+
+  }
+
+/* --------------------------------------------- */
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 160px;
+    height: 160px;
+
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+
+    margin: 200px auto;
+
+    
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
