@@ -17,7 +17,7 @@
     <input type="text" placeholder="内容" v-model="tempContent">
   </div>
 
-  <div class="content">
+  <div class="content" v-if="historyArticles">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -57,6 +57,8 @@
     
   </div>
 
+  <div class="loader" v-else></div>
+
   <!-- <hr> -->
   <!-- <div style="width: 80%; margin: auto auto">
     <small style="font-size: 10%; margin: 50px">
@@ -75,7 +77,7 @@
       return{
         detailData: '',
 
-        historyArticles: [],
+        historyArticles: undefined,
         tempString: '',
 
         tempTitle: '',
@@ -328,6 +330,33 @@
       justify-content: center;
       
     }
+  }
+
+  /* -------------------------- */
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 160px;
+    height: 160px;
+
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+
+    margin: 200px auto;
+
+    
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   
 </style>
