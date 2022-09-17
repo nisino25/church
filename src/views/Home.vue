@@ -75,7 +75,7 @@
         </div> 
       </div>
 
-      <div class="content-wrapper events">
+      <div class="events">
 
         <div class="weekly-calendar " v-if="events">
           <div>
@@ -876,7 +876,8 @@ img.bg {
   margin-top: 100px;
   margin-bottom: 150px;
   background-color: lightgray;
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 .weekly-calendar {
     /* display: inline-block; */
