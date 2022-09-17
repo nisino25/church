@@ -89,7 +89,7 @@
             </header>
 
             <div class="weekly-contents" v-if="this.events?.length > 0">
-              <template v-for="(event, i) in events" :key="i">
+              <template v-for="(event, i) in events" :key="i"> 
                 <div class="calendar_plan">
                   <div class="cl_plan">
                     <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp; @{{event.location}}</div>
