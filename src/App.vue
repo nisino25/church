@@ -14,6 +14,8 @@
             <a href="/schedule">行事予定</a>
             <a href="/about-fukada">故深田牧師の部屋</a>
             <a href="/about-dendosho">間之町伝道所</a>
+            <a v-if="updateTime">最終更新：{{updateTime}}</a>
+
 
             <a  class="icon"  @click="showingMenu = !showingMenu; navStyle='background-color: #004658; color: white;'">
               <i class="fa fa-bars"></i>
@@ -62,7 +64,7 @@
           <div class="footer-copyright">
             <div class="footer-copyright-wrapper">
               <p class="footer-copyright-text"> 
-                <a class="footer-copyright-link" href="#" target="_self"> ©2022. | Designed By: Nozomu Ando. | All rights reserved. </a>
+                <a class="footer-copyright-link" > ©2022. | Designed By: Nozomu Ando. | All <span @click="lastUpdate()">rights</span>  reserved. </a>
               </p>
             </div>
           </div>
@@ -79,9 +81,7 @@
 </template>
 
 <script>
-
-
-
+  import db from '../firebase.js';
 
 export default {
   
@@ -97,7 +97,9 @@ export default {
       vw: undefined,
 
       totalViews: undefined,
+      updateTime: undefined,
       
+
 
     }
   },
@@ -134,6 +136,45 @@ export default {
       this.showModal = true
     },
 
+    lastUpdate(){
+      let r= confirm(`Are you ready to update the latest time?`);
+      if(r){
+        console.log('hey')
+        // this.movingRobber = false;
+        const ref = db.collection('analytics')
+        ref.doc(`update`).set({
+          data: Date.now()
+        })
+        return;
+      }
+    },
+
+    getLastUpdate(){
+      var docRef = db.collection('analytics').doc(`update`);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data().data)
+          this.updateTime = doc.data().data
+          // console.log(typeof this.updateTime)
+          
+          var a = new Date(this.updateTime );
+          // var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          var year = a.getFullYear();
+          var month = a.getMonth() + 1;
+          var date = a.getDate();
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          this.updateTime = `${year}年${month}月${date}日 ${hour}時${min}分`;
+
+
+        } else {
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    },
+
     
 
     
@@ -151,6 +192,10 @@ export default {
     window.addEventListener('scroll', this.handleScroll);
     this.vw = document.documentElement.clientWidth 
     console.log(this.vw)
+
+    this.getLastUpdate()
+
+
 
     // this.incrementTotalViews()
   }
