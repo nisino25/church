@@ -975,6 +975,10 @@
     100% { transform: rotate(360deg); }
   }
 
+  .footer-wave-path{
+    fill:lightgrey;
+  }
+
 
   
 
