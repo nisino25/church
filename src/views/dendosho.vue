@@ -1,25 +1,46 @@
 <template>
   <div class="content">
-    <h1>間之町（あいのまち）伝道所</h1><br><br>
+    <h1>あいのまち伝道所</h1><br><br>
     <br>
 
     <p style="font-size: 150%">
-      間之町伝道所は、上賀茂教会を母体として発足した京都市中心部に位置する伝道所です。
+      あいのまち伝道所は、上賀茂教会を母体として発足した京都市中心部に位置する伝道所です。
       礼拝は毎週午前11時から行われていますが、不定期なこともありますので、初めて来られる方は事前にご照会ください。
 
 
     </p>
     <hr>
 
+    <div style="margin-top:50px; margin-bottom: 50px">
+      <!-- <template v-for="(person, i) in profiles" :key="i"> -->
+        <!-- <div v-if="person.location == 'あいのまち伝道所'"> -->
+        <div>
+          <strong style="font-size: 200%">牧師： 張 悦子（チャン ヨルチャ）</strong><br><br>
+          <p>
+            1944年生 香川県多度津教会へ小学校3年生ごろまで通う <br>  <br> 
+            1965年 在日大韓基督教会 京都教会へ通う <br> <br> 
+            1968年 京都教会に於いておだ織田ます酋じ次（チョン田ヨンボク永福）牧師より受洗<br>  <br> 
+            1980年－1988年「韓国歌曲の夕べ」実行委員、その他韓国文化の紹介 世界的バイオリニスト、チョン鄭ギョンファ京和の公演を支援 <br> <br> 
+            1985年～ 指紋押捺および外国人差別撤廃運動に関わる 在日大韓基督教会 全国女性会の「証し集」を編集 在日大韓基督教会 京都南部教会の「証し集」を編集「まめもやし」（元東九条キリスト者活動協議会）の委員として活動を支援 <br> <br> 
+            1998年 京都上賀茂教会へ転籍 <br> <br> 
+            2008年 京都上賀茂教会の担任牧師となる<br> <br> 
+            2010年1月より あいのまち集会の開拓伝道を始め、現在に至る <br><br>  
+            学歴：同志社大学大学院 神学研究科卒業（組織神学専攻、神学修士） <br> <br> 
+            趣味：韓国茶道、ステンドグラス製作
+          </p>
+        </div>
+      <!-- </template> -->
+    </div>
+    <hr>
+
     <span style="font-size: 125%">
-      京都市中京区間之町通二条下る鍵屋町486 あいのまちハウス５Ｆ<br>
+      京都市中京区あいのまち通二条下る鍵屋町486 あいのまちハウス５Ｆ<br>
       TEL: 075-712-2521 <br>
       毎週日曜日（不定期）午前11時～
     </span><br> <br>
 
     <div class="pics">
       <img src="../../public/img/ainomachi1.jpg" alt="" class="pic1">
-      <img src="../../public/img/ainomachi2.jpg" alt="" class="pic2"><br>
     </div>
 
     <div class="" style="width: 80%; margin: 50px auto">    
@@ -65,6 +86,8 @@
 
         tempTitle: '',
         tempContent: '',
+
+        profiles: undefined,
 
       }
 
@@ -179,12 +202,34 @@
 
       },
 
+      getData(){
+      var docRef = db.collection('profiles').doc(`priests`);
+        
+        
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              
+              this.profiles =doc.data().data
+              console.log(this.profiles)
+              // console.log(this.events)
+              // this.historyArticles = JSON.parse(doc.data().data)
+              // this.getViews()
+            } else {
+                // doc.data() will be undefined in this case
+                this.events= []
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+      },
+
 
     },
 
     mounted(){
       console.clear()
       this.getTheHistory()
+      this.getData()
     },
 
   }
@@ -204,37 +249,35 @@
   }
 
   .pics{
-    display: flex;
+    /* display: flex; */
+  }
+
+  img{
+    width: 550px;
+    height:auto;
   }
   
   .pic1{
     border-radius: 2%;
-    width: 35vw;
-    height: auto;
+    /* width: 550px;
+    height: auto; */
     /* margin-top: 50px; */
     text-align: center;
-    margin: auto auto;
-
     display: block;
-    margin-right: 20px;
-    /* margin-top: 50px; */
-  }
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 50%; */
+    /* margin: 0 auto; */
 
-  .pic2{
-    border-radius: 2%;
-    width: 20vw;
-    height: auto;
+    /* display: block; */
+    /* margin-right: 20px; */
     /* margin-top: 50px; */
-    text-align: center;
-    margin: 50px auto auto;
-
-    display: block;
   }
 
   .pic3{
     border-radius: 2%;
-    width: 25vw;
-    height: auto;
+    /* width: 25vw;
+    height: auto; */
     /* margin-top: 50px; */
     text-align: center;
     margin: 50px auto auto;
@@ -244,8 +287,8 @@
 
   .pic4{
     border-radius: 2%;
-    width: 25vw;
-    height: auto;
+    /* width: 25vw;
+    height: auto; */
     /* margin-top: 50px; */
     text-align: center;
     margin: 130px auto auto;
