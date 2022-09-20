@@ -22,8 +22,15 @@
                   <div class="cl_copy" v-if="event.title == '主日礼拝'">
                     <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
                     <!-- <br v-if="vw < 600"> -->
-                    <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  </div>
+                    <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  
+                  </div>
                   <div class="cl_copy" v-else>{{event.title}}</div>
+
+                  <div class="cl_copy" v-if="event.description">
+                    <span :style="[vw < 800 ? 'margin-left: 25px' : '']">{{event.description}}</span>  
+                  </div>
+
+                    
                 </div>
               </div>
               

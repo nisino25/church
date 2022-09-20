@@ -98,6 +98,10 @@
                       <!-- <br v-if="vw < 600"> -->
                       <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  </div>
                     <div class="cl_copy" v-else>{{event.title}}</div>
+
+                    <div class="cl_copy" v-if="event.description">
+                      <span :style="[vw < 800 ? 'margin-left: 25px' : '']">{{event.description}}</span>  
+                    </div>
                   </div>
                 </div>
                 
@@ -1048,4 +1052,6 @@ img.bg {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  
 </style>
