@@ -9,6 +9,11 @@ const routes = [
     component: Home
   },
   {
+    path: '/:catchAll(.*)',
+    // name: 'PageNotFound',
+    component: () => import('../views/PageNotFound.vue')
+  },
+  {
     path: '/history',
     name: 'Hisotry',
     component: () => import('../views/history.vue')
