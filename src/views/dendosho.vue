@@ -15,12 +15,15 @@
       <!-- <template v-for="(person, i) in profiles" :key="i"> -->
         <!-- <div v-if="person.location == 'あいのまち伝道所'"> -->
         <div>
-          <strong style="font-size: 200%">牧師： 張 悦子（チャン ヨルチャ）</strong><br><br>
+          <strong style="font-size: 200%"> 牧師：<ruby>  張 悦子 <rt>チャン ヨルチャ</rt></ruby></strong><br><br>
           <p><strong>1944年生</strong>香川県多度津教会へ小学校3年生ごろまで通う</p>
           <p><strong>1965年</strong>在日大韓基督教会 京都教会へ通う </p>
-          <p><strong>1968年</strong>京都教会に於いて織田酋次（おたますじ）（田永福（チョ ンヨンボク））牧師より受洗</p>
-          <p><strong>1980年－1988年</strong>「韓国歌曲の夕べ」実行委員、その他韓国文化の紹介 世界的バイオリニスト、鄭京和（チョン ギョンファ）の公演を支援</p>
-          <p><strong>1985年～</strong>指紋押捺および外国人差別撤廃運動に関わる 在日大韓基督教会 全国女性会の「証し集」を編集 在日大韓基督教会 京都南部教会の「証し集」を編集「まめもやし」（元東九条キリスト者活動協議会）の委員として活動を支援</p>
+          <p><strong>1968年</strong>京都教会に於いて<ruby>織田酋次 <rt>おだますじ</rt></ruby>&nbsp;<ruby>（田永福)<rt>チョンヨンボク</rt></ruby>牧師より受洗</p>
+          <p><strong>1980年－1988年</strong>「韓国歌曲の夕べ」実行委員、その他韓国文化の紹介 <br></p> <p style="text-indent: 150px; margin-top: -10px">世界的バイオリニスト、<ruby>鄭京和<rt>チョン ギョンファ</rt></ruby>の公演を支援</p> 
+          <p><strong>1985年～</strong>指紋押捺および外国人差別撤廃運動に関わる</p>
+          <p style="text-indent:90px; margin-top: -10px"> 在日大韓基督教会 全国女性会の「証し集」を編集</p>
+          <p style="text-indent: 90px; margin-top: -10px"> 在日大韓基督教会 京都南部教会の「証し集」を編集</p>
+          <p style="text-indent: 90px; margin-top: -10px">「まめもやし」（元東九条キリスト者活動協議会）の委員として活動を支援</p>
           <p><strong>1998年</strong>京都上賀茂教会へ転籍 </p>
           <p><strong>2008年</strong>京都上賀茂教会の担任牧師となる</p>
           <p><strong>2010年1月～</strong>あいのまち集会の開拓伝道を始め、現在に至る </p>
