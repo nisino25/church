@@ -6,9 +6,13 @@
     
     <div v-if="profiles">
       <template v-for="(person, i) in profiles" :key="i">
-        <div>
-          {{person.position}}: {{person.name}}
-          <img :src="'../../../public/img/awazuhara-san.jpg'" alt="none">
+        <div style="margin-bottom: 50px">
+          {{person.position}}: {{person.name}} <br>
+          <img :src="imgSrc[i]" alt="none" class="profilePic"> <br>
+          <span>{{person.detail}}</span>
+          <hr>
+          <span style="margin-top:50px" class="description">{{getStyle(person.description)}}</span>
+          <hr>
 
 
         </div>
@@ -49,6 +53,8 @@ import { GoogleMap, Marker } from "vue3-google-map";
 
 const links = ['../../public/img/awazuhara-san.jpg', '../../public/img/awazuhara-san.jpg','../../public/img/awazuhara-san.jpg']
 const link = '../../public/img/awazuhara-san.jpg'
+
+
 
 export default {
   components: { 
@@ -110,11 +116,24 @@ export default {
           console.log("Error getting document:", error);
       });
     },
+
+    getStyle(text){
+      return text
+      // return text.substring(0,100);
+    }
     
   },
 
   mounted(){
     this.getData()
+  },
+
+  computed: {
+    imgSrc () {
+      let list = [require("../../public/img/ikuta-san.jpg"), require("../../public/img/awazuhara-san.jpg"),require("../../public/img/default-female.jpeg"),require("../../public/img/default-female.jpeg"),]
+      return list
+      // return require("../../public/img/awazuhara-san.jpg")
+    },
   }
 }
 </script>
@@ -159,6 +178,23 @@ export default {
     height: auto;
   }
 
+  /* --------------- */
+  .profilePic{
+    width: 500px;
+    height: auto;
+    margin:50px auto;
+    
+    text-align: center;
+    border-radius: 50%;
+  }
+
+  .description{
+    text-overflow: ellipsis;
+    overflow: hidden;
+/* white-space: nowrap; */
+    /* white-space: nowrap; */
+  }
+
 /* * --------------------------------------------- */ 
   .loader {
     border: 16px solid #f3f3f3;
@@ -184,6 +220,33 @@ export default {
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  @media (min-width:320px) and (max-width:800px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .profilePic{
+    width: 85%;
+    height: auto;
+    margin:50px auto;
+    
+    text-align: center;
+  }
+
+  .content{
+    /* margin-top: 1000px; */
+    width: 85%;
+    margin: 200px auto;
+    text-align: center;
+    font-size: 150%;
+    
+    /* background-color: aqua; */
+    
+  }
+    
+
+
+  
+
+
   }
 
 
