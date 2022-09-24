@@ -1,8 +1,7 @@
 <template>
   <div class="content">
-    <h1>京都上賀茂教会について</h1><hr>
+    <h1>京都上賀茂教会の牧師紹介</h1><hr>
 
-    <strong>牧師</strong><br> <br>
     
     <div v-if="profiles">
       <template v-for="(person, i) in profiles" :key="i">
@@ -11,6 +10,7 @@
           <img :src="imgSrc[i]" alt="none" class="profilePic"> <br>
           <span>{{person.detail}}</span>
           <hr>
+          <!-- <span style="margin-top:50px" class="description">{{getStyle(person.description)}}</span> -->
           <span style="margin-top:50px" class="description">{{getStyle(person.description)}}</span>
           <hr>
 
@@ -20,25 +20,9 @@
     </div>
 
     <div class="loader" v-else></div>
-
-    
-    <!-- <div>
-      <span>主任牧師: &nbsp;生田 香緒里</span><br> 
-      <span>牧師: &nbsp;&nbsp; 粟津原 淳</span><br> 
-      <span>牧師: &nbsp; &nbsp;張 悦子（あいのまち伝道所）</span><br> 
-      <span>牧師: &nbsp; &nbsp;浜本 京子 (在米国ハワイ)</span>
-    </div> -->
     <br>
 
-    <img src="../../public/img/drawing.jpg" alt="" class="churchPic">
-    <img src="../../public/img/map.jpg" alt="" class="mapPic">
-    <br><br>
-
-    <div class="" style="width: 80%; margin: auto auto">    
-      <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center" :zoom="15">
-        <Marker :options="{ position: center }" />
-      </GoogleMap>
-    </div>  
+     
 
     
 
@@ -49,24 +33,21 @@
 
 <script>
 import db from '../../firebase.js';
-import { GoogleMap, Marker } from "vue3-google-map"; 
 
-const links = ['../../public/img/awazuhara-san.jpg', '../../public/img/awazuhara-san.jpg','../../public/img/awazuhara-san.jpg']
-const link = '../../public/img/awazuhara-san.jpg'
 
 
 
 export default {
   components: { 
-    GoogleMap, 
-    Marker,
+    // GoogleMap, 
+    // Marker,
   },
 
   data(){
     return{
       profiles: undefined,
-      links,
-      link
+      // links,
+      // link
     }
   },
 
@@ -130,7 +111,7 @@ export default {
 
   computed: {
     imgSrc () {
-      let list = [require("../../public/img/ikuta-san.jpg"), require("../../public/img/awazuhara-san.jpg"),require("../../public/img/default-female.jpeg"),require("../../public/img/default-female.jpeg"),]
+      let list = [require("../../public/img/ikuta-san.jpg"), require("../../public/img/awazuhara-san.jpg"),require("../../public/img/hamamoto-san.jpg"),]
       return list
       // return require("../../public/img/awazuhara-san.jpg")
     },
@@ -142,7 +123,7 @@ export default {
   .content{
     /* margin-top: 1000px; */
     width: 70%;
-    margin: 200px auto;
+    margin: 150px auto;
     text-align: center;
     font-size: 150%;
     
@@ -150,7 +131,7 @@ export default {
     
   }
   .content h1{
-    width: 50%;
+    width:  80%;
     margin: 0 auto;
     text-align: center;
   }
@@ -234,7 +215,7 @@ export default {
   .content{
     /* margin-top: 1000px; */
     width: 85%;
-    margin: 200px auto;
+    margin: 125px auto;
     text-align: center;
     font-size: 150%;
     
