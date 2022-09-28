@@ -8,7 +8,7 @@
 
   </div>
   <!-- <button @click="test()">test</button> -->
-  <div style="width: 80%; margin: auto auto">
+  <div style="width: 80%; margin: auto auto; display: none;">
     <span>将来的にはホストだけしかできない操作</span><br>
 
     <button @click="add()">追加ボタン</button>

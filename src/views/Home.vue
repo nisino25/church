@@ -217,7 +217,7 @@ export default {
       reasonIndex: 0,
       totalClick: 0,
       theColor: 'white',
-      arr: ['京都上賀茂教会へようこそ！', 'Welcome to Kyoto Kamigmamo Church!',],
+      arr: ['京都上賀茂教会へようこそ！', 'Welcome to Kyoto Kamigamo Church!',],
 
       picArr:[],
       amenities,
