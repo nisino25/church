@@ -2,11 +2,14 @@
   <div class="content" v-if="article">
     <span>{{convertTImestamp(article.timestamp)}}</span><br>
     <span>{{tempViews}}回閲覧</span><br><br>
-    <h1>{{this.$route.params.index}}. {{article.title}}</h1><br><br>
+    <h1 style="text-align:center">{{this.$route.params.index}}. {{article.title}}</h1>
+    <div>
+      <span>{{article.from}}</span>
+    </div><br><br>
     <span>{{article.content}}</span>
     <br><br>
     <!-- HTML !-->
-    <a class="button-8" role="button" href="/history" >戻る</a>
+    <a class="button-8" role="button" href="/about-fukada" >戻る</a>
 
 
 
@@ -14,6 +17,7 @@
       <div class="pagination">
         <!-- {{pagingArray}} -->
         <a @click="jumpPage(1)" v-if="currentIndex !==1">&laquo;</a>
+        
         <template v-for="(num, i) in pagingArray" :key="i">
           <a @click="jumpPage(num)" :class="[num == currentIndex?  'active': '' ]">{{num}}</a>
         </template>
@@ -44,9 +48,9 @@
     },
 
     methods:{
-      getTheHistory(){  
+      getTheData(){  
 
-        var docRef = db.collection('history').doc(`articles`);
+        var docRef = db.collection('fukada').doc(`articles`);
 
         docRef.get().then((doc) => {
             if (doc.exists) {
@@ -78,13 +82,13 @@
         });
       },
       incrementViews(){
-        console.log('hes')
+        // console.log('hes')
         var docRef = db.collection('analytics').doc(`views`);
         docRef.get().then((doc) => {
             if (doc.exists) {
               let index = this.$route.params.index
               index = index--
-              let array = doc.data().articles
+              let array = doc.data().fukada
               this.tempViews = array[index]
               console.log(this.tempViews)
               this.tempViews++
@@ -101,7 +105,7 @@
               
               const ref = db.collection('analytics')
               ref.doc(`views`).update({
-                articles: array
+                fukada: array,
               })
               // console.log(this.historyArticles)
               // console.log(article.content)
@@ -131,7 +135,7 @@
 
       },
       jumpPage(index){
-        window.location.href = `/history/articles/${index}`
+        window.location.href = `/about-fukada/articles/${index}`
         // console.log(index)
       },
       
@@ -139,7 +143,7 @@
     mounted(){
       console.clear()
       console.log('oh hey')
-      this.getTheHistory()
+      this.getTheData()
 
       // this.getCalendar()
       // first get month and year from the url links
@@ -160,29 +164,29 @@
     computed:{
       pagingArray(){
         // 5 in total and arrows
-        let index = this.$route.params.index;
-        index = parseInt(index)
+        // let index = this.$route.params.index;
+        // index = parseInt(index)
 
-        let last = this.historyArticles.length
+        // let last = this.historyArticles.length
 
         
-        switch(index){
-          case 1:
-            return [1,2,3,4,5]
+        // switch(index){
+        //   case 1:
+        //     return [1,2]
 
-          case 2:
-            return [1,2,3,4,5]
+        //   case 2:
+        //     return [1,2]
 
-          case last-1:
-            return [last-3,last-2, last-1,index,index+1]
+        //   case last-1:
+        //     return [last-3,last-2, last-1,index,index+1]
 
-          case last:
-            return [index-4,index-3,index-2,index-1,index]
+        //   case last:
+        //     return [index-4,index-3,index-2,index-1,index]
 
-          default:
-            return [index-2,index-1,index,index+1,index+2]
+        //   default:
+            return [1,2]
 
-        }
+        // }
       },
     }
   }

@@ -44,6 +44,11 @@ const routes = [
     component: () => import('../views/fukada.vue')
   },
   {
+    path: '/about-fukada/articles/:index',
+    name: 'fukada-articles',
+    component: () => import('../views/fukada-articles.vue')
+  },
+  {
     path: '/about-dendosho',
     name: 'dendosho',
     component: () => import('../views/dendosho.vue')
