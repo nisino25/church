@@ -1,8 +1,8 @@
 <template>
-  <div class="content" v-if="article">
-    <span>{{article.timestamp}}</span><br>
+  <div class="content" v-if="article" style="">
+    <span style="text-align: right;">{{article.timestamp}}</span><br>
     <span>{{tempViews}}回閲覧</span><br><br>
-    <h1 style="text-align:center">「{{this.$route.params.index}}. {{article.title}} ({{article.timestamp}})」</h1>
+    <h1 style="text-align:center">「{{this.$route.params.index}}. {{article.title}} 」</h1>
     <div>
       <span>{{article.from}}</span>
     </div><br><br>

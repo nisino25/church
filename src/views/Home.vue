@@ -127,6 +127,36 @@
         <div v-else class="loader"></div>
       </div>
 
+      <div class="priests" style="margin: 100px auto">
+        <hr>
+        <h3 style="text-align:center; margin: 50px auto;">京都上賀茂教会の牧師紹介</h3>
+        <div class="profiles-wrapper">
+          <div>
+            <img src="../../public/img/ikuta-san.jpg" alt="">
+            <br>
+            <strong style="margin-top: 50px"><ruby>生田 香緒里 <rt>いくた かおり</rt></ruby></strong>
+          </div>
+
+          <div>
+            <img src="../../public/img/awazuhara-san.jpg" alt="">
+            <br>
+            <strong style="margin-top: 50px"><ruby>粟津原 淳 <rt>あわづはら あつし</rt></ruby></strong>
+          </div>
+
+          <div>
+            <img src="../../public/img/hamamoto-san.jpg" alt="">
+            <br>
+            <strong style="margin-top: 50px"><ruby>浜本京子<rt>はまもと きょうこ</rt></ruby></strong>
+          </div>
+        </div>
+
+        <hr>
+
+        
+        
+
+      </div>
+
       <div class="content-wrapper"> 
         <div id="main-content" class="center-column"> 
           <div class="main-content-wrapper corona"> 
@@ -529,6 +559,27 @@ img.bg {
   margin-bottom: 200px
 }
 
+
+/* ----------------------------------------- */
+.profiles-wrapper{
+  /* background-color: red; */
+  width: 80vw;
+  margin: 30px auto;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+}
+.profiles-wrapper img{
+  width: 300px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  /* background-color: red; */
+}
+
+.profiles-wrapper strong{
+  font-size: 150%;
+}
 /* ----------------------------------------- */
 .corona{
   background: #E6E6E6;
@@ -987,7 +1038,7 @@ img.bg {
       margin-left: 20px;
     }
 
-  @media (min-width:320px) and (max-width:800px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  @media (min-width:320px) and (max-width:750px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
     .weekly-calendar {
       width: 345px; 
     }
@@ -1026,7 +1077,57 @@ img.bg {
 
   }
 
-/* --------------------------------------------- */
+  @media (min-width:750px) and (max-width:1024px) {
+    .profiles-wrapper{
+      /* background-color: red; */
+      width: 85vw;
+      margin: 30px auto;
+      display: flex;
+      text-align: center;
+      justify-content: space-between;
+    }
+    .profiles-wrapper img{
+      width: 225px;
+      height: auto;
+      border-radius: 50%;
+      display: block;
+      /* background-color: red; */
+    }
+
+    .profiles-wrapper strong{
+      font-size: 150%;
+    }
+  }
+
+  @media (min-width:320px) and (max-width:749px) {
+    .priests{
+      width: 85vw;
+      /* color:red; */
+      /* margin:  */
+    }
+
+    .profiles-wrapper{
+      /* background-color: red; */
+      width: 85vw;
+      margin: 30px auto;
+      display: flex;
+      text-align: center;
+      justify-content: space-between;
+    }
+    .profiles-wrapper img{
+      width: 100px;
+      height: auto;
+      border-radius: 50%;
+      display: block;
+      /* background-color: red; */
+    }
+
+    .profiles-wrapper strong{
+      font-size: 100%;
+    }
+  }
+
+/* ------------------------------------------------- */
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
