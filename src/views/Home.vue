@@ -1097,6 +1097,12 @@ img.bg {
     .profiles-wrapper strong{
       font-size: 150%;
     }
+
+    .corona div{
+      width: 80%;
+    }
+
+    
   }
 
   @media (min-width:320px) and (max-width:749px) {
@@ -1127,6 +1133,11 @@ img.bg {
     }
   }
 
+
+  .corona h1{
+      /* color: red; */
+      text-align: center;
+    }
 /* ------------------------------------------------- */
 .loader {
     border: 16px solid #f3f3f3;
