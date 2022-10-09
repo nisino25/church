@@ -48,6 +48,8 @@
         tempViews: undefined,
 
         readyToShow: false,
+
+        
         
 
         
@@ -168,7 +170,7 @@
         let element = document.getElementById("content");
         console.log(element)
         element.innerHTML = this.article.content
-        // element.innerHTML = this.content2
+        // element.innerHTML = this.content
         
 
       },
@@ -226,7 +228,7 @@
         //     return [index-4,index-3,index-2,index-1,index]
 
         //   default:
-            return [1,2]
+            return [1,2,3]
 
         // }
       },
