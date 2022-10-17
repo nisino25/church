@@ -1,58 +1,171 @@
 <template>
   <div class="main-block" v-if="!hasPassed">
-    <!-- <div class="left-part">
-      <i class="fas fa-envelope"></i>
-      <i class="fas fa-at"></i>
-      <i class="fas fa-mail-bulk"></i>
-    </div> -->
     <form action="/">
       <h1>管理者パスワード</h1>
       <div class="info">
-        <input class="fname" type="text" name="name" placeholder="パスワード">
+        <input v-model="tempPass" placeholder="パスワード" >
       </div>
-      <p>Message</p>
-      <div>
-        <textarea rows="4"></textarea>
-      </div>
-      <button type="submit" href="/" @click="auth()">Submit</button>
+      <button type="submit" @click="auth()">Submit</button>
     </form>
   </div>
 
-  <div v-else>
-    <h2>welcome</h2>
+  <div v-else class="content">
+    <h2>articles</h2>
+    <div>
+      <input type="number" placeholder="index" v-model="tempIndex">
+      <input type="text" placeholder="内容" v-model="tempContent">
+      <button @click="editArticle()">編集</button>
+    </div>
+    <div class="articles-wrapper">
+
+      <template v-for="(item,i) in historyArticles" :key="i">
+        <div v-if="item">
+          <div>{{i}}.{{item?.title}}</div>
+          <hr>
+        </div>
+      </template>
+    </div>
+    <!-- <span>{{historyArticles}}</span> -->
+
   </div>
 
 </template>
 
 <script>
+import db from '../../firebase.js';
 
 export default{
   data(){
     return{
-      hasPassed: false,
+      // hasPassed: false,
+      hasPassed: true,
+
+      tempPass: undefined,
+      actualPass: undefined,
+
+      historyArticles: undefined,
+
+      tempIndex: undefined,
+      tempContent: undefined,
     }
   },
   methods:{
     auth(){
-      this.hasPassed = true
-    }
+      if(this.tempPass == this.actualPass){
+        this.hasPassed = true
+        
+        return 
+      }
+      
+      alert('パスワードが違います')
+    },
+    getPass(){
+      var docRef = db.collection('analytics').doc(`editing`);
+
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              this.actualPass = JSON.parse(doc.data().password)
+              // console.log(this.actualPass)
+
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+    },
+
+    getTheHistory(){  
+
+      var docRef = db.collection('history').doc(`articles`);
+
+      docRef.get().then((doc) => {
+      if (doc.exists) {
+        // this.tempString =doc.data().data
+        this.historyArticles = JSON.parse(doc.data().data)
+        console.log(this.historyArticles)
+        // for(let i in this.historyArticles){
+        //   let article = this.historyArticles[i]
+        //   article.views = 10
+
+        //   // console.log(this.historyArticles[i].views)
+        // }
+
+        // this.historyArticles = JSON.stringify(this.historyArticles)
+
+        // console.log(this.historyArticles)
+        // const ref = db.collection('history')
+        // ref.doc(`articles`).update({
+        //   data:this.historyArticles
+        // })
+        // this.members = JSON.parse(doc.data().members)
+        // if(!this.members.includes(this.username)) this.members.push(this.username)
+        // this.modalStatus = 3
+        // this.onlineRoll = 'guest'
+
+        // docRef.update({
+        //   members: JSON.stringify(this.members),
+        // })
+        // // this.countingToStartGame()
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+
+
+    },
+
+    deleteArticle(){
+      // console.log(this.historyArticles[])
+
+      delete this.historyArticles[18]
+      delete this.historyArticles[19]
+      delete this.historyArticles[20]
+      delete this.historyArticles[21]
+      delete this.historyArticles[22]
+      // delete this.historyArticles[23]
+
+      // this.historyArticles = JSON.stringify(this.historyArticles)
+
+      // const ref = db.collection('history')
+      // ref.doc(`articles`).update({
+      //   data: this.historyArticles
+      // })
+      // console.log(typeof this.historyArticles)
+      // this.historyArticles = this.historyArticles.pop();
+      // console.log(this.historyArticles)
+    },
+
+    editArticle(){
+      console.log('doign')
+      // this.historyArticles[this.tempIndex].content= this.tempContent
+      // this.historyArticles = JSON.stringify(this.historyArticles)
+
+      // const ref = db.collection('history')
+      // ref.doc(`articles`).update({
+      //   data: this.historyArticles
+      // })
+
+    },
+
   },
   mounted(){
-    console.log('hey')
+    console.clear()
+    this.getPass()
+    this.getTheHistory()
   }
 }
 
 </script>
 
 <style>
-html, body {
-      min-height: 100%;
-      padding: 0;
-      margin: 0;
-      font-family: Roboto, Arial, sans-serif;
-      font-size: 14px;
-      color: #666;
-      }
+
       h1 {
       margin: 0 0 20px;
       font-weight: 400;
@@ -62,11 +175,12 @@ html, body {
       margin: 0 0 5px;
       }
       .main-block {
+        margin-top: 5em;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      min-height: 80vh;
       background: #1c87c9;
       }
       form {
@@ -96,7 +210,7 @@ html, body {
       input::placeholder {
       color: #666;
       }
-      button {
+      .main-block button {
       width: 100%;
       padding: 10px;
       border: none;
@@ -105,7 +219,7 @@ html, body {
       font-weight: 400;
       color: #fff;
       }
-      button:hover {
+      .main-block button:hover {
       background: #2371a0;
       }    
       @media (min-width: 568px) {
@@ -127,4 +241,16 @@ html, body {
       margin-top: 2%;
       margin-left: 28%;
       }
-      }</style>
+      }
+
+  .content{
+    width: 50%;
+    margin: 5em auto;
+    text-align: center;
+  }
+
+  .articles-wrapper{
+    text-align: left;
+  }
+      
+</style>

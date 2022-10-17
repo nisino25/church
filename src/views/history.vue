@@ -29,7 +29,8 @@
                 <div class="mt-3">
                     <ul class="list list-inline">
                       <template v-for="(item, i) in historyArticles" :key=i>
-                        <li class="d-flex justify-content-between" @click="jumpPage(i)">
+                        <template v-if="item">
+                          <li class="d-flex justify-content-between" @click="jumpPage(i)">
                           <div class="d-flex flex-row align-items-center">
                               <div class="ml-2">
                                   <h6 class="mb-0">{{i+1}}. {{item.title}}</h6>
@@ -39,13 +40,9 @@
                                   </div>
                               </div>
                           </div>
-                          <!-- <div class="d-flex flex-row align-items-center">
-                              <div class="d-flex flex-column mr-2">
-                                  <div class="profile-image"><img class="rounded-circle" src="https://i.imgur.com/xbxOs06.jpg" width="30"><img class="rounded-circle" src="https://i.imgur.com/KIJewDa.jpg" width="30"><img class="rounded-circle" src="https://i.imgur.com/wwd9uNI.jpg" width="30"></div><span class="date-time">11/4/2020 12:55</span></div>
-                              <i
-                                  class="fa fa-ellipsis-h"></i>
-                          </div> -->
                         </li>
+                        </template>
+                        
 
                       </template>
 
