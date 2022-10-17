@@ -8,8 +8,13 @@
       <div style="margin-bottom: 50px" class="profile">
         主任牧師: &nbsp;<ruby>生田 香緒里 <rt>いくた かおり</rt></ruby> <br>
         <img src="../../public/img/ikuta-san.jpg"  alt="none" class="profilePic"> <br>
-        <!-- <span></span>
-        <hr> -->
+        <span>同志社大学大学院神学研究科博士課程前期修了。現在、キリスト教学校でも働いています。
+          <br>&nbsp;
+            キリスト教との出会いは小学生の頃。姉がキリスト教学校に通っていたこともあり、教会に連れて行ってもらったのが始まりでした。私もキリスト教学校に通いましたが、毎朝の礼拝で讃美歌を歌ったことが音楽を好きになるきっかけになりました。
+            <br> &nbsp;絵画や音楽などを見たり聴いたりするのが大好きです。日本文学などに触れるのも楽しみの一つです。聖書を読むと、昔も今も人々が喜んだり悲しんだりするその感覚は変わらないのだと思わされることが多くあります。人々の営みに神さまがどのように関わっておられるのか、今を生きる私たちがどのように生きていけばよいかを、聖書の御言葉を通して共に考えていけたらいいなあと思っています。
+
+</span>
+        <hr>
         <!-- <span style="margin-top:50px" class="description">{{getStyle(person.description)}}</span> -->
         <!-- <span style="margin-top:50px" class="description"></span> -->
         
@@ -184,6 +189,7 @@
   .profile span{
     text-align: left;
     display: block;
+    white-space: pre-line
   }
 
 

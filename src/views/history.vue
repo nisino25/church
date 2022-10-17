@@ -192,6 +192,10 @@
 
       },
 
+      // updatedArticles(){
+
+      // },
+
       add(){
         this.historyArticles.push({timestamp: Date.now(), title: this.tempTitle, content:this.tempContent, views: 0, writtenBy: `安藤正樹`, },)
 
