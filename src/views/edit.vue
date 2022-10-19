@@ -37,8 +37,8 @@ import db from '../../firebase.js';
 export default{
   data(){
     return{
-      // hasPassed: false,
-      hasPassed: true,
+      hasPassed: false,
+      // hasPassed: true,
 
       tempPass: undefined,
       actualPass: undefined,
