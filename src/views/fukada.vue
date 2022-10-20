@@ -1,6 +1,6 @@
 <template>
 
-<div class="content" v-if="articles" style="margin: 200px auto">
+<div class="content" v-if="articles" style="margin: 200px auto; display: none">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -349,7 +349,7 @@ content3: ` ハロウィーンは先週でありまして、カボチャがた�
 
       docRef.get().then((doc) => {
           if (doc.exists) {
-            console.log(JSON.parse(doc.data().data))
+            // console.log(JSON.parse(doc.data().data))
             // this.tempString =doc.data().data
             this.articles = JSON.parse(doc.data().data)
             this.getViews()

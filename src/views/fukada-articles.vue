@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="content"  style=""> -->
-  <div class="content" v-if="readyToShow" style="">
+  <div class="content" v-if="readyToShow" style="display:none" >
     <span style="text-align: right;">{{article?.timestamp}}</span><br>
     <span>{{tempViews}}回閲覧</span><br><br>
     <h1 style="text-align:center">「{{this.$route.params.index}}. {{article?.title}} 」</h1>
