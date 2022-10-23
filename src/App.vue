@@ -2,7 +2,11 @@
   <head></head>
 
   <body>
-    <div class="wrapper">
+    
+
+    <div class="wrapper" >
+
+
 
       <div class="header">
         <Transition name="fade">
@@ -26,8 +30,29 @@
 
       </div>
 
+      
+      <router-view v-if="logined"/>
+      
+      <div class="maintenance" v-else>
 
-      <router-view/>
+        <strong>ただいま工事中です。<br>しばらくお待ちください。</strong><br><br>
+        <small  @click="toggleModal()">2022/10/23 13:05〜</small>
+        <span></span>
+
+
+        <br><br>
+        <div v-if="showModal">
+          <form onsubmit="return false">
+
+            <input type="" v-model="tempPassword" placeholder="パスワードを入力してください" ><br>
+            <span style="color:crimson">{{warning}}</span><br>
+            <button style="margin-top:20px" @click="checkPassword()">進む</button>
+          </form>
+        </div>
+
+
+      </div>
+      
 
 
       <div class="pg-footer">
@@ -99,6 +124,12 @@ export default {
 
       totalViews: undefined,
       updateTime: undefined,
+
+      logined: false,
+      tempPassword: '',
+      actualPassword: undefined,
+      warning: '',
+      // showModal: false,
       
 
 
@@ -176,6 +207,40 @@ export default {
     });
     },
 
+    toggleModal(){
+      this.showModal = true
+      console.log('heys')
+    },
+
+    getPass(){
+      var docRef = db.collection('analytics').doc(`main`);
+
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+              this.actualPassword = doc.data().password
+              // console.log(this.actualPass)
+
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+    },
+
+    checkPassword(){
+      if(this.tempPassword == this.actualPassword){
+        this.logined = true
+
+      }else{
+        console.log(this.actualPassword)
+        this.warning = 'パスワードが違います'
+      }
+    }
+
     
 
     
@@ -195,6 +260,7 @@ export default {
     console.log(this.vw)
 
     this.getLastUpdate()
+    this.getPass()
 
 
 
@@ -727,7 +793,7 @@ a {
   right: 0;
   /* bottom: 0; */
   /* height: 667px; */
-  z-index: 298;
+  z-index: 300;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -843,6 +909,28 @@ input[type=number], select {
   border-radius: 4px;
   cursor: pointer;
 }
+
+
+
+/* -------------- */
+.maintenance {
+  margin: 40vh auto;
+  text-align: center;
+  width: 100vw;
+
+  /* height: 80vh; */
+  /* background-color: red; */
+}
+
+.maintenance strong{
+  margin: auto auto;
+  text-align: center;
+  font-size: 2em;
+}
+
+
+
+
 
 
 </style>

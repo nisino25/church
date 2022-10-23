@@ -1,9 +1,5 @@
 <template>
-  <div class="container">
-
-    <h1>ただいま工事中です。 <br>しばらくお待ちください</h1>
-    <span></span>
-  </div>
+  
 </template>
 
 

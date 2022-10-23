@@ -1,6 +1,6 @@
 <template>
   <div class="main-block" v-if="!hasPassed">
-    <form action="/">
+    <form onsubmit="return false">
       <h1>管理者パスワード</h1>
       <div class="info">
         <input v-model="tempPass" placeholder="パスワード" >

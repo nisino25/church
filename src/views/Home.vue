@@ -1,4 +1,5 @@
 <template>
+  <div > </div>
   <div class="wrapper">
 
     <div class="lp">
@@ -262,6 +263,8 @@ export default {
       previous: [],
       next: [],
       events: undefined,
+
+      logined: false,
       
 
 
