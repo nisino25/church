@@ -13,14 +13,14 @@
     <h2>articles</h2>
     <div>
       <input type="number" placeholder="index" v-model="tempIndex">
-      <input type="text" placeholder="内容" v-model="tempContent">
+      <input type="text" placeholder="内容" v-model="tempContent" style="white-space: pre-wrap;">
       <button @click="editArticle()">編集</button>
     </div>
     <div class="articles-wrapper">
 
       <template v-for="(item,i) in historyArticles" :key="i">
         <div v-if="item">
-          <div>{{i}}.{{item?.title}}</div>
+          <div>{{i+1}}.{{item?.title}}</div>
           <hr>
         </div>
       </template>
@@ -86,7 +86,7 @@ export default{
       if (doc.exists) {
         // this.tempString =doc.data().data
         this.historyArticles = JSON.parse(doc.data().data)
-        console.log(this.historyArticles)
+        // console.log(this.historyArticles[1].content)
         // for(let i in this.historyArticles){
         //   let article = this.historyArticles[i]
         //   article.views = 10
@@ -143,14 +143,17 @@ export default{
     },
 
     editArticle(){
-      console.log('doign')
-      // this.historyArticles[this.tempIndex].content= this.tempContent
-      // this.historyArticles = JSON.stringify(this.historyArticles)
+      
+      // this.tempContent = `&nbsp;`+ this.tempContent
+      this.historyArticles[this.tempIndex-1].content= this.tempContent
+      this.historyArticles = JSON.stringify(this.historyArticles)
 
-      // const ref = db.collection('history')
-      // ref.doc(`articles`).update({
-      //   data: this.historyArticles
-      // })
+      const ref = db.collection('history')
+      ref.doc(`articles`).update({
+        data: this.historyArticles
+      })
+
+      console.log('updagting')
 
     },
 
