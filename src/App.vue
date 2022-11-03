@@ -36,12 +36,12 @@
       <div class="maintenance" v-else>
 
         <strong>ただいま工事中です。<br>しばらくお待ちください。</strong><br><br>
-        <small  @click="toggleModal()">2022/10/23 13:05〜</small>
+        <small  >2022/10/23 13:05〜</small>
         <span></span>
 
 
         <br><br>
-        <div v-if="showModal">
+        <div >
           <form onsubmit="return false">
 
             <input type="" v-model="tempPassword" placeholder="パスワードを入力してください" ><br>
@@ -108,6 +108,9 @@
 
 <script>
   import db from '../firebase.js';
+  import { useCookies } from "vue3-cookies";
+  const { cookies } = useCookies();
+
 
 export default {
   
@@ -235,17 +238,38 @@ export default {
       if(this.tempPassword == this.actualPassword){
         this.logined = true
 
+        var date = new Date();
+        date.setTime(date.getTime() + (6000 * 1000));
+        // this.cookie('church-login', true, { expires: date });
+        cookies.set("church-login", 'done', 60 * 30);
+
       }else{
         console.log(this.actualPassword)
         this.warning = 'パスワードが違います'
+      }
+    },
+
+    getCookies(){
+      let flag = cookies.get('church-login')
+      console.log(flag)
+      
+
+      if(flag){
+        console.log(`got cookies`)
+        this.logined = true
+      }else{
+        console.log('where my cookie')
       }
     }
 
     
 
+
+
+    
+
     
   },
-
 
   watch:{
     window(){
@@ -261,6 +285,10 @@ export default {
 
     this.getLastUpdate()
     this.getPass()
+
+    this.getCookies()
+
+    
 
 
 

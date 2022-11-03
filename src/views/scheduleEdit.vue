@@ -3,48 +3,7 @@
   <div>
     <div class="bigger-container" v-if="events">
 
-      <div class="weekly-calendar" >
-        <div>
-          <header>
-            <div style="text-align:center">
-              <i class="icon-chevron-left" @click="toPreviousMonth() ">&#8592;</i>  
-              <h1>{{showingYear}}年{{showingMonth}}月の予定</h1>
-              <i class="icon-chevron-right" @click="toNextMonth()">&#8594;</i> 
-              <!-- <div class="year" style="">{{showingYear}}</div> -->
-            </div>
-          </header>
-
-          <div class="weekly-contents" v-if="this.events?.length > 0">
-            <template v-for="(event, i) in events" :key="i">
-              <div class="calendar_plan">
-                <div class="cl_plan">
-                  <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp; @{{event.location}}</div>
-                  <div class="cl_copy" v-if="event.title == '主日礼拝'">
-                    <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
-                    <!-- <br v-if="vw < 600"> -->
-                    <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  
-                  </div>
-                  <div class="cl_copy" v-else>{{event.title}}</div>
-                  <div class="cl_copy" v-if="event.description">
-                    <span :style="[vw < 800 ? 'margin-left: 25px' : '']">{{event.description}}</span>  
-                  </div>
-                    
-                </div>
-              </div>
-              
-            </template>
-          </div>
-          <div class="weekly-contents" v-else>
-            <div class="calendar_plan">
-                <div class="cl_plan">現在この月の予定はありません。
-                  <div class="cl_title"></div>
-                  
-                </div>
-              </div>
-            
-          </div>
-        </div>
-      </div>
+      
       <div id="calendar">
         <div id="calendar_header" style="background-color: rgb(46, 204, 113); height: 68.5714px;">
 
@@ -69,7 +28,7 @@
 
           <template v-for="(date, i) in showingCalendar" :key="i" >
 
-            <div :style="getStyle(date)">{{date}}</div>
+            <div :style="getStyle(date)" @click="add(date)">{{date}}</div>
 
           </template>
 
@@ -78,6 +37,74 @@
           </template>
         </div>
 
+      </div>
+      <!-- <br> -->
+
+      <div class="form">
+        <div class="title">イベント追加</div>
+        <span style="color:white">{{showingMonth}}/{{selectingDate}}</span>
+        <div class="input-container ic1">
+          <input id="firstname" class="input" type="text" placeholder=" " />
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">First name</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="lastname" class="input" type="text" placeholder=" " />
+          <div class="cut"></div>
+          <label for="lastname" class="placeholder">Last name</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="email" class="input" type="text" placeholder=" " />
+          <div class="cut cut-short"></div>
+          <label for="email" class="placeholder"/>Email
+        </div>
+        <button type="text" class="submit">submit</button>
+      </div>
+
+      <div style=" text-align: center;">
+
+        <div class="weekly-calendar" >
+          <div>
+            <header>
+              <div style="text-align:center">
+                <i class="icon-chevron-left" @click="toPreviousMonth() ">&#8592;</i>  
+                <h1>{{showingYear}}年{{showingMonth}}月の予定</h1>
+                <i class="icon-chevron-right" @click="toNextMonth()">&#8594;</i> 
+                <!-- <div class="year" style="">{{showingYear}}</div> -->
+              </div>
+            </header>
+  
+            <div class="weekly-contents" v-if="this.events?.length > 0">
+              <template v-for="(event, i) in events" :key="i">
+                <div class="calendar_plan">
+                  <div class="cl_plan">
+                    <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp; @{{event.location}}</div>
+                    <div class="cl_copy" v-if="event.title == '主日礼拝'">
+                      <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
+                      <!-- <br v-if="vw < 600"> -->
+                      <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  
+                    </div>
+                    <div class="cl_copy" v-else>{{event.title}}</div>
+                    <div class="cl_copy" v-if="event.description">
+                      <span :style="[vw < 800 ? 'margin-left: 25px' : '']">{{event.description}}</span>  
+                    </div>
+                      
+                  </div>
+                </div>
+                
+              </template>
+            </div>
+            <div class="weekly-contents" v-else>
+              <div class="calendar_plan">
+                  <div class="cl_plan">現在この月の予定はありません。
+                    <div class="cl_title"></div>
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+        </div>
       </div>
       <!-- changed: {{message}} <br>
       {{firstDayOfTheWeek}} <br>
@@ -113,6 +140,16 @@
         weekdays,
         events: undefined,
         vw: undefined,
+
+        selectingDate: undefined,
+
+        tempLocation: '京都上賀茂教会',
+        tempPriest: '牧師',
+        tempTitle: '主日礼拝',
+        tempDay: '日',
+        tempYear: undefined,
+        tempFrom: '10:30',
+        tempAfter: '',
       }
     },
     methods:{
@@ -250,7 +287,7 @@
               if(!this.events) {
                 this.events= []
               }
-              console.log(this.events)
+              console.table(this.events)
               // console.log(this.events)
               // this.historyArticles = JSON.parse(doc.data().data)
               // this.getViews()
@@ -288,14 +325,11 @@
       test(){
         const ref = db.collection('events')
         ref.doc(`2022`).update({
-          10: [
-            {year: 2022, month: 10, date: 2, day: '日', title:'主日礼拝', priest: '未定', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会'  },
-            {year: 2022, month: 10, date: 9, day: '日', title:'主日礼拝', priest: '未定', musician: '未定', after: '月齢ミーティングあり', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2022, month: 10, date: 16, day: '日', title:'主日礼拝', priest: '未定', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2022, month: 10, date: 23, day: '日', title:'主日礼拝', priest: '未定', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            
-            {year: 2022, month: 10, date: 29, day: '土', title:'故深田牧師告別礼拝', priest: '未定', musician: '', after: '', from: '14:00', location: '洛陽教会' },
-            {year: 2022, month: 10, date: 30, day: '日', title:'主日礼拝', priest: '未定', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          11: [
+          {year: 2022, month: 11, date: 6, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          {year: 2022, month: 11, date: 13, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          {year: 2022, month: 11, date: 20, day: '日', title:'主日礼拝', priest: 'アジア学院キャラバン', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          {year: 2022, month: 11, date: 27, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
           ],
         })
       },
@@ -390,6 +424,12 @@
         this.refreshCalendar()
         
       },
+
+
+      add(date){
+        console.log(date)
+        this.selectingDate = date
+      }
       
         
         
@@ -398,6 +438,8 @@
     mounted(){
       console.clear()
       this.settingUp()
+
+      // this.test()
       // first get month and year from the url links
       // add only the dates from the current month
       // thats it
@@ -413,7 +455,7 @@
       
       
       // this.getPreviousDay(new Date(`2022-01-01`))
-      console.log(this.showingCalendar)
+      // console.table(this.showingCalendar)
       this.getEvents()
     },
     computed:{
@@ -427,7 +469,10 @@
       },
     },
     created(){
-      this.vw = document.documentElement.clientWidth 
+      this.vw = document.documentElement.clientWidth
+
+      var today = new Date();
+      this.tempYear = today.getFullYear();
     },
   }
 </script>
@@ -539,9 +584,14 @@
   } */
   /* ------------------------------------------------- */
   .weekly-calendar {
-    /* display: inline-block; */
-    width: 700px; 
+    display: inline-block;
+    /* width: 700px;  */
     margin: 30px auto;
+    text-align: center;
+
+    margin: 30px auto;
+    display: inline-block;
+    overflow: hidden;
     /* width: 70%;  */
     /* background-color: green; */
   }
@@ -552,6 +602,7 @@
     /* display: inline-block; */
     margin-left: auto;
     margin-right: auto;
+    /* text-align: center; */
     /* background-color: green; */
   }
   
@@ -625,7 +676,7 @@
     font-size:25px;
     margin-top: 15px;
     margin-bottom: 10px;
-    display: inline-block;
+    /* display: inline-block; */
   }
   .weekly-contents span{
       /* font-size: 80%; */
@@ -664,7 +715,7 @@
     width: 550px;
     font-family: 'Lato', sans-serif;
     margin-top: 100px;
-    margin-bottom: 800px;
+    /* margin-bottom: 800px; */
     display: block;
   }
   #calendar_weekdays div{
@@ -799,5 +850,131 @@
   .footer-wave-path{
     fill:lightgrey;
   }
+
+
+
+
+
+
+/* --------------- */
+.form {
+  background-color: #15172b;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 500px;
+  padding: 20px;
+  width: 320px;
+  display: inline-block;
+  margin-left: 100px;
+}
+
+.title {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.input-container {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+
+.ic1 {
+  margin-top: 40px;
+}
+
+.ic2 {
+  margin-top: 30px;
+}
+
+.input {
+  background-color: #303245;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.cut {
+  background-color: #15172b;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 76px;
+}
+
+.cut-short {
+  width: 50px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+  transform: translateY(8px);
+}
+
+.placeholder {
+  color: #65657b;
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input:focus ~ .placeholder {
+  color: #dc2f55;
+}
+
+.submit {
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  outline: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.submit:active {
+  background-color: #06b;
+}
+
   
 </style>

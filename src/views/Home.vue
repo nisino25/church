@@ -27,54 +27,6 @@
      
     <div class="content">
 
-      <div class="content-wrapper"> 
-        <div id="main-content" class="center-column"> 
-          <div class="main-content-wrapper notice"> 
-            <div>
-              <h1 style="">故深田未来生（みきお）牧師告別礼拝のお知らせ</h1><br><br>
-              <div>
-                <div class="left-section">
-                  <div>
-                    <img src="../../public/img/fukada2.jpg" alt="">
-                  </div>
-
-                </div>
-
-                <div class='right-section'>
-
-                  <p>当教会の設立者の一人であった深田未来生牧師（同志社大学神学部名誉教授）は、2022年6月25日、89歳で米国カリフォルニア州クレアモントにおいて帰天されました。</p><br>
-                  <p>日本における告別礼拝は、以下のとおり執り行われる予定です。<br>
-                  2022年10月29日（土）14時～ <br>
-                  日本基督教団洛陽教会 <br><br>
-                  <strong style="color:LightCoral">
-                    
-                    なお、大変申し訳ございませんが、会場の関係で来場は関係者のみに限らせていただきます。
-                  </strong> <br><br>
-                  同告別礼拝は、zoom配信される予定です。配信を希望される方は、当教会のメールアドレス(kyoto.kamigamo.kyokai@gmail.com)までお知らせ下さい。
-                  </p>
-                  <br><br>
-
-                  
-
-
-                  <p><span></span></p>
-
-                </div>
-
-              </div>
-
-              
-              
-
-
-
-            </div>
-             
-              
-             
-          </div> 
-        </div> 
-      </div>
 
       <div class="events">
 
@@ -202,11 +154,6 @@
           <img src="../../public/img/map.jpg" alt="" class="mapPic">
           <br><br>
 
-          <div class="" style="width: 90%; margin: auto auto">    
-            <GoogleMap api-key="AIzaSyDypz7XN6k4Q1gEj6mKRt65nAbpOelob8o" style="width: 100%; height: 500px" :center="center2" :zoom="15">
-              <Marker :options="{ position: center2 }" />
-            </GoogleMap>
-          </div> 
 
           
 
@@ -226,7 +173,6 @@
 
 <script>
 import VueWriter from "vue-writer";
-import { GoogleMap, Marker } from "vue3-google-map";
 // // 
 import {amenities} from '../const/amenities.js'
 
@@ -239,8 +185,6 @@ import Vue3autocounter from 'vue3-autocounter';
 export default {
   components: { 
     VueWriter,
-    GoogleMap, 
-    Marker,
     'vue3-autocounter': Vue3autocounter,
   },
   data(){
@@ -272,13 +216,6 @@ export default {
 
 
     }
-  },
-  setup() {
-    
-    const center2 = { lat: 35.05922090366774,  lng: 135.7575056779574, };
-    const markerOptions2 = { position: center2, label: "京都上賀茂教会", title: "京都上賀茂教会" };
-
-    return { center2,markerOptions2 };
   },
   methods: {
     nextReason(){

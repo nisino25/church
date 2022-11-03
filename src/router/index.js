@@ -43,6 +43,11 @@ const routes = [
     name: 'shcedule',
     component: () => import('../views/schedule.vue')
   },
+  // {
+  //   path: '/schedule/edit',
+  //   name: 'shceduleEdit',
+  //   component: () => import('../views/scheduleEdit.vue')
+  // },
   {
     path: '/about-fukada',
     name: 'fukada',
