@@ -288,15 +288,12 @@
       test(){
         const ref = db.collection('events')
         ref.doc(`2022`).update({
-          10: [
-            {year: 2022, month: 10, date: 2, day: '日', title:'主日礼拝', priest: '未定', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会'  },
-            {year: 2022, month: 10, date: 9, day: '日', title:'主日礼拝', priest: '未定', musician: '未定', after: '月齢ミーティングあり', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2022, month: 10, date: 16, day: '日', title:'主日礼拝', priest: '未定', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2022, month: 10, date: 23, day: '日', title:'主日礼拝', priest: '未定', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            
-            {year: 2022, month: 10, date: 29, day: '土', title:'故深田牧師告別礼拝', priest: '未定', musician: '', after: '', from: '14:00', location: '洛陽教会' },
-            {year: 2022, month: 10, date: 30, day: '日', title:'主日礼拝', priest: '未定', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-          ],
+          12: [
+            {year: 2022, month: 12, date: 4, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会'  },
+            {year: 2022, month: 12, date: 11, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2022, month: 12, date: 18, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '未定', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2022, month: 12, date: 25, day: '日', title:'主日礼拝', priest: '粟津原牧師(クリスマス礼拝)', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          ]
         })
       },
       getStyle(date){
