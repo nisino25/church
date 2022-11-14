@@ -128,7 +128,7 @@ export default {
       totalViews: undefined,
       updateTime: undefined,
 
-      logined: false,
+      logined: true,
       tempPassword: '',
       actualPassword: undefined,
       warning: '',
