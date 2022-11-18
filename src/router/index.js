@@ -23,11 +23,11 @@ const routes = [
     name: 'Hisotry',
     component: () => import('../views/history.vue')
   },
-  {
-    path: '/history/articles/:index',
-    name: 'Articles',
-    component: () => import('../views/articles.vue')
-  },
+  // {
+  //   path: '/history/articles/:index',
+  //   name: 'Articles',
+  //   component: () => import('../views/articles.vue')
+  // },
   {
     path: '/about-church',
     name: 'church',

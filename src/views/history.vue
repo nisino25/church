@@ -17,14 +17,13 @@
     <input type="text" placeholder="内容" v-model="tempContent">
   </div>
 
-  <div class="content" v-if="historyArticles">
+  <!-- <div class="content" v-if="historyArticles">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center activity">
-                    <!-- <div><i class="fa fa-clock-o"></i><span class="ml-2">11h 25m</span></div> -->
+                    
                     <div style=" margin: auto auto"><span class="activity-done" >京都上賀茂教会の歩み（{{historyArticles.length}}）</span></div>
-                    <!-- <div class="icons"></div> -->
                 </div>
                 <div class="mt-3">
                     <ul class="list list-inline">
@@ -54,7 +53,7 @@
     
   </div>
 
-  <div class="loader" v-else></div>
+  <div class="loader" v-else></div> -->
 
   <!-- <hr> -->
   <!-- <div style="width: 80%; margin: auto auto">
