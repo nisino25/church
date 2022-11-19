@@ -48,11 +48,11 @@ const routes = [
   //   name: 'shceduleEdit',
   //   component: () => import('../views/scheduleEdit.vue')
   // },
-  {
-    path: '/about-fukada',
-    name: 'fukada',
-    component: () => import('../views/fukada.vue')
-  },
+  // {
+  //   path: '/about-fukada',
+  //   name: 'fukada',
+  //   component: () => import('../views/fukada.vue')
+  // },
   // {
   //   path: '/about-fukada/articles/:index',
   //   name: 'fukada-articles',

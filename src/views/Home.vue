@@ -3,7 +3,7 @@
   <div class="wrapper">
 
     <div class="lp">
-      <img class="bg" src="../../public/img/main.jpg">
+      <img class="bg" src="../../public/img/S__9437233.jpg">
       
         <h1  :style="{'color':  theColor}" >
           <VueWriter :array="arr"

@@ -17,7 +17,7 @@
             <a href="/about-church">牧師紹介</a>
             <a href="/access">教会へのアクセス</a>
             <a href="/schedule">行事予定</a>
-            <a href="/about-fukada">故深田牧師の部屋</a>
+            <!-- <a href="/about-fukada">故深田牧師の部屋</a> -->
             <a href="/about-dendosho">あいのまち伝道所</a>
             <a v-if="updateTime">最終更新：{{updateTime}}</a>
 
