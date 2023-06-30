@@ -45,7 +45,10 @@
               <template v-for="(event, i) in events" :key="i"> 
                 <div class="calendar_plan">
                   <div class="cl_plan">
-                    <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) :  {{event.from}} 〜 &nbsp; @{{event.location}}</div>
+                    <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) 
+                      <template v-if="event.from !== ''">:  {{event.from}} 〜 &nbsp; @{{event.location}}
+                      </template>
+                    </div> 
                     <div class="cl_copy" v-if="event.title == '主日礼拝'">
                       <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
                       <!-- <br v-if="vw < 600"> -->

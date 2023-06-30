@@ -298,11 +298,15 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
 
 html, body{
   padding: 0;
   margin: 0;
   overflow-x: hidden; 
+
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   
 }
 

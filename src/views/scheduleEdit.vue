@@ -323,13 +323,17 @@
         return flag
       },
       test(){
+        console.log("sending data")
         const ref = db.collection('events')
-        ref.doc(`2022`).update({
-          11: [
-          {year: 2022, month: 11, date: 6, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-          {year: 2022, month: 11, date: 13, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-          {year: 2022, month: 11, date: 20, day: '日', title:'主日礼拝', priest: 'アジア学院キャラバン', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-          {year: 2022, month: 11, date: 27, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+        ref.doc(`2023`).update({
+          6: [
+          {year: 2023, month: 6, date: 4, day: '日', title:'深田未来生牧師追悼礼拝:　三谷高康先生（広島女学院大学学長）', priest: '三谷高康先生（広島女学院大学学長）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          {year: 2023, month: 6, date: 11, day: '日', title:'主日礼拝', priest: '生田牧師（花の日）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          {year: 2023, month: 6, date: 18, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          {year: 2023, month: 6, date: 25, day: '日', title:'主日礼拝', priest: '山下智子（同志社女子大学）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          // {year: 2022, month: 11, date: 13, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          // {year: 2022, month: 11, date: 20, day: '日', title:'主日礼拝', priest: 'アジア学院キャラバン', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          // {year: 2022, month: 11, date: 27, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
           ],
         })
       },
@@ -436,10 +440,11 @@
       
     },
     mounted(){
+      console.log("hello")
       console.clear()
       this.settingUp()
 
-      // this.test()
+      this.test()
       // first get month and year from the url links
       // add only the dates from the current month
       // thats it
