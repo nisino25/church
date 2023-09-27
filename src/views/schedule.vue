@@ -405,7 +405,7 @@
       console.clear()
       this.settingUp()
       console.log('here?')
-      this.test()
+      // this.test()
       // first get month and year from the url links
       // add only the dates from the current month
       // thats it
