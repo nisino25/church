@@ -27,6 +27,10 @@
      
     <div class="content">
 
+    <div class="info" style="background-color: lightgray;">
+      <img src="../../public/img/bazaar-info.jpg" alt="" style="display: block; margin: auto; width:90%; max-width: 900px;">
+    </div>
+
 
       <div class="events">
 

@@ -291,16 +291,18 @@
       test(){
         const ref = db.collection('events')
         ref.doc(`2023`).update({
-          7: [
-            {year: 2023, month: 7, date: 2, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 7, date: 9, day: '日', title:'主日礼拝', priest: '中島淳（元近江兄弟社中・高等学校聖書科教諭）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 7, date: 16, day: '日', title:'主日礼拝', priest: '三輪地塩（同志社大学神学部　助教）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 7, date: 23, day: '日', title:'主日礼拝', priest: '兼松豊（日本基督教団　上鳥羽教会牧師）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 7, date: 30, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          10: [
+            {year: 2023, month: 10, date: 1, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2023, month:10, date: 8, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2023, month: 10, date: 15, day: '日', title:'主日礼拝', priest: '中島淳（元近江兄弟社中・高等学校聖書科教諭）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2023, month: 10, date: 22, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2023, month: 10, date: 29, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            // {year: 2023, month: 7, date: 30, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2022, month: 11, date: 13, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2022, month: 11, date: 20, day: '日', title:'主日礼拝', priest: 'アジア学院キャラバン', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2022, month: 11, date: 27, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             ],
+            // /Users/nozomuando/hobby/church/src/assets
         })
       },
       getStyle(date){
@@ -403,7 +405,7 @@
       console.clear()
       this.settingUp()
       console.log('here?')
-      // this.test()
+      this.test()
       // first get month and year from the url links
       // add only the dates from the current month
       // thats it
