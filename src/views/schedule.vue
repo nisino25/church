@@ -290,13 +290,13 @@
       },
       test(){
         const ref = db.collection('events')
-        ref.doc(`2023`).update({
-          12: [
-            {year: 2023, month: 12, date: 3, day: '日', title:'主日礼拝', priest: '生田（アドベント第1主日）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 12, date: 10, day: '日', title:'主日礼拝', priest: '中島淳（アドベント第2主日）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 12, date: 17, day: '日', title:'主日礼拝', priest: '生田（アドベント第3主日）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 12, date: 24, day: '日', title:'主日礼拝', priest: '生田（クリスマス礼拝、礼拝後祝会）', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2023, month: 12, date: 31, day: '日', title:'主日礼拝', priest: '礼拝お休み', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+        ref.doc(`2024`).update({
+          1: [
+            {year: 2024, month: 1, date: 7, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 1, date: 14, day: '日', title:'主日礼拝', priest: 'マーサ　メンセンディーク　同志社大学社会学部　准教授', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 1, date: 21, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 1, date: 28, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            // {year: 2023, month: 12, date: 31, day: '日', title:'主日礼拝', priest: '礼拝お休み', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2023, month: 7, date: 30, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2022, month: 11, date: 13, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2022, month: 11, date: 20, day: '日', title:'主日礼拝', priest: 'アジア学院キャラバン', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },

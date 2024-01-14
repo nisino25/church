@@ -34,7 +34,8 @@
         牧師: &nbsp;<ruby>浜本京子<rt>はまもと きょうこ</rt></ruby> <br>
         <img src="../../public/img/hamamoto-san.jpg"  alt="none" class="profilePic"> <br>
         <span>
-          &nbsp;２０１８年からハワイのオワフ島で、在宅ホスピスの訪問サービスの働きに関わっています。訪問看護サービスというのを聞かれたことがあると思います。そのチャプレン版です。<br> &nbsp; 本来ホスピスとは施設ではなくサービスのこと。心身ともに人生の終わりの時を平安に過ごせるよう、看護師、医師、ソーシャルワーカー、チャプレン、ボランティア等がチームとなり、患者さんやご家族を支えていきます。わたしのしごとは、お話を聴いたりお祈りしたりしながら、人々のこころを見守っていくことです。宗教の有無や違いに関係なく、どんな人でもどこにでも出かけていきます。自宅や高齢者施設、ケアホームやホームレスキャンプなど、毎日島中を車で回っています。 <br> &nbsp; 数年前のある日、自分のスマホが頼んでもないのに、勝手にわたしの歩数を数えていることがわかりました。見てびっくり、これは完全に運動不足ぎみ。それからすぐにコロナ禍が押し寄せてきて、それならば気分転換にと家のまわりを歩くようになりました。はじめはいつ家にたどり着つくのか、そればかり気になっていたのですが、いまはただ歩くことが楽しいです。ハワイの朝は美しく、空や鳥たち、草花にあいさつしながら、毎日てくてく歩いています。目に留まったものを写真に撮るのも楽しみ。毎日曜日の聖書日課ブログで写真をアップしています。良ければどうぞたずねてみてください。
+          &nbsp;&nbsp;数年前のある日、自分のスマホが頼みもしないのに、勝手にわたしの歩数を数えていることに気が付きました。見てびっくり、これは完全に運動不足。それならばと、気分転換も兼ね、意識して歩いたり、ウォーキングをしたりするようになりました。はじめのうちはどれくらい歩けば目的地に着つくのか、そればかり気になっていたのですが、いまではただ歩くことを楽しんでいます。移り行く四季の空、風の色、道端の草花や遠くに見える街のあかりなど、毎日ちがった美しさに出会います。なんでも速い世の中ですが、本当は歩く速さがわたしたちにとってはちょうどいい生きるペースなのかもしれません。<br>
+          ２０２３年の秋に十数年ぶりに関西に戻ってきました。いつもは、病院のチャプレンとして働いています。
         </span>
         <!-- <span style="margin-top:50px" class="description">{{getStyle(person.description)}}</span> -->
         <!-- <span style="margin-top:50px" class="description"></span> -->
@@ -56,76 +57,6 @@
 </template>
 
 <script>
-// import db from '../../firebase.js';
-
-
-
-
-// export default {
-//   components: { 
-//     // GoogleMap, 
-//     // Marker,
-//   },
-
-//   data(){
-//     return{
-//       // profiles: undefined,
-//       // links,
-//       // link
-//     }
-//   },
-
-//   // setup() {
-//   //   // const center = { lat: 35.05922090366774,  lng: 135.7575056779574, };
-//   //   // const markerOptions = { position: center, label: "京都上賀茂教会", title: "京都上賀茂教会" };
-
-    
-
-//   //   // return { center, markerOptions };
-//   // },
-  
-//   methods:{
-
-//     // getData(){
-//     //   var docRef = db.collection('profiles').doc(`priests`);
-      
-      
-//     //   docRef.get().then((doc) => {
-//     //       if (doc.exists) {
-            
-//     //         this.profiles =doc.data().data
-//     //         console.log(this.profiles)
-//     //         // console.log(this.events)
-//     //         // this.historyArticles = JSON.parse(doc.data().data)
-//     //         // this.getViews()
-//     //       } else {
-//     //           // doc.data() will be undefined in this case
-//     //           this.events= []
-//     //       }
-//     //   }).catch((error) => {
-//     //       console.log("Error getting document:", error);
-//     //   });
-//     // },
-
-//     getStyle(text){
-//       return text
-//       // return text.substring(0,100);
-//     }
-    
-//   },
-
-//   mounted(){
-//     // this.getData()
-//   },
-
-//   computed: {
-//     imgSrc () {
-//       let list = [require("../../public/img/ikuta-san.jpg"), require("../../public/img/awazuhara-san.jpg"),require("../../public/img/hamamoto-san.jpg"),]
-//       return list
-//       // return require("../../public/img/awazuhara-san.jpg")
-//     },
-//   }
-// }
 </script>
 
 <style>
