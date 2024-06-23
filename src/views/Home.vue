@@ -319,7 +319,7 @@ export default {
         if (rows.length > 0) {
           this.processEvents(rows);
           console.clear()
-          console.table(this.events)
+          // console.table(this.events)
         } else {
           console.log('No data found');
           this.events = [];
