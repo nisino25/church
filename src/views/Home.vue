@@ -27,25 +27,23 @@
      
     <div class="content">
 
-    <!-- <div class="info" style="background-color: lightgray;">
-      <img src="../../public/img/bazaar-info.jpg" alt="" style="display: block; margin: auto; width:90%; max-width: 900px;">
-    </div> -->
+      <!-- <div class="info" style="background-color: lightgray;">
+        <img src="../../public/img/bazaar-info.jpg" alt="" style="display: block; margin: auto; width:90%; max-width: 900px;">
+      </div> -->
 
 
       <div class="events">
-
-        <div class="weekly-calendar " v-if="events">
+        <div class="weekly-calendar" v-if="events">
           <div>
             <header>
               <div style="text-align:center">
-                <i class="icon-chevron-left" @click="toPreviousMonth() ">&#8592;</i>  
+                <i class="icon-chevron-left" @click="toPreviousMonth">&#8592;</i>  
                 <h1>{{showingYear}}年{{showingMonth}}月の予定</h1>
-                <i class="icon-chevron-right" @click="toNextMonth()">&#8594;</i> 
-                <!-- <div class="year" style="">{{showingYear}}</div> -->
+                <i class="icon-chevron-right" @click="toNextMonth">&#8594;</i> 
               </div>
             </header>
 
-            <div class="weekly-contents" v-if="this.events?.length > 0">
+            <div class="weekly-contents" v-if="events.length > 0">
               <template v-for="(event, i) in events" :key="i"> 
                 <div class="calendar_plan">
                   <div class="cl_plan">
@@ -53,36 +51,28 @@
                       <template v-if="event.from !== ''">:  {{event.from}} 〜 &nbsp; @{{event.location}}
                       </template>
                     </div> 
-                    <div class="cl_copy" v-if="event.title == '主日礼拝'">
-                      <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}  </strong> 
-                      <!-- <br v-if="vw < 600"> -->
-                      <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  </div>
+                    <div class="cl_copy" v-if="event.title === '主日礼拝'">
+                      <strong :style="[vw > 800 ? 'font-size: 125%' : '']">{{event.title}}:  </strong> 
+                      <span :style="[vw < 800 ? 'margin-left: 25px' : '']">説教者: {{event.priest}}</span>  
+                    </div>
                     <div class="cl_copy" v-else>{{event.title}}</div>
-
                     <div class="cl_copy" v-if="event.description">
                       <span :style="[vw < 800 ? 'margin-left: 25px' : '']">{{event.description}}</span>  
                     </div>
                   </div>
                 </div>
-                
               </template>
             </div>
 
             <div class="weekly-contents" v-else>
               <div class="calendar_plan">
-                  <div class="cl_plan">現在この月の予定はありません。
-                    <div class="cl_title"></div>
-                    
-                  </div>
+                <div class="cl_plan">現在この月の予定はありません。
+                  <div class="cl_title"></div>
                 </div>
-              
+              </div>
             </div>
-
-
           </div>
         </div>
-
-
 
         <div v-else class="loader"></div>
       </div>
@@ -213,9 +203,13 @@ export default {
       showingCalendar: undefined,
       previous: [],
       next: [],
-      events: undefined,
+      // events: undefined,
 
       logined: false,
+
+      events: undefined,
+      showingYear: new Date().getFullYear(),
+      showingMonth: new Date().getMonth() + 1, // getMonth() is zero-based
       
 
 
@@ -225,6 +219,10 @@ export default {
     }
   },
   methods: {
+
+  updateViewport() {
+    this.vw = window.innerWidth;
+  },
     nextReason(){
       console.log('uep')
       this.totalClick++
@@ -284,55 +282,84 @@ export default {
         });
     },
 
-    getEvents(){
-      this.events = undefined
-      var docRef = db.collection('events').doc(`${this.showingYear}`);
-      
-      
-      docRef.get().then((doc) => {
-          if (doc.exists) {
-            
-            this.events =doc.data()[parseInt(this.showingMonth)]
-            if(!this.events) {
-              this.events= []
-            }
-            console.log(this.events)
-            // console.log(this.events)
-            // this.historyArticles = JSON.parse(doc.data().data)
-            // this.getViews()
-          } else {
-              // doc.data() will be undefined in this case
-              console.log("No such document!");
-              this.events= []
-          }
-      }).catch((error) => {
-          console.log("Error getting document:", error);
-      });
+    toPreviousMonth() {
+    let tempMonth = this.showingMonth;
+    if (tempMonth === 1) {
+      this.showingYear -= 1;
+      tempMonth = 12;
+    } else {
+      tempMonth -= 1;
+    }
+    this.showingMonth = tempMonth;
+    this.fetchEvents();
+  },
+  toNextMonth() {
+    let tempMonth = this.showingMonth;
+    if (tempMonth === 12) {
+      this.showingYear += 1;
+      tempMonth = 1;
+    } else {
+      tempMonth += 1;
+    }
+    this.showingMonth = tempMonth;
+    this.fetchEvents();
+  },
+
+
+    async fetchEvents() {
+      this.events = undefined;
+      const SPREADSHEET_ID = '1q5pUXkd9wE0qep1DRaegEp0fwgRVhiWtstsG1o0btkc';
+      const API_KEY = 'AIzaSyDl0Ur5nVIPMHo0wWnzDaUtgq63uRrsyvI'; // Replace with your API key
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Sheet1?key=${API_KEY}`;
+
+      fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const rows = data.values;
+        if (rows.length > 0) {
+          this.processEvents(rows);
+          console.clear()
+          console.table(this.events)
+        } else {
+          console.log('No data found');
+          this.events = [];
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
     },
+    processEvents(rows) {
+    const events = rows.slice(1).map(row => {
+      const [dateStr, time, title, priest, location, comment] = row;
+      const year = parseInt(dateStr.substring(0, 4), 10); // Convert year to integer
+      const month = parseInt(dateStr.substring(4, 6), 10); // Convert month to integer
+      const date = parseInt(dateStr.substring(6, 8), 10); // Convert date to integer
+      const day = this.calculateDayOfWeek(dateStr);
 
-    toNextMonth(){
-        if(this.showingMonth == 12){
-          this.showingMonth = 1
-          this.showingYear++
-        }else{
-          this.showingMonth++
-        }
+      return {
+        year,
+        month,
+        date,
+        day,
+        from: time,
+        title,
+        priest,
+        location,
+        comment
+      };
+    });
 
-        this.getEvents()
-        
-      },
-
-      toPreviousMonth(){
-        if(this.showingMonth == 1){
-          this.showingMonth = 12
-          this.showingYear--
-        }else{
-          this.showingMonth--
-        }
-
-        this.getEvents()
-        
-      },
+    this.events = events.filter(event => 
+      event.year === this.showingYear && event.month === this.showingMonth
+    );
+  },
+    calculateDayOfWeek(dateStr) {
+      const year = parseInt(dateStr.substring(0, 4), 10);
+      const month = parseInt(dateStr.substring(4, 6), 10) - 1; // Month is zero-indexed
+      const date = parseInt(dateStr.substring(6, 8), 10);
+      const dayOfWeek = new Date(year, month, date).getDay();
+      const days = ['日', '月', '火', '水', '木', '金', '土'];
+      return days[dayOfWeek];
+    }
   },
   
 
@@ -366,6 +393,11 @@ export default {
         {imgLink: require("../assets/images/bikes/bike4.webp"),title: '簡単ロック', description:`自転車に各種損害保険を付保。すぐに借りれる！`}
       ];
     },
+
+    formattedMonth() {
+    return this.showingMonth;
+  }
+
   },
 
   watch:{
@@ -375,20 +407,17 @@ export default {
     }
   },
 
-  created(){
+  async created(){
     this.incrementTotalViews()
 
-    var today = new Date();
-
-    // this.currentDate = String(today.getDate()).padStart(2, '0');
-    this.currentDate = today.getDate()
-    this.showingMonth = String(today.getMonth() + 1).padStart(2, '0'); 
-    this.currentMonth = String(today.getMonth() + 1).padStart(2, '0'); 
-
+    this.fetchEvents();
+    const today = new Date();
     this.showingYear = today.getFullYear();
-    this.currentYear = today.getFullYear();
+    this.showingMonth = today.getMonth() + 1; // Month as integer, no leading zero
+    this.currentMonth = today.getMonth() + 1; // Month as integer, no leading zero
+    this.fetchEvents();
 
-    this.getEvents()
+    // this.getEvents();
   },
 
 
@@ -399,435 +428,6 @@ export default {
 
 <style>
 
-img.bg {
-  filter: brightness(50%);
-
-  object-fit: cover;
-  /* object-position: -100px 0px; */
-  background-size : cover;
-  -webkit-background-size: cover;
-     -moz-background-size: cover;
-       -o-background-size: cover;
-          background-size: cover;
-          
-  width: 100vw;
-  height: 70vh;
-  max-height: 100vh; 
-
-  margin-top: 75px;
-
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 1;
-
-  left: 50%; 
-  transform: translate(-50%, 0); 
-  /* position: absolute; */
-
-  /* transform: translateY(-50%); */
-
-}
-
-.lp h1{
-  position: absolute;
-  top: 23vh;
-  left: 150px;
-  z-index:1;
-  font-size: 300%;
-  color: white;
-}
-
-.lp h2 {
-  padding:0.5em;/*文字周りの余白*/
-  color: white;/*文字色*/
-  background: grey;/*背景色*/
-  border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
-  position: absolute;
-  top: 65vh;
-  /* left: 150px; */
-  z-index:1;
-  font-size: 300%;
-  color: white;
-  font-size: 175%;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 50%;
-  /* width: 0%; */
-}
-
-
-.is-typed {
-  /* font-family: "Monaco"; */
-  font-family: 'Cursive';
-}
-
-.is-typed span.typed {
-  /* color: black; */
-}
-
-.is-typed span.cursor {
-  display: inline-block;
-  width: 3px;
-  /* background-color: black; */
-  animation: blink 1s infinite;
-}
-
-.is-typed span.underscore {
-  display: inline-flex;
-  width: 10px;
-  height: 1px;
-  align-items:flex-end;
-  /* background-color: black; */
-  animation: blink 1s infinite;
-}
-
-.is-typed span.cursor.typing {
-  animation: none;
-}
-
-@keyframes blink {
-  49% {
-    background-color: #2c3e50;
-  }
-  50% {
-    background-color: transparent;
-  }
-  99% {
-    background-color: transparent;
-  }
-}
-
-
-/* ----------------------------------- */
-.content{
-  margin-top: 200px;
-  margin-bottom: 200px
-}
-
-
-/* ----------------------------------------- */
-.profiles-wrapper{
-  /* background-color: red; */
-  width: 80vw;
-  margin: 30px auto;
-  display: flex;
-  text-align: center;
-  justify-content: space-between;
-}
-.profiles-wrapper img{
-  width: 300px;
-  height: auto;
-  border-radius: 50%;
-  display: block;
-  /* background-color: red; */
-}
-
-.profiles-wrapper strong{
-  font-size: 150%;
-}
-/* ----------------------------------------- */
-.corona{
-  background: #E6E6E6;
-  padding: 50px 0;
-}
-
-.corona div{
-  width: 70%;
-  margin: 0 auto;
-}
-.corona p{
-  text-align: left;
-  margin-bottom: 20px;
-}
-.corona p span{
-  color: crimson
-}
-
-.corona hr{
-  border: 1px solid grey;
-  margin: 30px auto;
-  width: 90%;
-}
-
-.corona strong{
-  font-size: 150%;
-  color: crimson;
-}
-/* ----------------------------------- */
-.notice{
-  width: 80vw;
-  /* background-color: hsl(50, 33%, 25%); */
-  background-color: dimgrey;
-  border-radius: 30px;
-  margin: 200px auto;
-  padding: 35px;
-  color: white;
-  
-}
-
-.notice h1{
-  width: 80%; 
-  margin: 50px auto;
-  text-align: center;
-}
-
-.notice div div{
-  display: flex;
-  margin-top: -30px;
-}
-
-.notice .left-section{
-  width: 50%;
-  /* background-color: red; */
-}
-
-.notice .right-section{
-  width: 50%;
-  display: block;
-  /* background-color: blue; */
-}
-
-.notice .left-section div{
-  width:50%;
-  margin: auto auto;
-}
-
-.notice img{
-  height: auto;
-  width: 300px;
-  border-radius: 20px;
-  
-  
-}
-
-.notice .right-section{
-  padding: 20px;
-}
-
-.map1{
-  width: 100%;
-  height: 500px;
-}
-
-
-/* -------------- */
-.location{
-    /* margin-top: 1000px; */
-    width: 70%;
-    margin: 200px auto;
-    text-align: center;
-    
-    /* background-color: aqua; */
-    
-  }
-.churchPic{
-  margin-top: 50px;
-  width: 45%;
-  height: auto;
-  margin-right: 20px;
-  /* text-align: left; */
-  /* text-align: left; */
-}
-
-.mapPic{
-  margin-top: 50px;
-  width: 45%;
-  height: auto;
-}
-
-.view-counter{
-  background: #E6E6E6;
-  padding: 25px 0;
-  text-align: center;
-
-  margin-top: 100px;
-}
-
-.view-counter div{
-  width: 50%;
-  margin: auto auto;
-  cursor: pointer;
-}
-
-
-/* --------------------------------------------- */
-/* Media Query For different screens */
-@media (min-width:320px) and (max-width:479px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-  .main-content-wrapper{
-    /* margin: 0 0; */
-  }
-
-  .lp h1{
-    position: absolute;
-    top: 23vh;
-    left: 10px;
-    z-index:1;
-    font-size: 12vw;
-    color: white;
-  }
-
-  .lp h2 {
-    padding: 0.5em;/*文字周りの余白*/
-    /* color: red;文字色 */
-    background: grey;/*背景色*/
-    border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
-    position: absolute;
-    top: 55vh;
-    z-index:1;
-    font-size: 4.65vw;
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: 85%;
-  }
-
-
-
-  .content{
-    margin-top: 100px;
-    margin-bottom: 100px;
-    /* background-color: olive; */
-  }
-
-  .notice{
-    width: 90vw;
-    /* background-color: hsl(50, 33%, 25%); */
-    background-color: dimgrey;
-    border-radius: 30px;
-    /* margin: 200px auto; */
-    margin-top: 10px;
-    color: white;
-    
-  }
-
- 
-
-  .notice h1{
-    width: 100%;
-    font-size: 7vw;
-    margin: auto auto;
-  }
-
-  .notice div div{
-    width: 100%;
-    margin: auto auto;
-    display: block;
-  }
-
-  .notice .left-section{
-    width: 100%;
-    margin: auto auto;
-    /* background-color: red; */
-  }
-
-  .notice .right-section{
-    width: 100%;
-    margin: auto auto;
-    /* background-color: blue; */
-  }
-
-
-  .notice .left-section div{
-    width:100%;
-    margin: auto auto;
-  }
-
-  .notice img{
-    display: block;
-    height: auto;
-    width: 50%;
-
-    margin: 100px auto;
-
-    margin-bottom: 140px;
-    transform: scale(2);
-
-    border-radius: 20px;
-    
-  
-  }
-
-  .notice .right-section{
-    padding: 0px;
-  }
-
-
-  /* --------------------------- */
-  .corona{
-    background: #E6E6E6;
-    padding: 30px 0px;
-  }
-
-  .corona h1{
-    font-size: 10vw;
-    /* width: 100%; */
-    /* color: */
-  }
-
-  .corona div{
-    width: 80vw;
-    margin: 0 auto;
-  }
-  .corona p{
-    text-align: left;
-    margin-bottom: 20px;
-  }
-  .corona p span{
-    color: crimson
-  }
-
-  .view-counter{
-    background: #E6E6E6;
-    /* padding: 5px 0px; */
-    /* padding-top: 1px; */
-    text-align: center;
-
-    margin-top: 20px;
-  }
-
-  .view-counter div{
-    width: 100%;
-    margin: 0px 0px;
-    cursor: pointer;
-  }
-
-
-}
-
-@media (min-width:600px) and (max-width: 834px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
-  
-
-
-  .lp h2 {
-    padding: 0.5em;/*文字周りの余白*/
-    /* color: red;文字色 */
-    /* background: red;背景色 */
-    border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
-    position: absolute;
-    top: 65vh;
-    z-index:1;
-    font-size: 170%;
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: 85%;
-  }
-
-  .view-counter{
-    background: #E6E6E6;
-    padding: 25px 0;
-    text-align: center;
-
-    margin-top: 125px;
-  }
-
-
-}
-
-
-@media (min-device-width: 834px) and (max-device-width: 1200px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
   img.bg {
     filter: brightness(50%);
 
@@ -840,10 +440,10 @@ img.bg {
             background-size: cover;
             
     width: 100vw;
-    height: 60vh;
+    height: 70vh;
     max-height: 100vh; 
 
-    margin-top: 100px;
+    margin-top: 75px;
 
     position: relative;
     top: 0;
@@ -858,235 +458,664 @@ img.bg {
 
   }
 
+  .lp h1{
+    position: absolute;
+    top: 23vh;
+    left: 150px;
+    z-index:1;
+    font-size: 300%;
+    color: white;
+  }
+
   .lp h2 {
-    padding: 0.5em;/*文字周りの余白*/
-    /* color: red;文字色 */
-    /* background: yellow;背景色 */
+    padding:0.5em;/*文字周りの余白*/
+    color: white;/*文字色*/
+    background: grey;/*背景色*/
     border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
     position: absolute;
-    top: 62.5vh;
+    top: 65vh;
+    /* left: 150px; */
     z-index:1;
-    font-size: 170%;
+    font-size: 300%;
+    color: white;
+    font-size: 175%;
     left: 50%;
     transform: translateX(-50%);
 
-    width: 75%;
+    width: 50%;
+    /* width: 0%; */
   }
-}
 
-/* ------------------------------------------------- */
-.events{
-  margin-top: 100px;
-  margin-bottom: 150px;
-  background-color: lightgray;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-.weekly-calendar {
-    /* display: inline-block; */
-    width: 700px; 
+
+  .is-typed {
+    /* font-family: "Monaco"; */
+    font-family: 'Cursive';
+  }
+
+  .is-typed span.typed {
+    /* color: black; */
+  }
+
+  .is-typed span.cursor {
+    display: inline-block;
+    width: 3px;
+    /* background-color: black; */
+    animation: blink 1s infinite;
+  }
+
+  .is-typed span.underscore {
+    display: inline-flex;
+    width: 10px;
+    height: 1px;
+    align-items:flex-end;
+    /* background-color: black; */
+    animation: blink 1s infinite;
+  }
+
+  .is-typed span.cursor.typing {
+    animation: none;
+  }
+
+  @keyframes blink {
+    49% {
+      background-color: #2c3e50;
+    }
+    50% {
+      background-color: transparent;
+    }
+    99% {
+      background-color: transparent;
+    }
+  }
+
+
+  /* ----------------------------------- */
+  .content{
+    margin-top: 200px;
+    margin-bottom: 200px
+  }
+
+
+  /* ----------------------------------------- */
+  .profiles-wrapper{
+    /* background-color: red; */
+    width: 80vw;
     margin: 30px auto;
-    /* width: 70%;  */
-    /* background-color: green; */
-  }
-
-  
-  .weekly-calendar div{
-    /* margin: 50px auto; */
-    /* width: 750px;  */
-    /* display: inline-block; */
-    margin-left: auto;
-    margin-right: auto;
-    /* background-color: lightgrey; */
-  }
-
-  
-  /* .weekly-calendar header {
-    border-radius: 1em 1em 0 0;
-    background: SteelBlue;
-    color: #fff;
-    padding: 1em 1em;
-    
-    width: 100%;
-  }
-
-
-  .weekly-calendar header span{
-    font-size: 50px;
-  } */
-
-  .weekly-calendar header{
-    width: 100%;
-    /* height: 37px; */
+    display: flex;
     text-align: center;
-    background-color:SteelBlue;
-    padding-top: 30px;
-    padding-bottom: 50px;
-    -webkit-border-radius: 12px 12px 0px 0px;
-    -moz-border-radius: 12px 12px 0px 0px; 
-    border-radius: 12px 12px 0px 0px;
+    justify-content: space-between;
   }
-  .weekly-calendar header h1{
-    font-size: 1.5em;
-    color: #FFFFFF;
-    float:left;
-    width:60%;
-    
-  }
-  .weekly-calendar header i[class^=icon-chevron]{
-    color: #FFFFFF;
-    float: left;
-    width:20%;
+  .profiles-wrapper img{
+    width: 300px;
+    height: auto;
     border-radius: 50%;
-    margin-top: 6px;
+    display: block;
+    /* background-color: red; */
   }
 
-  .weekly-contents{
-    background: #fff;
-    border-radius: 0 0 1em 1em;
-    -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
-    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
-    color: #555;
-    /* display: inline-block; */
-    /* padding: 2em; */
-    /* width: 100%; */
-    padding: 10px 50px;
-    /* padding-bottom: 100px; */
-    /* padding-top: 20px; */
-    /* padding-bottom: 20px; */
-    /* padding-left: 20px; */
+  .profiles-wrapper strong{
+    font-size: 150%;
+  }
+  /* ----------------------------------------- */
+  .corona{
+    background: #E6E6E6;
+    padding: 50px 0;
+  }
 
+  .corona div{
+    width: 70%;
     margin: 0 auto;
   }
-
-  .calendar_plan{
-    margin:20px;
+  .corona p{
+    text-align: left;
+    margin-bottom: 20px;
   }
-  .cl_plan{
-    /* width:70%; */
-    /* height: 140px; */
-    background-image: linear-gradient(-222deg, LightSeaGreen, MediumSeaGreen);
-    box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.75);
-    padding:12.5px 20px;
-    color:#fff;
-  }
-  .cl_title{
-    font-size:20px;
-  }
-  .cl_copy{
-    font-size:25px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    display: inline-block;
+  .corona p span{
+    color: crimson
   }
 
-  .weekly-contents span{
-      /* font-size: 80%; */
-      margin-left: 20px;
+  .corona hr{
+    border: 1px solid grey;
+    margin: 30px auto;
+    width: 90%;
+  }
+
+  .corona strong{
+    font-size: 150%;
+    color: crimson;
+  }
+  /* ----------------------------------- */
+  .notice{
+    width: 80vw;
+    /* background-color: hsl(50, 33%, 25%); */
+    background-color: dimgrey;
+    border-radius: 30px;
+    margin: 200px auto;
+    padding: 35px;
+    color: white;
+    
+  }
+
+  .notice h1{
+    width: 80%; 
+    margin: 50px auto;
+    text-align: center;
+  }
+
+  .notice div div{
+    display: flex;
+    margin-top: -30px;
+  }
+
+  .notice .left-section{
+    width: 50%;
+    /* background-color: red; */
+  }
+
+  .notice .right-section{
+    width: 50%;
+    display: block;
+    /* background-color: blue; */
+  }
+
+  .notice .left-section div{
+    width:50%;
+    margin: auto auto;
+  }
+
+  .notice img{
+    height: auto;
+    width: 300px;
+    border-radius: 20px;
+    
+    
+  }
+
+  .notice .right-section{
+    padding: 20px;
+  }
+
+  .map1{
+    width: 100%;
+    height: 500px;
+  }
+
+
+  /* -------------- */
+  .location{
+      /* margin-top: 1000px; */
+      width: 70%;
+      margin: 200px auto;
+      text-align: center;
+      
+      /* background-color: aqua; */
+      
+    }
+  .churchPic{
+    margin-top: 50px;
+    width: 45%;
+    height: auto;
+    margin-right: 20px;
+    /* text-align: left; */
+    /* text-align: left; */
+  }
+
+  .mapPic{
+    margin-top: 50px;
+    width: 45%;
+    height: auto;
+  }
+
+  .view-counter{
+    background: #E6E6E6;
+    padding: 25px 0;
+    text-align: center;
+
+    margin-top: 100px;
+  }
+
+  .view-counter div{
+    width: 50%;
+    margin: auto auto;
+    cursor: pointer;
+  }
+
+
+  /* --------------------------------------------- */
+  /* Media Query For different screens */
+  @media (min-width:320px) and (max-width:479px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .main-content-wrapper{
+      /* margin: 0 0; */
     }
 
-  @media (min-width:320px) and (max-width:750px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-    .weekly-calendar {
-      width: 345px; 
+    .lp h1{
+      position: absolute;
+      top: 23vh;
+      left: 10px;
+      z-index:1;
+      font-size: 12vw;
+      color: white;
     }
 
-    .weekly-calendar header span{
-      font-size: 30px;
+    .lp h2 {
+      padding: 0.5em;/*文字周りの余白*/
+      /* color: red;文字色 */
+      background: grey;/*背景色*/
+      border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+      position: absolute;
+      top: 55vh;
+      z-index:1;
+      font-size: 4.65vw;
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: 85%;
     }
 
-    .weekly-contents span{
-      margin-left: 0px;
+
+
+    .content{
+      margin-top: 100px;
+      margin-bottom: 100px;
+      /* background-color: olive; */
     }
 
-    .cl_title{
-      font-size: 15px;
-    }
-
-
-    .weekly-contents{
-      padding: 10px 20px;
-
-      margin: 0 auto;
+    .notice{
+      width: 90vw;
+      /* background-color: hsl(50, 33%, 25%); */
+      background-color: dimgrey;
+      border-radius: 30px;
+      /* margin: 200px auto; */
+      margin-top: 10px;
+      color: white;
       
     }
 
-    .cl_copy strong{
-      font-size: 20px
-    }
-
-    .cl_copy span{
-      font-size: 18px
-    }
-
-
   
 
-
-  }
-
-  @media (min-width:750px) and (max-width:1024px) {
-    .profiles-wrapper{
-      /* background-color: red; */
-      width: 85vw;
-      margin: 30px auto;
-      display: flex;
-      text-align: center;
-      justify-content: space-between;
+    .notice h1{
+      width: 100%;
+      font-size: 7vw;
+      margin: auto auto;
     }
-    .profiles-wrapper img{
-      width: 225px;
-      height: auto;
-      border-radius: 50%;
+
+    .notice div div{
+      width: 100%;
+      margin: auto auto;
       display: block;
+    }
+
+    .notice .left-section{
+      width: 100%;
+      margin: auto auto;
       /* background-color: red; */
     }
 
-    .profiles-wrapper strong{
-      font-size: 150%;
+    .notice .right-section{
+      width: 100%;
+      margin: auto auto;
+      /* background-color: blue; */
+    }
+
+
+    .notice .left-section div{
+      width:100%;
+      margin: auto auto;
+    }
+
+    .notice img{
+      display: block;
+      height: auto;
+      width: 50%;
+
+      margin: 100px auto;
+
+      margin-bottom: 140px;
+      transform: scale(2);
+
+      border-radius: 20px;
+      
+    
+    }
+
+    .notice .right-section{
+      padding: 0px;
+    }
+
+
+    /* --------------------------- */
+    .corona{
+      background: #E6E6E6;
+      padding: 30px 0px;
+    }
+
+    .corona h1{
+      font-size: 10vw;
+      /* width: 100%; */
+      /* color: */
     }
 
     .corona div{
-      width: 80%;
+      width: 80vw;
+      margin: 0 auto;
+    }
+    .corona p{
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .corona p span{
+      color: crimson
+    }
+
+    .view-counter{
+      background: #E6E6E6;
+      /* padding: 5px 0px; */
+      /* padding-top: 1px; */
+      text-align: center;
+
+      margin-top: 20px;
+    }
+
+    .view-counter div{
+      width: 100%;
+      margin: 0px 0px;
+      cursor: pointer;
+    }
+
+
+  }
+
+  @media (min-width:600px) and (max-width: 834px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    
+
+
+    .lp h2 {
+      padding: 0.5em;/*文字周りの余白*/
+      /* color: red;文字色 */
+      /* background: red;背景色 */
+      border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+      position: absolute;
+      top: 65vh;
+      z-index:1;
+      font-size: 170%;
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: 85%;
+    }
+
+    .view-counter{
+      background: #E6E6E6;
+      padding: 25px 0;
+      text-align: center;
+
+      margin-top: 125px;
+    }
+
+
+  }
+
+
+  @media (min-device-width: 834px) and (max-device-width: 1200px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+    img.bg {
+      filter: brightness(50%);
+
+      object-fit: cover;
+      /* object-position: -100px 0px; */
+      background-size : cover;
+      -webkit-background-size: cover;
+        -moz-background-size: cover;
+          -o-background-size: cover;
+              background-size: cover;
+              
+      width: 100vw;
+      height: 60vh;
+      max-height: 100vh; 
+
+      margin-top: 100px;
+
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 1;
+
+      left: 50%; 
+      transform: translate(-50%, 0); 
+      /* position: absolute; */
+
+      /* transform: translateY(-50%); */
+
+    }
+
+    .lp h2 {
+      padding: 0.5em;/*文字周りの余白*/
+      /* color: red;文字色 */
+      /* background: yellow;背景色 */
+      border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+      position: absolute;
+      top: 62.5vh;
+      z-index:1;
+      font-size: 170%;
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: 75%;
+    }
+  }
+
+  /* ------------------------------------------------- */
+  .events{
+    margin-top: 100px;
+    margin-bottom: 150px;
+    background-color: lightgray;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .weekly-calendar {
+      /* display: inline-block; */
+      width: 700px; 
+      margin: 30px auto;
+      /* width: 70%;  */
+      /* background-color: green; */
     }
 
     
-  }
-
-  @media (min-width:320px) and (max-width:749px) {
-    .priests{
-      width: 85vw;
-      /* color:red; */
-      /* margin:  */
+    .weekly-calendar div{
+      /* margin: 50px auto; */
+      /* width: 750px;  */
+      /* display: inline-block; */
+      margin-left: auto;
+      margin-right: auto;
+      /* background-color: lightgrey; */
     }
 
-    .profiles-wrapper{
-      /* background-color: red; */
-      width: 85vw;
-      margin: 30px auto;
-      display: flex;
+    
+    /* .weekly-calendar header {
+      border-radius: 1em 1em 0 0;
+      background: SteelBlue;
+      color: #fff;
+      padding: 1em 1em;
+      
+      width: 100%;
+    }
+
+
+    .weekly-calendar header span{
+      font-size: 50px;
+    } */
+
+    .weekly-calendar header{
+      width: 100%;
+      /* height: 37px; */
       text-align: center;
-      justify-content: space-between;
+      background-color:SteelBlue;
+      padding-top: 30px;
+      padding-bottom: 50px;
+      -webkit-border-radius: 12px 12px 0px 0px;
+      -moz-border-radius: 12px 12px 0px 0px; 
+      border-radius: 12px 12px 0px 0px;
     }
-    .profiles-wrapper img{
-      width: 100px;
-      height: auto;
+    .weekly-calendar header h1{
+      font-size: 1.5em;
+      color: #FFFFFF;
+      float:left;
+      width:60%;
+      
+    }
+    .weekly-calendar header i[class^=icon-chevron]{
+      color: #FFFFFF;
+      float: left;
+      width:20%;
       border-radius: 50%;
-      display: block;
-      /* background-color: red; */
+      margin-top: 6px;
     }
 
-    .profiles-wrapper strong{
-      font-size: 100%;
+    .weekly-contents{
+      background: #fff;
+      border-radius: 0 0 1em 1em;
+      -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+      box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 3px 1px #fff;
+      color: #555;
+      /* display: inline-block; */
+      /* padding: 2em; */
+      /* width: 100%; */
+      padding: 10px 50px;
+      /* padding-bottom: 100px; */
+      /* padding-top: 20px; */
+      /* padding-bottom: 20px; */
+      /* padding-left: 20px; */
+
+      margin: 0 auto;
     }
-  }
+
+    .calendar_plan{
+      margin:20px;
+    }
+    .cl_plan{
+      /* width:70%; */
+      /* height: 140px; */
+      background-image: linear-gradient(-222deg, LightSeaGreen, MediumSeaGreen);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.75);
+      padding:12.5px 20px;
+      color:#fff;
+    }
+    .cl_title{
+      font-size:20px;
+    }
+    .cl_copy{
+      font-size:25px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .weekly-contents span{
+        /* font-size: 80%; */
+        margin-left: 20px;
+      }
+
+    @media (min-width:320px) and (max-width:750px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+      .weekly-calendar {
+        width: 345px; 
+      }
+
+      .weekly-calendar header span{
+        font-size: 30px;
+      }
+
+      .weekly-contents span{
+        margin-left: 0px;
+      }
+
+      .cl_title{
+        font-size: 15px;
+      }
 
 
-  .corona h1{
-      /* color: red; */
-      text-align: center;
+      .weekly-contents{
+        padding: 10px 20px;
+
+        margin: 0 auto;
+        
+      }
+
+      .cl_copy strong{
+        font-size: 20px
+      }
+
+      .cl_copy span{
+        font-size: 18px
+      }
+
+
+    
+
+
     }
-/* ------------------------------------------------- */
-.loader {
+
+    @media (min-width:750px) and (max-width:1024px) {
+      .profiles-wrapper{
+        /* background-color: red; */
+        width: 85vw;
+        margin: 30px auto;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+      }
+      .profiles-wrapper img{
+        width: 225px;
+        height: auto;
+        border-radius: 50%;
+        display: block;
+        /* background-color: red; */
+      }
+
+      .profiles-wrapper strong{
+        font-size: 150%;
+      }
+
+      .corona div{
+        width: 80%;
+      }
+
+      
+    }
+
+    @media (min-width:320px) and (max-width:749px) {
+      .priests{
+        width: 85vw;
+        /* color:red; */
+        /* margin:  */
+      }
+
+      .profiles-wrapper{
+        /* background-color: red; */
+        width: 85vw;
+        margin: 30px auto;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+      }
+      .profiles-wrapper img{
+        width: 100px;
+        height: auto;
+        border-radius: 50%;
+        display: block;
+        /* background-color: red; */
+      }
+
+      .profiles-wrapper strong{
+        font-size: 100%;
+      }
+    }
+
+
+    .corona h1{
+        /* color: red; */
+        text-align: center;
+      }
+  /* ------------------------------------------------- */
+  .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #3498db;

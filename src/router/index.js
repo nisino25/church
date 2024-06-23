@@ -38,10 +38,15 @@ const routes = [
     name: 'access',
     component: () => import('../views/access.vue')
   },
+  // {
+  //   path: '/schedule',
+  //   name: 'shcedule',
+  //   component: () => import('../views/schedule.vue')
+  // },
   {
-    path: '/schedule',
-    name: 'shcedule',
-    component: () => import('../views/schedule.vue')
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/test.vue')
   },
   // {
   //   path: '/schedule/edit',

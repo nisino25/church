@@ -291,11 +291,19 @@
       test(){
         const ref = db.collection('events')
         ref.doc(`2024`).update({
-          1: [
-            {year: 2024, month: 1, date: 7, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2024, month: 1, date: 14, day: '日', title:'主日礼拝', priest: 'マーサ　メンセンディーク　同志社大学社会学部　准教授', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2024, month: 1, date: 21, day: '日', title:'主日礼拝', priest: '浜本牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
-            {year: 2024, month: 1, date: 28, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+          6: [
+            {year: 2024, month: 6, date: 2, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 6, date: 9, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 6, date: 16, day: '日', title:'主日礼拝', priest: '粟津原淳', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 6, date: 23, day: '日', title:'主日礼拝', priest: '中島淳', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            {year: 2024, month: 6, date: 30, day: '日', title:'主日礼拝', priest: '浜本京子', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+
+            // 中島淳
+            // 浜本京子
+
+            // {year: 2024, month: 5, date: 12, day: '日', title:'主日礼拝', priest: '浜本京子', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            // {year: 2024, month: 5, date: 19, day: '日', title:'主日礼拝', priest: '粟津原淳', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
+            // {year: 2024, month: 5, date: 26, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2023, month: 12, date: 31, day: '日', title:'主日礼拝', priest: '礼拝お休み', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2023, month: 7, date: 30, day: '日', title:'主日礼拝', priest: '生田牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
             // {year: 2022, month: 11, date: 13, day: '日', title:'主日礼拝', priest: '粟津原牧師', musician: '', after: '', from: '10:30', location: '京都上賀茂教会' },
