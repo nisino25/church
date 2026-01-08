@@ -37,18 +37,18 @@
           <div>
             <header>
               <div style="text-align:center">
-                <i class="icon-chevron-left" @click="toPreviousMonth">&#8592;</i>  
+                <i style="cursor: pointer;" class="icon-chevron-left" @click="toPreviousMonth">&#8592;</i>  
                 <h1>{{showingYear}}年{{showingMonth}}月の予定</h1>
-                <i class="icon-chevron-right" @click="toNextMonth">&#8594;</i> 
+                <i style="cursor: pointer;" class="icon-chevron-right" @click="toNextMonth">&#8594;</i> 
               </div>
             </header>
 
-            <div class="weekly-contents" v-if="events.length > 0">
-              <template v-for="(event, i) in events" :key="i"> 
+            <div class="weekly-contents" v-if="currentMonthEvents?.length > 0">
+              <template v-for="(event, i) in currentMonthEvents" :key="i"> 
                 <div class="calendar_plan">
                   <div class="cl_plan">
-                    <div class="cl_title">{{event.month}} / {{event.date}} ({{event.day}}) 
-                      <template v-if="event.from !== ''">:  {{event.from}} 〜 &nbsp; @{{event.location}}
+                    <div class="cl_title">{{event.month}} / {{event.day}} ({{event.weekday}}) 
+                      <template v-if="event.from !== ''">:  {{event.time}} 〜 &nbsp; @{{event.location}}
                       </template>
                     </div> 
                     <div class="cl_copy" v-if="event.title === '主日礼拝'">
@@ -210,6 +210,11 @@ export default {
       events: undefined,
       showingYear: new Date().getFullYear(),
       showingMonth: new Date().getMonth() + 1, // getMonth() is zero-based
+
+      fetchedData: undefined,
+      baseUrl: 'https://script.google.com/macros/s/AKfycbzsUUG9JKwvq5uo12P3YLMa4zJ1ue68VvhY6LooriLjkJCXLlanwl7GxsSCe7W7zgTMnA/exec',
+
+      vw: window.innerWidth,
       
 
 
@@ -220,90 +225,90 @@ export default {
   },
   methods: {
 
-  updateViewport() {
-    this.vw = window.innerWidth;
-  },
-    nextReason(){
-      console.log('uep')
-      this.totalClick++
-      if(this.reasonIndex+1 !==this.reasonsImages.length){
-        this.reasonIndex++
-      }else{
-        this.reasonIndex = 0
-      }
+    updateViewport() {
+      this.vw = window.innerWidth;
     },
+      nextReason(){
+        console.log('uep')
+        this.totalClick++
+        if(this.reasonIndex+1 !==this.reasonsImages.length){
+          this.reasonIndex++
+        }else{
+          this.reasonIndex = 0
+        }
+      },
 
-    sleep(ms) {
-      return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-      });
-    },
-
-    async keepChangingColor(){
-      let count =0 
-      while(count < 1000){
-
-        this.theColor = `#${Math.floor(Math.random()*16777215).toString(16)}`
-        let string = this.theColor
-        console.log(`%c${string}` ,`color:${string}`)
-        await this.sleep(3500)
-        count++
-
-      }
-
-    },
-
-    modal(){
-      console.log('showing')
-      this.showModal = true
-    },
-
-    incrementTotalViews(){
-      var docRef = db.collection('analytics').doc(`views`);
-        
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-              this.totalVisitors = doc.data().total
-              // console.log(`views: ${this.totalVisitors}`)
-
-              this.totalVisitors++
-              if(!this.totalVisitors) return
-              if(this.totalVisitors > 0){
-                docRef.update({
-                  total: this.totalVisitors
-                })
-              }
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
+      sleep(ms) {
+        return new Promise((resolve) => {
+          setTimeout(resolve, ms);
         });
-    },
+      },
 
-    toPreviousMonth() {
-    let tempMonth = this.showingMonth;
-    if (tempMonth === 1) {
-      this.showingYear -= 1;
-      tempMonth = 12;
-    } else {
-      tempMonth -= 1;
-    }
-    this.showingMonth = tempMonth;
-    this.fetchEvents();
-  },
-  toNextMonth() {
-    let tempMonth = this.showingMonth;
-    if (tempMonth === 12) {
-      this.showingYear += 1;
-      tempMonth = 1;
-    } else {
-      tempMonth += 1;
-    }
-    this.showingMonth = tempMonth;
-    this.fetchEvents();
-  },
+      async keepChangingColor(){
+        let count =0 
+        while(count < 1000){
+
+          this.theColor = `#${Math.floor(Math.random()*16777215).toString(16)}`
+          let string = this.theColor
+          console.log(`%c${string}` ,`color:${string}`)
+          await this.sleep(3500)
+          count++
+
+        }
+
+      },
+
+      modal(){
+        console.log('showing')
+        this.showModal = true
+      },
+
+      incrementTotalViews(){
+        var docRef = db.collection('analytics').doc(`views`);
+          
+          docRef.get().then((doc) => {
+              if (doc.exists) {
+                this.totalVisitors = doc.data().total
+                // console.log(`views: ${this.totalVisitors}`)
+
+                this.totalVisitors++
+                if(!this.totalVisitors) return
+                if(this.totalVisitors > 0){
+                  docRef.update({
+                    total: this.totalVisitors
+                  })
+                }
+              } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+              }
+          }).catch((error) => {
+              console.log("Error getting document:", error);
+          });
+      },
+
+      toPreviousMonth() {
+        let tempMonth = this.showingMonth;
+        if (tempMonth === 1) {
+          this.showingYear -= 1;
+          tempMonth = 12;
+        } else {
+          tempMonth -= 1;
+        }
+        this.showingMonth = tempMonth;
+        // this.fetchEvents();
+      },
+      toNextMonth() {
+        let tempMonth = this.showingMonth;
+        if (tempMonth === 12) {
+          this.showingYear += 1;
+          tempMonth = 1;
+        } else {
+          tempMonth += 1;
+        }
+        this.showingMonth = tempMonth;
+        // this.fetchData();
+      },
 
 
     async fetchEvents() {
@@ -315,11 +320,13 @@ export default {
       fetch(url)
       .then(response => response.json())
       .then(data => {
+        console.log("API Response (fetchEvents):", data);
         const rows = data.values;
         if (rows.length > 0) {
           this.processEvents(rows);
-          console.clear()
-          // console.table(this.events)
+          console.log("after processing:", this.events); 
+          // console.clear()
+          // console.log(this.events)
         } else {
           console.log('No data found');
           this.events = [];
@@ -327,31 +334,116 @@ export default {
       })
       .catch(error => console.error('Error fetching data:', error));
     },
+
+    fetchData() {
+          const url = `${this.baseUrl}?callback=jsonpCallback&action=fetchData`;
+          const vm = this;
+
+          window.jsonpCallback = function (res) {
+              console.log("RAW JSONP:", res);
+
+              // HARD GUARD – NOTHING ELSE RUNS IF THIS FAILS
+              if (!res || !res.success || !Array.isArray(res.data)) {
+                  console.error("Bad JSONP payload", res);
+                  vm.events = [];
+                  return;
+              }
+
+              try {
+                  vm.events = vm.normalizeEvents(res.data);
+                  console.log("SAFE EVENTS:", vm.events);
+              } catch (e) {
+                  console.error("Frontend normalize crash", e);
+                  vm.events = [];
+              }
+          };
+
+          const script = document.createElement("script");
+          script.src = url;
+          script.async = true;
+          script.onerror = () => {
+              console.error("JSONP load failed");
+              vm.events = [];
+          };
+
+          document.body.appendChild(script);
+
+          script.onload = () => {
+              document.body.removeChild(script);
+          };
+      },
+    normalizeEvents(events) {
+    if (!Array.isArray(events)) return [];
+
+    const weekdaysJa = ["日", "月", "火", "水", "木", "金", "土"];
+
+    return events
+        .filter(e => e && e["非表示"] !== "1")
+        .map((e, i) => {
+            const dateStr = String(e.date || "");
+            const timeStr = String(e.time || "").padStart(4, "0");
+
+            if (dateStr.length !== 8) return null;
+
+            const year = Number(dateStr.slice(0, 4));
+            const month = Number(dateStr.slice(4, 6));
+            const day = Number(dateStr.slice(6, 8));
+
+            const hour = timeStr.slice(0, 2);
+            const minute = timeStr.slice(2, 4);
+
+            // Create Date object (local time, not UTC)
+            const dateObj = new Date(year, month - 1, day, hour, minute);
+
+            return {
+                id: `${dateStr}-${i}`,
+                title: e.title || "",
+                priest: e["priest "]?.trim() || "",
+                location: e.location || "",
+                comment: e.comment || "",
+
+                // raw
+                date: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
+                time: `${hour}:${minute}`,
+                datetime: dateObj,
+
+                // display helpers
+                year,
+                month,
+                day,
+                weekday: weekdaysJa[dateObj.getDay()] // 日 月 火 水 木 金 土
+            };
+        })
+        .filter(Boolean);
+},
+
+
+
     processEvents(rows) {
-    const events = rows.slice(1).map(row => {
-      const [dateStr, time, title, priest, location, comment] = row;
-      const year = parseInt(dateStr.substring(0, 4), 10); // Convert year to integer
-      const month = parseInt(dateStr.substring(4, 6), 10); // Convert month to integer
-      const date = parseInt(dateStr.substring(6, 8), 10); // Convert date to integer
-      const day = this.calculateDayOfWeek(dateStr);
+      const events = rows.slice(1).map(row => {
+        const [dateStr, time, title, priest, location, comment] = row;
+        const year = parseInt(dateStr.substring(0, 4), 10); // Convert year to integer
+        const month = parseInt(dateStr.substring(4, 6), 10); // Convert month to integer
+        const date = parseInt(dateStr.substring(6, 8), 10); // Convert date to integer
+        const day = this.calculateDayOfWeek(dateStr);
 
-      return {
-        year,
-        month,
-        date,
-        day,
-        from: time,
-        title,
-        priest,
-        location,
-        comment
-      };
-    });
+        return {
+          year,
+          month,
+          date,
+          day,
+          from: time,
+          title,
+          priest,
+          location,
+          comment
+        };
+      });
 
-    this.events = events.filter(event => 
-      event.year === this.showingYear && event.month === this.showingMonth
-    );
-  },
+      this.events = events.filter(event => 
+        event.year === this.showingYear && event.month === this.showingMonth
+      );
+    },
     calculateDayOfWeek(dateStr) {
       const year = parseInt(dateStr.substring(0, 4), 10);
       const month = parseInt(dateStr.substring(4, 6), 10) - 1; // Month is zero-indexed
@@ -395,8 +487,20 @@ export default {
     },
 
     formattedMonth() {
-    return this.showingMonth;
-  }
+      return this.showingMonth;
+    },
+
+    currentMonthEvents() {
+      if (!this.events) return [];
+        return this.events.filter(event => {
+            const [year, month] = event.date.split('-');
+
+            return (
+                Number(year) === this.showingYear &&
+                Number(month) === this.showingMonth
+            );
+        });
+    }
 
   },
 
@@ -408,16 +512,20 @@ export default {
   },
 
   async created(){
+    console.clear()
     this.incrementTotalViews()
 
-    this.fetchEvents();
-    const today = new Date();
-    this.showingYear = today.getFullYear();
-    this.showingMonth = today.getMonth() + 1; // Month as integer, no leading zero
-    this.currentMonth = today.getMonth() + 1; // Month as integer, no leading zero
-    this.fetchEvents();
+    // this.fetchEvents();
+    // const today = new Date();
+    // this.showingYear = today.getFullYear();
+    // this.showingMonth = today.getMonth() + 1; // Month as integer, no leading zero
+    // this.currentMonth = today.getMonth() + 1; // Month as integer, no leading zero
 
-    // this.getEvents();
+
+    await this.fetchData();
+    console.log('fetched data on created hook:', this.events) 
+    
+
   },
 
 
